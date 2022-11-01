@@ -16,7 +16,7 @@ export default function App() {
         </div>
         <nav className="flex flex-1 flex-col gap-y-4 pt-10 justify-center">
           <a
-            className="group relative rounded-xl bg-gray-100 p-2 text-blue-600 hover:bg-gray-50"
+            className="group relative rounded-xl bg-gray-100 p-2 text-yellow-400 hover:bg-gray-50"
             href="#"
           >
             <HiOutlineDocumentReport className="h-10 w-10 stroke-current" />
@@ -38,13 +38,6 @@ export default function App() {
           </a>
         </nav>
         <div className="flex flex-col items-center gap-y-4 py-10 border-b border-gray-300">
-          {/* <button className="pt-2 rounded-full overflow-hidden">
-            <img
-              className="h-10 w-10 object-cover"
-              src="/home/akmal/Desktop/drc-syntrade/public/logo.svg"
-              alt=""
-            />
-          </button> */}
           <a
             className="group relative rounded-xl p-2 text-gray-400 hover:bg-gray-100"
             href="#"
