@@ -11,7 +11,7 @@ export default function App() {
     <div className="flex bg-white font-sans text-gray-900">
       {/* left navbar menu */}
       <aside className="flex h-screen w-20 flex-col items-center border-r bg-gray-200 border-l border-gray-200">
-        <div className="flex h-auto w-full items-center justify-center border-b border-gray-200">
+        <div className="flex scale-125 items-center justify-center border-b border-gray-200">
           <img src={LogoIcon.src} />
         </div>
         <nav className="flex flex-1 flex-col gap-y-4 pt-10 justify-center">
