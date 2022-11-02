@@ -88,9 +88,12 @@ export default function TradePage() {
           <h3 className="text-xl font-medium text-black py-2 px-3 border-b border-gray-300">
             Duration
           </h3>
-          <div className="static">
+          <div>
             <RangeSliderT></RangeSliderT>
           </div>
+          {/* <div className="static">
+            <RangeSliderT></RangeSliderT>
+          </div> */}
         </div>
 
         {/* Stake / Payout */}
