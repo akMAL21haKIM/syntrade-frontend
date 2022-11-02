@@ -4,9 +4,9 @@ import { HiCreditCard } from "react-icons/hi";
 import { HiOutlineBell } from "react-icons/hi";
 import { HiUserCircle } from "react-icons/hi";
 import { HiCurrencyDollar } from "react-icons/hi";
-import Tooltip from "./components/tooltip";
-import DropDown from "./components/dropdownmenu";
-import RangeSliderT from "./components/slider";
+import Tooltip from "./components/Tooltip";
+import DropDown from "./components/DropdownMenu";
+import RangeSliderT from "./components/Slider";
 
 export default function TradePage() {
   return (
@@ -90,10 +90,8 @@ export default function TradePage() {
           </h3>
           <div>
             <RangeSliderT></RangeSliderT>
+            <Tooltip>23</Tooltip>
           </div>
-          {/* <div className="static">
-            <RangeSliderT></RangeSliderT>
-          </div> */}
         </div>
 
         {/* Stake / Payout */}
@@ -140,7 +138,7 @@ export default function TradePage() {
 
       {/* footer */}
       <footer>
-        <div className="absolute h-10 text-center p-2 bg-gray-200 inset-x-0 bottom-0">
+        <div className="absolute h-10 text-center p-2 bg-transparent text-gray-500 inset-x-0 bottom-0">
           <p>© 2022 Syntrade. All rights reserved.</p>
         </div>
       </footer>
