@@ -7,6 +7,7 @@ import { HiCurrencyDollar } from "react-icons/hi";
 import Tooltip from "./components/Tooltip";
 import DropDown from "./components/DropdownMenu";
 import RangeSliderT from "./components/Slider";
+import Footer from "./components/Footer";
 
 const TradePage = () => {
   return (
@@ -137,11 +138,7 @@ const TradePage = () => {
       </aside>
 
       {/* footer */}
-      <footer>
-        <div className="absolute h-10 text-center p-2 bg-transparent text-gray-500 inset-x-0 bottom-0">
-          <p>© 2022 Syntrade. All rights reserved.</p>
-        </div>
-      </footer>
+      <Footer></Footer>
     </div>
   );
 };

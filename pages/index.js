@@ -1,10 +1,13 @@
 import TradePage from "./TradePage";
 import SignupPage from "./SignupPage";
 import LoginPage from "./LoginPage";
-import ForgetPwPage from "./ForgetPwPage";
+import ForgetPasswordPage from "./passwordPages/ForgetPasswordPage";
+import CheckEmailPage from "./passwordPages/CheckEmailPasswordPage";
+import PasswordResetPage from "./passwordPages/PasswordResetPage";
+import ResetSuccessPage from "./passwordPages/ResetSuccessPage";
 
 const App = () => {
-  return <SignupPage></SignupPage>;
+  return <ResetSuccessPage></ResetSuccessPage>;
 };
 
 export default App;
