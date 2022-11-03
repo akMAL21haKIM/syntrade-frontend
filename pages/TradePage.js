@@ -1,7 +1,6 @@
-import LogoIcon from "../public/logo.png?component";
+import LogoIcon from "../public/logo.svg?component";
 import { HiOutlineDocumentReport } from "react-icons/hi";
 import { HiCreditCard } from "react-icons/hi";
-import { HiOutlineBell } from "react-icons/hi";
 import { HiUserCircle } from "react-icons/hi";
 import { HiCurrencyDollar } from "react-icons/hi";
 import Tooltip from "./components/Tooltip";
@@ -14,8 +13,8 @@ const TradePage = () => {
     <div className="flex bg-white font-sans text-gray-900 md:max-w-2xl">
       {/* left navbar menu */}
       <aside className="flex h-screen w-20 flex-col items-center border-r bg-[#F1F1F1] border-l border-gray-200">
-        <div className="flex scale-125 items-center justify-center">
-          <img src={LogoIcon.src} />
+        <div className="flex scale-125 items-center justify-center mt-3">
+          <img src={LogoIcon.src} href="" className="scale-75" />
         </div>
         <nav className="flex flex-1 flex-col gap-y-4 pt-10 mt-56">
           <a
