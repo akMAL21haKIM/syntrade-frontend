@@ -7,7 +7,7 @@ import PasswordResetPage from "./passwordPages/PasswordResetPage";
 import ResetSuccessPage from "./passwordPages/ResetSuccessPage";
 
 const App = () => {
-  return <ResetSuccessPage></ResetSuccessPage>;
+  return <TradePage></TradePage>;
 };
 
 export default App;

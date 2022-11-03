@@ -13,42 +13,34 @@ const TradePage = () => {
   return (
     <div className="flex bg-white font-sans text-gray-900 md:max-w-2xl">
       {/* left navbar menu */}
-      <aside className="flex h-screen w-20 flex-col items-center border-r bg-gray-200 border-l border-gray-200">
-        <div className="flex scale-125 items-center justify-center border-b border-gray-200">
+      <aside className="flex h-screen w-20 flex-col items-center border-r bg-[#F1F1F1] border-l border-gray-200">
+        <div className="flex scale-125 items-center justify-center">
           <img src={LogoIcon.src} />
         </div>
-        <nav className="flex flex-1 flex-col gap-y-4 pt-10 justify-center">
+        <nav className="flex flex-1 flex-col gap-y-4 pt-10 mt-56">
           <a
-            className="group relative rounded-xl bg-gray-100 p-2 text-yellow-400 hover:bg-gray-50"
+            className="group relative rounded-xl p-2 text-[#6366F1] hover:text-white hover:bg-[#6366F1]"
             href="#"
           >
             <HiOutlineDocumentReport className="h-10 w-10 stroke-current" />
-            <Tooltip>Market</Tooltip>
+            <Tooltip>Report</Tooltip>
           </a>
           <a
-            className="group relative rounded-xl p-2 text-gray-400 hover:bg-gray-100"
+            className="group relative rounded-xl p-2 text-[#6366F1] hover:text-white hover:bg-[#6366F1]"
             href="#"
           >
             <HiCreditCard className="h-10 w-10 stroke-current" />
             <Tooltip>Card</Tooltip>
           </a>
+
           <a
-            className="group relative rounded-xl p-2 text-gray-400 hover:bg-gray-100"
-            href="#"
-          >
-            <HiOutlineBell className="h-10 w-10 fill-current" />
-            <Tooltip>Notification</Tooltip>
-          </a>
-        </nav>
-        <div className="flex flex-col items-center gap-y-4 py-10 border-b border-gray-300">
-          <a
-            className="group relative rounded-xl p-2 text-gray-400 hover:bg-gray-100"
+            className="group relative rounded-xl p-2 text-[#6366F1] hover:text-white hover:bg-[#6366F1]"
             href="#"
           >
             <HiUserCircle className="h-10 w-10 troke-current" />
             <Tooltip>Profile</Tooltip>
           </a>
-        </div>
+        </nav>
       </aside>
 
       {/* main body - chart */}
@@ -64,7 +56,7 @@ const TradePage = () => {
       </div>
 
       {/* right side menu */}
-      <aside className="absolute inset-y-0 right-0 h-screen w-[300px] flex flex-col bg-gray-200 border-l border-gray-200">
+      <aside className="absolute inset-y-0 right-0 h-screen w-[300px] flex flex-col bg-[#F1F1F1] border-l border-gray-200">
         <div className="flex h-18 items-center gap-x-4 px-6">
           <HiCurrencyDollar className="h-6 w-6 fill-current" />
           <h2 className="text-2xl font-bold text-gray-500 py3">
@@ -77,7 +69,7 @@ const TradePage = () => {
           <h3 className="text-xl font-medium text-black py-2 px-3 border-b border-gray-300">
             Trade type
           </h3>
-          <div className="absolute h-10 w-1/2 bg-gray-100 mx-12 my-7 border border-gray-300 rounded-s">
+          <div className="absolute h-10 w-1/2 bg-gray-100 mx-12 my-7 border border-transparent rounded-s shadow-lg">
             <h3 className="text-xl font-medium text-center pt-1">
               Rise / Fall
             </h3>
@@ -104,7 +96,7 @@ const TradePage = () => {
             Payout
           </button>
           {/* number counter */}
-          <div className="flex h-10 w-3/4 rounded-lg relative bg-transparent mt-7 ml-8">
+          <div className="flex h-10 w-3/4 rounded-lg relative bg-transparent mt-7 ml-8 shadow-lg">
             <button
               data-action="decrement"
               className=" bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-l cursor-pointer outline-none"
@@ -127,13 +119,19 @@ const TradePage = () => {
         </div>
 
         {/* Rise / Fall buttons */}
-        <div className="static h-36 w-38 m-6 bg-white rounded-md">
-          <button className="absolute h-10 w-1/2 mx-14 my-6 bg-teal-400 rounded-md hover:bg-teal-300">
-            Rise
-          </button>
-          <button className="absolute h-10 w-1/2 mx-14 my-20 bg-red-400 rounded-md hover:bg-red-300">
-            Fall
-          </button>
+        <div className="static h-36 w-38 bg-white rounded-md grid grid-cols-1 gap-2">
+          <div>
+            <label className="block text-sm">Payout</label>
+            <button className="absolute h-10 w-1/2 text-white bg-[#6366F1] rounded-md hover:bg-[#6366F1]/80 shadow-lg">
+              Rise
+            </button>
+          </div>
+          <div>
+            <label className="block text-sm">Payout</label>
+            <button className="absolute h-10 w-1/2 text-white bg-[#FF5858] rounded-md hover:bg-[#FF5858]/80 shadow-lg">
+              Fall
+            </button>
+          </div>
         </div>
       </aside>
 
