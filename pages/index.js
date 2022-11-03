@@ -1,5 +1,10 @@
 import TradePage from "./TradePage";
+import SignupPage from "./SignupPage";
+import LoginPage from "./LoginPage";
+import ForgetPwPage from "./ForgetPwPage";
 
-export default function App() {
-  return <TradePage></TradePage>;
-}
+const App = () => {
+  return <SignupPage></SignupPage>;
+};
+
+export default App;

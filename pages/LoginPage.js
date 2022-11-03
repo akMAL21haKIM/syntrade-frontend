@@ -1,14 +1,11 @@
 import React from "react";
 import CarouselSignUp from "./components/CarouselSignUp";
 
-const SignupPage = () => {
+const LoginPage = () => {
   return (
     <div className="grid grid-cols-2 divide-x-2 min-h-full">
-      {/* Carousel slider */}
       <div className="flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24 bg-[#A6A6E0] h-screen">
-        <div className="flex bg-[#ffffff]/80 h-5/6 rounded-lg shadow-xl">
-          <CarouselSignUp></CarouselSignUp>
-        </div>
+        <div className="flex bg-[#ffffff]/80 h-5/6 rounded-lg shadow-xl"></div>
       </div>
 
       {/* Sign up form */}
@@ -16,16 +13,10 @@ const SignupPage = () => {
         <div className="mx-auto w-full max-w-sm lg:w-96">
           <div>
             <h2 className="mt-6 text-3xl text-center font-bold tracking-tight text-gray-900">
-              Create a new account
+              Login to your account
             </h2>
             <p className="mt-2 text-sm text-center text-gray-600">
-              Already have an account?{" "}
-              <a
-                href="/home/akmal/Desktop/drc-syntrade/pages/LoginPage.js"
-                className="font-medium text-indigo-600 hover:text-indigo-500"
-              >
-                Log in
-              </a>
+              Welcome back! Please enter your details.
             </p>
           </div>
 
@@ -54,7 +45,7 @@ const SignupPage = () => {
                   </div>
                 </div>
 
-                <div className="space-y-1">
+                <div>
                   <label
                     htmlFor="password"
                     className="block text-sm font-medium text-gray-700"
@@ -73,25 +64,13 @@ const SignupPage = () => {
                     />
                   </div>
                 </div>
-                <div className="space-y-1">
-                  <label
-                    htmlFor="password"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    Confirm Password
-                  </label>
-                  <div className="mt-1">
-                    <input
-                      id="confirm_password"
-                      name="password"
-                      type="password"
-                      autoComplete="current-password"
-                      placeholder="Re-enter password"
-                      required
-                      className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                    />
-                  </div>
-                </div>
+
+                <a
+                  href="/home/akmal/Desktop/drc-syntrade/pages/LoginPage.js"
+                  className="font-medium text-indigo-600 hover:text-indigo-500"
+                >
+                  Forgot password?
+                </a>
 
                 <div className="flex items-center justify-between">
                   <h1>reCapcha</h1>
@@ -102,8 +81,18 @@ const SignupPage = () => {
                     type="submit"
                     className="flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-md font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                   >
-                    Sign up
+                    Log in
                   </button>
+
+                  <p className="mt-2 text-sm text-center text-gray-600">
+                    Don't have an account?{" "}
+                    <a
+                      href="/home/akmal/Desktop/drc-syntrade/pages/LoginPage.js"
+                      className="font-medium text-indigo-600 hover:text-indigo-500"
+                    >
+                      Sign up
+                    </a>
+                  </p>
                 </div>
               </form>
             </div>
@@ -114,8 +103,4 @@ const SignupPage = () => {
   );
 };
 
-export default SignupPage;
-
-{
-  /* <div className="relative hidden w-0 flex-1 lg:block bg-[#A6A6E0]"></div>; */
-}
+export default LoginPage;
