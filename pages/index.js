@@ -5,9 +5,10 @@ import ForgetPasswordPage from "./passwordPages/ForgetPasswordPage";
 import CheckEmailPage from "./passwordPages/CheckEmailPasswordPage";
 import PasswordResetPage from "./passwordPages/PasswordResetPage";
 import ResetSuccessPage from "./passwordPages/ResetSuccessPage";
+import ProfilePage from "./ProfilePage";
 
 const App = () => {
-  return <TradePage></TradePage>;
+  return <ProfilePage />;
 };
 
 export default App;

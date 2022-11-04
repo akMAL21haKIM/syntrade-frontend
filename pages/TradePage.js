@@ -14,7 +14,11 @@ const TradePage = () => {
       {/* left navbar menu */}
       <aside className="flex h-screen w-20 flex-col items-center border-r bg-[#F1F1F1] border-l border-gray-200">
         <div className="flex scale-125 items-center justify-center mt-3">
-          <img src={LogoIcon.src} href="" className="scale-75" />
+          <img
+            src={LogoIcon.src}
+            href=""
+            className="scale-50 transition ease-in-out delay-100 hover:-translate-y-1 hover:scale-75 hover:cursor-pointer"
+          />
         </div>
         <nav className="flex flex-1 flex-col gap-y-4 pt-10 mt-56">
           <a
