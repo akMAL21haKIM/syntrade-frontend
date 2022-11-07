@@ -35,9 +35,9 @@ export default function CarouselSignUp() {
           />
           <p>
             Oh, misty eye of the mountain below Keep careful watch of my
-            brothers'souls And should the sky be filled with fire and smoke Keep
-            watching over Durin's sons If this is to end in fire Then we should
-            all burn together Watch the flames climb high into the night
+            brothers souls And should the sky be filled with fire and smoke Keep
+            watching over Durin&apos;s sons If this is to end in fire Then we
+            should all burn together Watch the flames climb high into the night
           </p>
         </SwiperSlide>
         <SwiperSlide>

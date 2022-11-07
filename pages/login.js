@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import CarouselSignUp from "./components/CarouselSignUp";
 import LoginBGimg from "../public/passwordPageImg/login_page.png";
+import { HiEyeOff, HiEye } from "react-icons/hi";
 
 const Login = () => {
   const [open, setOpen] = useState(false);
@@ -82,7 +83,7 @@ const Login = () => {
                 </div>
 
                 <a
-                  href="pages/login.js"
+                  href="login"
                   className="font-medium text-indigo-600 hover:text-indigo-500 hover:underline"
                 >
                   Forgot password?
@@ -101,9 +102,9 @@ const Login = () => {
                   </button>
 
                   <p className="mt-2 text-sm text-center text-gray-600">
-                    Don't have an account?{" "}
+                    Don&apos;t have an account?&nbsp;
                     <a
-                      href="pages/login.js"
+                      href="login"
                       className="font-medium text-indigo-600 hover:text-indigo-500"
                     >
                       Sign up

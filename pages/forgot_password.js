@@ -1,4 +1,5 @@
 import React from "react";
+import Footer from "./components/Footer";
 import ForgotPwIcon from "../public/passwordPageImg/forgot_password.png";
 
 const ForgetPassword = () => {
@@ -9,7 +10,7 @@ const ForgetPassword = () => {
           <img src={ForgotPwIcon.src} className="h-1/4 w-1/6" />
           <h1 className="text-black text-center text-4xl">Forgot password?</h1>
           <p className="text-gray-600 text-center text-lg">
-            Don't worry. We'll send you the instructions.
+            Don&apos;t worry. We&apos;ll send you the instructions.
           </p>
 
           <form

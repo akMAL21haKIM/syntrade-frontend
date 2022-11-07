@@ -1,6 +1,7 @@
 import React from "react";
 import Footer from "./components/Footer";
 import ForgotPwIcon from "../public/passwordPageImg/forgot_password.png";
+import { HiEyeOff, HiEye } from "react-icons/hi";
 
 const PasswordReset = () => {
   const [open, setOpen] = useState(false);

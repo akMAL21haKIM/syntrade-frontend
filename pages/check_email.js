@@ -20,16 +20,16 @@ const CheckEmail = () => {
           >
             <div className="text-center justify-center">
               <a
-                href="pages/login.js"
+                href="login"
                 className="font-medium text-indigo-600 hover:text-indigo-500 text-center"
               >
                 Back to login
               </a>
 
               <p className="mt-12 text-md text-center text-gray-600">
-                Didn't receive the link?
+                Didn&apos;t receive the link?&nbsp;
                 <a
-                  href="pages/login.js"
+                  href="login"
                   className="font-medium text-red-600 hover:text-red-500"
                 >
                   Resend

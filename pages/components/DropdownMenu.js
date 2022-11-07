@@ -1,6 +1,15 @@
 import React, { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
-import { ChevronDownIcon } from "@heroicons/react/solid";
+import {
+  ChevronDownIcon,
+  PencilSquareIcon,
+  DocumentDuplicateIcon,
+  ArchiveBoxIcon,
+  ArrowRightCircleIcon,
+  UserPlusIcon,
+  HeartIcon,
+  TrashIcon,
+} from "@heroicons/react/solid";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");

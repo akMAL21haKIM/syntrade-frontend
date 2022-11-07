@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import { React, useState } from "react";
+import Link from "next/link";
 import CarouselSignUp from "./components/CarouselSignUp";
 import { HiEyeOff, HiEye } from "react-icons/hi";
 
 const SignUp = () => {
   const [open, setOpen] = useState(false);
 
-  // handle toggle
+  // Handle toggle to show or hide password
   const toggle = () => {
     setOpen(!open);
   };
+
   return (
     <div className="grid grid-cols-2 divide-x-2 min-h-full">
       {/* Carousel slider */}
@@ -27,12 +29,12 @@ const SignUp = () => {
             </h2>
             <p className="mt-2 text-sm text-center text-gray-600">
               Already have an account?{" "}
-              <a
-                href="/home/akmal/Desktop/drc-syntrade/pages/LoginPage.js"
+              <Link
+                href="/login"
                 className="font-medium text-indigo-600 hover:text-indigo-500"
               >
                 Log in
-              </a>
+              </Link>
             </p>
           </div>
 
@@ -68,7 +70,7 @@ const SignUp = () => {
                   >
                     Password
                   </label>
-                  <div className="mt-1">
+                  <div className="mt-1 relative">
                     <input
                       id="password"
                       name="password"
@@ -78,7 +80,7 @@ const SignUp = () => {
                       required
                       className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                     />
-                    <div className="text-xl absolute">
+                    <div className="absolute inset-y-0 right-0 flex items-center pr-3">
                       {open === false ? (
                         <HiEye onClick={toggle} />
                       ) : (
@@ -95,7 +97,7 @@ const SignUp = () => {
                   >
                     Confirm Password
                   </label>
-                  <div className="mt-1">
+                  <div className="mt-1 relative">
                     <input
                       id="confirm_password"
                       name="password"
@@ -105,7 +107,7 @@ const SignUp = () => {
                       required
                       className=" w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                     />
-                    <div className="text-xl absolute">
+                    <div className="absolute inset-y-0 right-0 flex items-center pr-3">
                       {open === false ? (
                         <HiEye onClick={toggle} />
                       ) : (
