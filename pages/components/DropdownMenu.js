@@ -6,7 +6,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const DropDown = () => {
+const DropdownMenu = () => {
   <div className="h-20 flex items-center px-8">
     <ul className="flex">
       <li className="p-4">
@@ -166,4 +166,4 @@ const DropDown = () => {
   </div>;
 };
 
-export default DropDownMenu;
+export default DropdownMenu;
