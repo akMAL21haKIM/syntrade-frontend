@@ -1,8 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import CarouselSignUp from "./components/CarouselSignUp";
+<<<<<<< HEAD:pages/login.js
 import LoginBGimg from "../public/passwordPageImg/login_page.png";
+=======
+import LoginBGimg from "/home/akmal/Desktop/drc-syntrade/public/passwordPageImg/login_page.png?component";
+import { HiEyeOff, HiEye } from "react-icons/hi";
+>>>>>>> 68207b01901b12441a25c076bc0fd775138f13a7:pages/LoginPage.js
 
 const LoginPage = () => {
+  const [open, setOpen] = useState(false);
+
+  // handle toggle
+  const toggle = () => {
+    setOpen(!open);
+  };
+
   return (
     <div className="grid grid-cols-2 divide-x-2 min-h-full">
       <div className="flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24 bg-[#A6A6E0] h-screen">
@@ -58,18 +70,25 @@ const LoginPage = () => {
                     <input
                       id="password"
                       name="password"
-                      type="password"
+                      type={open === false ? "password" : "text"}
                       autoComplete="current-password"
                       placeholder="Enter password"
                       required
                       className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                     />
+                    <div className="text-xl absolute">
+                      {open === false ? (
+                        <HiEye onClick={toggle} />
+                      ) : (
+                        <HiEyeOff onClick={toggle} />
+                      )}
+                    </div>
                   </div>
                 </div>
 
                 <a
                   href="/home/akmal/Desktop/drc-syntrade/pages/LoginPage.js"
-                  className="font-medium text-indigo-600 hover:text-indigo-500"
+                  className="font-medium text-indigo-600 hover:text-indigo-500 hover:underline"
                 >
                   Forgot password?
                 </a>

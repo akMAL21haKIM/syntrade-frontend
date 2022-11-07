@@ -1,7 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import CarouselSignUp from "./components/CarouselSignUp";
+import { HiEyeOff, HiEye } from "react-icons/hi";
 
 const SignupPage = () => {
+  const [open, setOpen] = useState(false);
+
+  // handle toggle
+  const toggle = () => {
+    setOpen(!open);
+  };
   return (
     <div className="grid grid-cols-2 divide-x-2 min-h-full">
       {/* Carousel slider */}
@@ -32,9 +39,9 @@ const SignupPage = () => {
           <div className="mt-8">
             <div></div>
 
-            <div className="mt-6">
-              <form action="#" method="POST" className="space-y-6">
-                <div>
+            <div className="mt-6 relative">
+              <form action="#" method="POST" className="space-y-7">
+                <div className="space-y-2">
                   <label
                     htmlFor="email"
                     className="block text-sm font-medium text-gray-700"
@@ -54,10 +61,10 @@ const SignupPage = () => {
                   </div>
                 </div>
 
-                <div className="space-y-1">
+                <div className="space-y-0.5">
                   <label
                     htmlFor="password"
-                    className="block text-sm font-medium text-gray-700"
+                    className="block text-sm font-medium text-gray-700 relative"
                   >
                     Password
                   </label>
@@ -65,18 +72,26 @@ const SignupPage = () => {
                     <input
                       id="password"
                       name="password"
-                      type="password"
+                      type={open === false ? "password" : "text"}
                       autoComplete="current-password"
                       placeholder="Enter password"
                       required
                       className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                     />
+                    <div className="text-xl absolute">
+                      {open === false ? (
+                        <HiEye onClick={toggle} />
+                      ) : (
+                        <HiEyeOff onClick={toggle} />
+                      )}
+                    </div>
                   </div>
                 </div>
-                <div className="space-y-1">
+
+                <div className="space-y-1 relative">
                   <label
                     htmlFor="password"
-                    className="block text-sm font-medium text-gray-700"
+                    className="block text-sm font-medium text-gray-700 relative"
                   >
                     Confirm Password
                   </label>
@@ -84,12 +99,19 @@ const SignupPage = () => {
                     <input
                       id="confirm_password"
                       name="password"
-                      type="password"
+                      type={open === false ? "password" : "text"}
                       autoComplete="current-password"
                       placeholder="Re-enter password"
                       required
-                      className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                      className=" w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                     />
+                    <div className="text-xl absolute">
+                      {open === false ? (
+                        <HiEye onClick={toggle} />
+                      ) : (
+                        <HiEyeOff onClick={toggle} />
+                      )}
+                    </div>
                   </div>
                 </div>
 
