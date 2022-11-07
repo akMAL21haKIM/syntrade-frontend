@@ -56,8 +56,8 @@ const TradePage = () => {
                     leaveFrom="opacity-100 translate-y-0"
                     leaveTo="opacity-0 translate-y-1"
                   >
-                    <Popover.Panel className="absolute z-10 mt-3 w-80 translate-x-16 -translate-y-16 px-4 sm:px-0">
-                      <div className="bg-white p-3 overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
+                    <Popover.Panel className="absolute z-10 mt-3 w-80 translate-x-18 -translate-y-28 px-4 sm:px-0">
+                      <div className="bg-gray-200 p-3 overflow-hidden rounded-lg ring-1 ring-black ring-opacity-5">
                         <h3>Your balance:</h3>
                         <div className="flex h-18 items-center gap-x-4 px-6">
                           <HiCurrencyDollar className="h-6 w-6 fill-current" />
@@ -69,12 +69,14 @@ const TradePage = () => {
                           Reset
                         </button>
                       </div>
+                      <div className="w-3 h-3 rotate-45 bg-gray-200 -translate-x-1  -translate-y-20"></div>
                     </Popover.Panel>
                   </Transition>
                 </>
               )}
             </Popover>
           </a>
+
           <a
             className="group relative rounded-xl p-2 text-white bg-[#6366F1]"
             href="#"
