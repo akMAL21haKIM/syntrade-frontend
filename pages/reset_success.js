@@ -2,7 +2,7 @@ import React from "react";
 import Footer from "./components/Footer";
 import { TiTick } from "react-icons/ti";
 
-const ResetSuccessPage = () => {
+const ResetSuccess = () => {
   return (
     <div className="min-h-full">
       <div className="flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24 bg-[#A6A6E0] h-screen">
@@ -20,7 +20,7 @@ const ResetSuccessPage = () => {
           >
             <div className="text-center justify-center">
               <a
-                href="pages/LoginPage.js"
+                href="pages/login.js"
                 className="font-medium text-indigo-600 hover:text-indigo-500 text-center mt-10"
               >
                 Back to login
@@ -34,4 +34,4 @@ const ResetSuccessPage = () => {
   );
 };
 
-export default ResetSuccessPage;
+export default ResetSuccess;

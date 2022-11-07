@@ -8,7 +8,7 @@ import DropDown from "./components/DropdownMenu";
 import RangeSliderT from "./components/Slider";
 import Footer from "./components/Footer";
 
-const TradePage = () => {
+const Trade = () => {
   return (
     <div className="flex bg-white font-sans text-gray-900 md:max-w-2xl">
       {/* left navbar menu */}
@@ -144,4 +144,4 @@ const TradePage = () => {
   );
 };
 
-export default TradePage;
+export default Trade;

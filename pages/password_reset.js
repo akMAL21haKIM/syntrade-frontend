@@ -1,15 +1,8 @@
-<<<<<<< HEAD:pages/password_reset.js
 import React from "react";
 import Footer from "./components/Footer";
 import ForgotPwIcon from "../public/passwordPageImg/forgot_password.png";
-=======
-import React, { useState } from "react";
-import Footer from "../components/Footer";
-import ForgotPwIcon from "/home/akmal/Desktop/drc-syntrade/public/passwordPageImg/forgot_password.png?component";
-import { HiEyeOff, HiEye } from "react-icons/hi";
->>>>>>> 68207b01901b12441a25c076bc0fd775138f13a7:pages/passwordPages/PasswordResetPage.js
 
-const PasswordResetPage = () => {
+const PasswordReset = () => {
   const [open, setOpen] = useState(false);
 
   // handle toggle
@@ -94,7 +87,7 @@ const PasswordResetPage = () => {
               </button>
 
               <a
-                href="/home/akmal/Desktop/drc-syntrade/pages/LoginPage.js"
+                href="pages/login.js"
                 className="font-medium text-indigo-600 hover:text-indigo-500 text-center"
               >
                 Back to login
@@ -108,4 +101,4 @@ const PasswordResetPage = () => {
   );
 };
 
-export default PasswordResetPage;
+export default PasswordReset;

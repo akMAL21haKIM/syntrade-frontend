@@ -1,13 +1,8 @@
 import React, { useState } from "react";
 import CarouselSignUp from "./components/CarouselSignUp";
-<<<<<<< HEAD:pages/login.js
 import LoginBGimg from "../public/passwordPageImg/login_page.png";
-=======
-import LoginBGimg from "/home/akmal/Desktop/drc-syntrade/public/passwordPageImg/login_page.png?component";
-import { HiEyeOff, HiEye } from "react-icons/hi";
->>>>>>> 68207b01901b12441a25c076bc0fd775138f13a7:pages/LoginPage.js
 
-const LoginPage = () => {
+const Login = () => {
   const [open, setOpen] = useState(false);
 
   // handle toggle
@@ -87,7 +82,7 @@ const LoginPage = () => {
                 </div>
 
                 <a
-                  href="/home/akmal/Desktop/drc-syntrade/pages/LoginPage.js"
+                  href="pages/login.js"
                   className="font-medium text-indigo-600 hover:text-indigo-500 hover:underline"
                 >
                   Forgot password?
@@ -108,7 +103,7 @@ const LoginPage = () => {
                   <p className="mt-2 text-sm text-center text-gray-600">
                     Don't have an account?{" "}
                     <a
-                      href="/home/akmal/Desktop/drc-syntrade/pages/LoginPage.js"
+                      href="pages/login.js"
                       className="font-medium text-indigo-600 hover:text-indigo-500"
                     >
                       Sign up
@@ -124,4 +119,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default Login;

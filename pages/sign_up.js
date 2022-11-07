@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import CarouselSignUp from "./components/CarouselSignUp";
 import { HiEyeOff, HiEye } from "react-icons/hi";
 
-const SignupPage = () => {
+const SignUp = () => {
   const [open, setOpen] = useState(false);
 
   // handle toggle
@@ -136,8 +136,4 @@ const SignupPage = () => {
   );
 };
 
-export default SignupPage;
-
-{
-  /* <div className="relative hidden w-0 flex-1 lg:block bg-[#A6A6E0]"></div>; */
-}
+export default SignUp;

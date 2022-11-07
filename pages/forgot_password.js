@@ -1,7 +1,7 @@
 import React from "react";
 import ForgotPwIcon from "../public/passwordPageImg/forgot_password.png";
 
-const ForgetPasswordPage = () => {
+const ForgetPassword = () => {
   return (
     <div className="min-h-full">
       <div className="flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24 bg-[#A6A6E0] h-screen">
@@ -46,7 +46,7 @@ const ForgetPasswordPage = () => {
               </button>
 
               <a
-                href="/home/akmal/Desktop/drc-syntrade/pages/LoginPage.js"
+                href="pages/login.js"
                 className="font-medium text-indigo-600 hover:text-indigo-500 text-center"
               >
                 Back to login
@@ -60,4 +60,4 @@ const ForgetPasswordPage = () => {
   );
 };
 
-export default ForgetPasswordPage;
+export default ForgetPassword;

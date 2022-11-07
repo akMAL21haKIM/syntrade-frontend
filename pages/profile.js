@@ -10,7 +10,7 @@ import { Popover, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/solid";
 import { Fragment } from "react";
 
-const TradePage = () => {
+const Profile = () => {
   return (
     <div className="flex bg-white font-sans text-gray-900 md:max-w-2xl">
       {/* left navbar menu */}
@@ -100,4 +100,4 @@ const TradePage = () => {
   );
 };
 
-export default TradePage;
+export default Profile;

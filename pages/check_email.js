@@ -2,7 +2,7 @@ import React from "react";
 import Footer from "./components/Footer";
 import CheckEmailIcon from "../public/passwordPageImg/check_email.png";
 
-const CheckEmailPage = () => {
+const CheckEmail = () => {
   return (
     <div className="min-h-full">
       <div className="flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24 bg-[#A6A6E0] h-screen">
@@ -20,16 +20,16 @@ const CheckEmailPage = () => {
           >
             <div className="text-center justify-center">
               <a
-                href="/home/akmal/Desktop/drc-syntrade/pages/LoginPage.js"
+                href="pages/login.js"
                 className="font-medium text-indigo-600 hover:text-indigo-500 text-center"
               >
                 Back to login
               </a>
 
               <p className="mt-12 text-md text-center text-gray-600">
-                Didn't receive the link?{" "}
+                Didn't receive the link?
                 <a
-                  href="/home/akmal/Desktop/drc-syntrade/pages/LoginPage.js"
+                  href="pages/login.js"
                   className="font-medium text-red-600 hover:text-red-500"
                 >
                   Resend
@@ -44,4 +44,4 @@ const CheckEmailPage = () => {
   );
 };
 
-export default CheckEmailPage;
+export default CheckEmail;
