@@ -1,5 +1,5 @@
 import React from "react";
-import ForgotPwIcon from "/home/akmal/Desktop/drc-syntrade/public/passwordPageImg/forgot_password.png?component";
+import ForgotPwIcon from "../public/passwordPageImg/forgot_password.png";
 
 const ForgetPasswordPage = () => {
   return (

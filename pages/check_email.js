@@ -1,6 +1,6 @@
 import React from "react";
-import Footer from "../components/Footer";
-import CheckEmailIcon from "/home/akmal/Desktop/drc-syntrade/public/passwordPageImg/check_email.png?component";
+import Footer from "./components/Footer";
+import CheckEmailIcon from "../public/passwordPageImg/check_email.png";
 
 const CheckEmailPage = () => {
   return (

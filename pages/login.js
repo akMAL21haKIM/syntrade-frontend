@@ -1,6 +1,6 @@
 import React from "react";
 import CarouselSignUp from "./components/CarouselSignUp";
-import LoginBGimg from "/home/akmal/Desktop/drc-syntrade/public/passwordPageImg/login_page.png?component";
+import LoginBGimg from "../public/passwordPageImg/login_page.png";
 
 const LoginPage = () => {
   return (

@@ -1,6 +1,6 @@
 import React from "react";
-import Footer from "../components/Footer";
-import ForgotPwIcon from "/home/akmal/Desktop/drc-syntrade/public/passwordPageImg/forgot_password.png?component";
+import Footer from "./components/Footer";
+import ForgotPwIcon from "../public/passwordPageImg/forgot_password.png";
 
 const PasswordResetPage = () => {
   return (
