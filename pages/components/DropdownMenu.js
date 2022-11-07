@@ -1,21 +1,12 @@
 import React, { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
-import {
-  ChevronDownIcon,
-  PencilSquareIcon,
-  DocumentDuplicateIcon,
-  ArchiveBoxIcon,
-  ArrowRightCircleIcon,
-  UserPlusIcon,
-  HeartIcon,
-  TrashIcon,
-} from "@heroicons/react/solid";
+import { ChevronDownIcon } from "@heroicons/react/solid";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function DropDown() {
+const DropDown = () => {
   <div className="h-20 flex items-center px-8">
     <ul className="flex">
       <li className="p-4">
@@ -50,7 +41,7 @@ export default function DropDown() {
                         "group flex items-center px-4 py-2 text-sm"
                       )}
                     >
-                      <PencilSquareIcon
+                      <ChevronDownIcon
                         className="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500"
                         aria-hidden="true"
                       />
@@ -67,7 +58,7 @@ export default function DropDown() {
                         "group flex items-center px-4 py-2 text-sm"
                       )}
                     >
-                      <DocumentDuplicateIcon
+                      <ChevronDownIcon
                         className="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500"
                         aria-hidden="true"
                       />
@@ -86,7 +77,7 @@ export default function DropDown() {
                         "group flex items-center px-4 py-2 text-sm"
                       )}
                     >
-                      <ArchiveBoxIcon
+                      <ChevronDownIcon
                         className="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500"
                         aria-hidden="true"
                       />
@@ -103,7 +94,7 @@ export default function DropDown() {
                         "group flex items-center px-4 py-2 text-sm"
                       )}
                     >
-                      <ArrowRightCircleIcon
+                      <ChevronDownIcon
                         className="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500"
                         aria-hidden="true"
                       />
@@ -122,7 +113,7 @@ export default function DropDown() {
                         "group flex items-center px-4 py-2 text-sm"
                       )}
                     >
-                      <UserPlusIcon
+                      <ChevronDownIcon
                         className="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500"
                         aria-hidden="true"
                       />
@@ -139,7 +130,7 @@ export default function DropDown() {
                         "group flex items-center px-4 py-2 text-sm"
                       )}
                     >
-                      <HeartIcon
+                      <ChevronDownIcon
                         className="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500"
                         aria-hidden="true"
                       />
@@ -158,7 +149,7 @@ export default function DropDown() {
                         "group flex items-center px-4 py-2 text-sm"
                       )}
                     >
-                      <TrashIcon
+                      <ChevronDownIcon
                         className="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500"
                         aria-hidden="true"
                       />
@@ -173,4 +164,6 @@ export default function DropDown() {
       </li>
     </ul>
   </div>;
-}
+};
+
+export default DropDownMenu;
