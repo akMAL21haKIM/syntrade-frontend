@@ -1,14 +1,33 @@
 import { React, useState } from "react";
 import Link from "next/link";
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import CarouselSignUp from "./components/CarouselSignUp";
 import { HiEyeOff, HiEye } from "react-icons/hi";
 
 const SignUp = () => {
-  const [open, setOpen] = useState(false);
+  const [openPassword, setOpenPassword] = useState(false);
+  const [openConfirmPassword, setOpenConfirmPassword] = useState(false);
+  const { executeRecaptcha } = useGoogleReCaptcha();
 
-  // Handle toggle to show or hide password
-  const toggle = () => {
-    setOpen(!open);
+  // Show or hide password
+  const togglePassword = () => {
+    setOpenPassword(!openPassword);
+  };
+
+  // Show or hide confirm password
+  const toggleConfirmPassword = () => {
+    setOpenConfirmPassword(!openConfirmPassword);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const email = e.target[0];
+    const password = e.target[1];
+    const confirmPassword = e.target[2];
+    console.log(e);
+    console.log(`email: ${email}`);
+    console.log(`password: ${password}`);
+    console.log(`confirmPassword: ${confirmPassword}`);
   };
 
   return (
@@ -58,7 +77,7 @@ const SignUp = () => {
                       autoComplete="email"
                       placeholder="Enter email"
                       required
-                      className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                      className="placeholder:normal-case lowercase block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                     />
                   </div>
                 </div>
@@ -74,17 +93,17 @@ const SignUp = () => {
                     <input
                       id="password"
                       name="password"
-                      type={open === false ? "password" : "text"}
+                      type={openPassword === false ? "password" : "text"}
                       autoComplete="current-password"
                       placeholder="Enter password"
                       required
                       className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                     />
                     <div className="absolute inset-y-0 right-0 flex items-center pr-3">
-                      {open === false ? (
-                        <HiEye onClick={toggle} />
+                      {openPassword === false ? (
+                        <HiEye onClick={togglePassword} />
                       ) : (
-                        <HiEyeOff onClick={toggle} />
+                        <HiEyeOff onClick={togglePassword} />
                       )}
                     </div>
                   </div>
@@ -101,30 +120,27 @@ const SignUp = () => {
                     <input
                       id="confirm_password"
                       name="password"
-                      type={open === false ? "password" : "text"}
+                      type={openConfirmPassword === false ? "password" : "text"}
                       autoComplete="current-password"
                       placeholder="Re-enter password"
                       required
                       className=" w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                     />
                     <div className="absolute inset-y-0 right-0 flex items-center pr-3">
-                      {open === false ? (
-                        <HiEye onClick={toggle} />
+                      {openConfirmPassword === false ? (
+                        <HiEye onClick={toggleConfirmPassword} />
                       ) : (
-                        <HiEyeOff onClick={toggle} />
+                        <HiEyeOff onClick={toggleConfirmPassword} />
                       )}
                     </div>
                   </div>
-                </div>
-
-                <div className="flex items-center justify-between">
-                  <h1>reCapcha</h1>
                 </div>
 
                 <div>
                   <button
                     type="submit"
                     className="flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-md font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    onClick={handleSubmit}
                   >
                     Sign up
                   </button>
