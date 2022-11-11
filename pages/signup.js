@@ -377,7 +377,7 @@ const SignUp = () => {
                       </svg>
 
                       <div className="text-sm text-red-600 px-2 font-medium">
-                        Password and Confirm Password does not match
+                        Password and Confirm Password do not match
                       </div>
                     </div>
                   </div>
