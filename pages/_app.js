@@ -17,6 +17,9 @@ const createApolloClient = () => {
     cache: new InMemoryCache(),
     // Enable sending cookies over cross-origin requests
     credentials: "include",
+    headers: {
+      // authorization: localStorage.getItem("token") || "",
+    },
   });
 };
 
