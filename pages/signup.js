@@ -32,7 +32,9 @@ const SignUp = () => {
       email: email,
       password: password,
     },
-    onCompleted: ({ signup }) => {
+    onCompleted: ({ data }) => {
+      console.log("data");
+      console.log(data);
       Router.push("/login");
     },
   });
