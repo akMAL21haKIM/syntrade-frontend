@@ -1,16 +1,11 @@
 import React from "react";
-// Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
-
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-
-// import required modules
 import { Autoplay, Pagination, Navigation } from "swiper";
 
-export default function CarouselSignUp() {
+const Carousel = () => {
   return (
     <>
       <Swiper
@@ -69,4 +64,6 @@ export default function CarouselSignUp() {
       </Swiper>
     </>
   );
-}
+};
+
+export default Carousel;
