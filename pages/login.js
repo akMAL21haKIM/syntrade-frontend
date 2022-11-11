@@ -12,9 +12,10 @@ const Login = () => {
   const [showPasswordError, setShowPasswordError] = useState(false);
 
   const loginMutation = gql`
-    mutation LoginMutation($email: String!, $password: String!) {
+    mutation LoginMutation($email: EmailAddress!, $password: String!) {
       login(email: $email, password: $password) {
-        token
+        email
+        password
       }
     }
   `;
@@ -24,7 +25,9 @@ const Login = () => {
       email: email,
       password: password,
     },
-    onCompleted: ({ login }) => {
+    onCompleted: ({ data }) => {
+      console.log("data");
+      console.log(data);
       Router.push("/");
     },
   });
@@ -111,7 +114,7 @@ const Login = () => {
     // If password is incorrect, display modal to user saying
     // incorrect password entered
     if (emailValidity && passwordValidity) {
-      Router.push("/");
+      login();
     }
   };
 
