@@ -64,6 +64,13 @@ const SignUp = () => {
       setShowEmailError(true);
       return false;
     }
+
+    // Check if email is in correct format or not
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      console.log("Error: Invalid email format");
+      setShowEmailError(true);
+      return false;
+    }
     return true;
   };
 
