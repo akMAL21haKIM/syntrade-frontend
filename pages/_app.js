@@ -29,13 +29,13 @@ const MyApp = ({ Component, pageProps }) => {
       <GoogleReCaptchaProvider
         reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTHA_SITE_KEY}
         scriptProps={{
-          async: false, // optional, default to false,
-          defer: true, // optional, default to false
-          appendTo: "body", // optional, default to "head", can be "head" or "body",
+          async: false,
+          defer: true,
+          appendTo: "body",
           nonce: undefined,
         }}
       >
-        <Component {...pageProps} />;
+        <Component {...pageProps} />
       </GoogleReCaptchaProvider>
     </ApolloProvider>
   );
