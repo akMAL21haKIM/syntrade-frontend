@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-import LoginBGimg from "../public/passwordPageImg/login_page.png";
 import Router from "next/router";
 import { useMutation, gql } from "@apollo/client";
 
-// TODO: Fix password eye and password error
 const Login = () => {
   const [openPassword, setOpenPassword] = useState(false);
   const [email, setEmail] = useState("");
@@ -127,10 +125,7 @@ const Login = () => {
 
   return (
     <div className="grid grid-cols-2 divide-x-2 min-h-full">
-      <div className="flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24 bg-[#A6A6E0] h-screen">
-        <div className="flex bg-[#ffffff]/80 h-5/6 rounded-lg shadow-xl z-40"></div>
-        <img src={LoginBGimg.src} className="z-40 bottom-0 left-0" />
-      </div>
+      <div className="flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24 bg-[#A6A6E0] h-screen"></div>
 
       <div className="flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24 bg-white h-screen">
         <div className="mx-auto w-full max-w-sm lg:w-96">
