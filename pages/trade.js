@@ -1,10 +1,6 @@
 import LogoIcon from "../public/logo.svg?component";
-import { HiOutlineDocumentReport } from "react-icons/hi";
-import { HiCreditCard } from "react-icons/hi";
-import { HiUserCircle } from "react-icons/hi";
 import { HiCurrencyDollar } from "react-icons/hi";
 import Tooltip from "./components/Tooltip";
-import DropDown from "./components/DropdownMenu";
 import RangeSliderT from "./components/Slider";
 import Footer from "./components/Footer";
 
@@ -25,14 +21,44 @@ const Trade = () => {
             className="group relative rounded-xl p-2 text-[#6366F1] hover:text-white hover:bg-[#6366F1]"
             href="#"
           >
-            <HiOutlineDocumentReport className="h-10 w-10 stroke-current" />
+            {/* <HiOutlineDocumentReport className="h-10 w-10 stroke-current" /> */}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-6 h-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
+              />
+            </svg>
+
             <Tooltip>Report</Tooltip>
           </a>
           <a
             className="group relative rounded-xl p-2 text-[#6366F1] hover:text-white hover:bg-[#6366F1]"
             href="#"
           >
-            <HiCreditCard className="h-10 w-10 stroke-current" />
+            {/* <HiCreditCard className="h-10 w-10 stroke-current" /> */}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-6 h-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M21 12a2.25 2.25 0 00-2.25-2.25H15a3 3 0 11-6 0H5.25A2.25 2.25 0 003 12m18 0v6a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 18v-6m18 0V9M3 12V9m18 0a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 9m18 0V6a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 6v3"
+              />
+            </svg>
+
             <Tooltip>Card</Tooltip>
           </a>
 
@@ -40,23 +66,29 @@ const Trade = () => {
             className="group relative rounded-xl p-2 text-[#6366F1] hover:text-white hover:bg-[#6366F1]"
             href="#"
           >
-            <HiUserCircle className="h-10 w-10 troke-current" />
+            {/* <HiUserCircle className="h-10 w-10 troke-current" /> */}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-6 h-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
+              />
+            </svg>
+
             <Tooltip>Profile</Tooltip>
           </a>
         </nav>
       </aside>
 
       {/* main body - chart */}
-      <div className="flex h-screen flex-1 flex-col">
-        <main className="flex-1 px-5">
-          <div className="my-5 h-32 bg-gray-300 ">
-            <nav className="flex items-center justify-between px-12 py-6">
-              <DropDown />
-            </nav>
-            <section className="py-16 px-12 bg-gray-600"></section>
-          </div>
-        </main>
-      </div>
+      <div className="flex h-screen flex-1 flex-col"></div>
 
       {/* right side menu */}
       <aside className="absolute inset-y-0 right-0 h-screen w-[300px] flex flex-col bg-[#F1F1F1] border-l border-gray-200">

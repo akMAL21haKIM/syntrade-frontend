@@ -1,7 +1,6 @@
 import { React, useState } from "react";
 import Link from "next/link";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
-import Carousel from "./components/Carousel";
 import Router from "next/router";
 import { useMutation, gql } from "@apollo/client";
 import { resolvers as scalarResolvers } from "graphql-scalars";
@@ -155,9 +154,9 @@ const SignUp = () => {
     <div className="grid grid-cols-2 divide-x-2 min-h-full">
       {/* Carousel */}
       <div className="flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24 bg-[#A6A6E0] h-screen">
-        <div className="flex bg-[#ffffff]/80 h-5/6 rounded-lg shadow-xl">
+        {/* <div className="flex bg-[#ffffff]/80 h-5/6 rounded-lg shadow-xl">
           <Carousel></Carousel>
-        </div>
+        </div> */}
       </div>
 
       {/* Sign up form */}
