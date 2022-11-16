@@ -2,6 +2,7 @@ import RangeSliderT from "./components/Slider";
 import Footer from "./components/Footer";
 import Head from "next/head";
 import dynamic from "next/dynamic";
+import Tooltip from "./components/Tooltip";
 import { useMutation, useSubscription, gql } from "@apollo/client";
 import SideNavBar from "./components/SideNavBar";
 
