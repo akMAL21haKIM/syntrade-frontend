@@ -18,6 +18,7 @@ const sse = new EventSource(`http://localhost:5000`);
 sse.onmessage = async (e) => {
   try {
     data = JSON.parse(e.data);
+    console.log(data);
   } catch (error) {
     console.log("Error: ", error);
   }
@@ -118,6 +119,7 @@ const Trade = () => {
             width={1000}
             height={800}
             pricingData={data}
+            stream={sse}
             syntheticModel={"crash_300"}
           />
         </div>
