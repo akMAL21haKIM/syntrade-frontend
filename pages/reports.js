@@ -3,11 +3,11 @@ import Footer from "./components/Footer";
 import Head from "next/head";
 import SideNavBar from "./components/SideNavBar";
 
-const TradesHistory = () => {
+const Reports = () => {
   return (
     <>
       <Head>
-        <title>Trades History | Syntrade</title>
+        <title>Reports | Syntrade</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <div>
@@ -19,4 +19,4 @@ const TradesHistory = () => {
   );
 };
 
-export default TradesHistory;
+export default Reports;
