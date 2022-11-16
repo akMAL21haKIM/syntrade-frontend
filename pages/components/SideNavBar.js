@@ -1,21 +1,23 @@
 import React from "react";
 import LogoIcon from "../../public/logo.svg";
 import Tooltip from "./Tooltip";
+import Link from "next/link";
 
 const SideNavBar = () => {
   return (
     <aside className="flex h-screen w-20 flex-col items-center border-r bg-[#F1F1F1] border-l border-gray-200">
       <div className="flex scale-125 items-center justify-center mt-3">
-        <img
-          src={LogoIcon.src}
-          href=""
-          className="scale-50 transition ease-in-out delay-100 hover:-translate-y-1 hover:scale-75 hover:cursor-pointer"
-        />
+        <Link href="/">
+          <img
+            src={LogoIcon.src}
+            className="scale-50 transition ease-in-out delay-100 hover:-translate-y-1 hover:scale-75 hover:cursor-pointer"
+          />
+        </Link>
       </div>
       <nav className="flex flex-1 flex-col gap-y-4 pt-10 mt-56">
-        <a
+        <Link
           className="group relative rounded-xl p-2 text-[#6366F1] hover:text-white hover:bg-[#6366F1]"
-          href="#"
+          href="/reports"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -33,8 +35,8 @@ const SideNavBar = () => {
           </svg>
 
           <Tooltip>Report</Tooltip>
-        </a>
-        <a
+        </Link>
+        <Link
           className="group relative rounded-xl p-2 text-[#6366F1] hover:text-white hover:bg-[#6366F1]"
           href="#"
         >
@@ -53,12 +55,12 @@ const SideNavBar = () => {
             />
           </svg>
 
-          <Tooltip>Card</Tooltip>
-        </a>
+          <Tooltip>Wallet</Tooltip>
+        </Link>
 
-        <a
+        <Link
           className="group relative rounded-xl p-2 text-[#6366F1] hover:text-white hover:bg-[#6366F1]"
-          href="#"
+          href="/profile"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -76,7 +78,7 @@ const SideNavBar = () => {
           </svg>
 
           <Tooltip>Profile</Tooltip>
-        </a>
+        </Link>
       </nav>
     </aside>
   );
