@@ -1,9 +1,31 @@
-import LogoIcon from "../public/logo.svg?component";
-import { HiCurrencyDollar } from "react-icons/hi";
+import LogoIcon from "../public/logo.svg";
 import Tooltip from "./components/Tooltip";
 import RangeSliderT from "./components/Slider";
 import Footer from "./components/Footer";
 import Head from "next/head";
+import dynamic from "next/dynamic";
+import { useMutation, useSubscription, gql } from "@apollo/client";
+
+const Chart = dynamic(() => import("./components/Chart"), {
+  ssr: false,
+});
+
+const EventSource = require("eventsource");
+
+var data = "";
+
+const sse = new EventSource(`http://localhost:5000`);
+sse.onmessage = async (e) => {
+  try {
+    data = JSON.parse(e.data);
+  } catch (error) {
+    console.log("Error: ", error);
+  }
+};
+
+sse.onerror = (e) => {
+  console.log("Error:", e.message);
+};
 
 const Trade = () => {
   return (
@@ -27,18 +49,17 @@ const Trade = () => {
               className="group relative rounded-xl p-2 text-[#6366F1] hover:text-white hover:bg-[#6366F1]"
               href="#"
             >
-              {/* <HiOutlineDocumentReport className="h-10 w-10 stroke-current" /> */}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                stroke-width="1.5"
+                strokeWidth="1.5"
                 stroke="currentColor"
-                class="w-6 h-6"
+                className="w-6 h-6"
               >
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                   d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
                 />
               </svg>
@@ -49,18 +70,17 @@ const Trade = () => {
               className="group relative rounded-xl p-2 text-[#6366F1] hover:text-white hover:bg-[#6366F1]"
               href="#"
             >
-              {/* <HiCreditCard className="h-10 w-10 stroke-current" /> */}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                stroke-width="1.5"
+                strokeWidth="1.5"
                 stroke="currentColor"
-                class="w-6 h-6"
+                className="w-6 h-6"
               >
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                   d="M21 12a2.25 2.25 0 00-2.25-2.25H15a3 3 0 11-6 0H5.25A2.25 2.25 0 003 12m18 0v6a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 18v-6m18 0V9M3 12V9m18 0a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 9m18 0V6a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 6v3"
                 />
               </svg>
@@ -72,18 +92,17 @@ const Trade = () => {
               className="group relative rounded-xl p-2 text-[#6366F1] hover:text-white hover:bg-[#6366F1]"
               href="#"
             >
-              {/* <HiUserCircle className="h-10 w-10 troke-current" /> */}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                stroke-width="1.5"
+                strokeWidth="1.5"
                 stroke="currentColor"
-                class="w-6 h-6"
+                className="w-6 h-6"
               >
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                   d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
                 />
               </svg>
@@ -94,12 +113,33 @@ const Trade = () => {
         </aside>
 
         {/* main body - chart */}
-        <div className="flex h-screen flex-1 flex-col"></div>
+        <div className="flex h-full">
+          <Chart
+            width={1000}
+            height={800}
+            pricingData={data}
+            syntheticModel={"crash_300"}
+          />
+        </div>
 
         {/* right side menu */}
         <aside className="absolute inset-y-0 right-0 h-screen w-[300px] flex flex-col bg-[#F1F1F1] border-l border-gray-200">
           <div className="flex h-18 items-center gap-x-4 px-6">
-            <HiCurrencyDollar className="h-6 w-6 fill-current" />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-6 h-6"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+
             <h2 className="text-2xl font-bold text-gray-500 py3">
               10,000.00 USD
             </h2>
@@ -142,7 +182,7 @@ const Trade = () => {
                 data-action="decrement"
                 className=" bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-l cursor-pointer outline-none"
               >
-                <span class="m-auto text-2xl font-thin">−</span>
+                <span className="m-auto text-2xl font-thin">−</span>
               </button>
               <input
                 type="text"
