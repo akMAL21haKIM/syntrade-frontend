@@ -1,10 +1,13 @@
-import LogoIcon from "../public/logo.svg";
-import Tooltip from "./components/Tooltip";
 import RangeSliderT from "./components/Slider";
 import Footer from "./components/Footer";
 import Head from "next/head";
 import dynamic from "next/dynamic";
+import Tooltip from "./components/Tooltip";
 import { useMutation, useSubscription, gql } from "@apollo/client";
+import SideNavBar from "./components/SideNavBar";
+import Dropdown from "./components/Dropdown";
+import SelectDropdown from "./components/SyntheticModelDropdown";
+import TradeTypeDropdown from "./components/TradeTypeDropdown";
 
 const Chart = dynamic(() => import("./components/Chart"), {
   ssr: false,
@@ -14,18 +17,18 @@ const EventSource = require("eventsource");
 
 var data = "";
 
-const sse = new EventSource(`http://localhost:5000`);
+const sse = new EventSource(`http://0.0.0.0:5000`);
 sse.onmessage = async (e) => {
   try {
     data = JSON.parse(e.data);
-    console.log(data);
+    // console.log(data);
   } catch (error) {
-    console.log("Error: ", error);
+    // console.log("Error: ", error);
   }
 };
 
 sse.onerror = (e) => {
-  console.log("Error:", e.message);
+  // console.log("Error:", e.message);
 };
 
 const Trade = () => {
@@ -36,127 +39,56 @@ const Trade = () => {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <div className="flex bg-white font-sans text-gray-900 md:max-w-2xl">
-        {/* left navbar menu */}
-        <aside className="flex h-screen w-20 flex-col items-center border-r bg-[#F1F1F1] border-l border-gray-200">
-          <div className="flex scale-125 items-center justify-center mt-3">
-            <img
-              src={LogoIcon.src}
-              href=""
-              className="scale-50 transition ease-in-out delay-100 hover:-translate-y-1 hover:scale-75 hover:cursor-pointer"
-            />
-          </div>
-          <nav className="flex flex-1 flex-col gap-y-4 pt-10 mt-56">
-            <a
-              className="group relative rounded-xl p-2 text-[#6366F1] hover:text-white hover:bg-[#6366F1]"
-              href="#"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="1.5"
-                stroke="currentColor"
-                className="w-6 h-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
-                />
-              </svg>
-
-              <Tooltip>Report</Tooltip>
-            </a>
-            <a
-              className="group relative rounded-xl p-2 text-[#6366F1] hover:text-white hover:bg-[#6366F1]"
-              href="#"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="1.5"
-                stroke="currentColor"
-                className="w-6 h-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M21 12a2.25 2.25 0 00-2.25-2.25H15a3 3 0 11-6 0H5.25A2.25 2.25 0 003 12m18 0v6a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 18v-6m18 0V9M3 12V9m18 0a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 9m18 0V6a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 6v3"
-                />
-              </svg>
-
-              <Tooltip>Card</Tooltip>
-            </a>
-
-            <a
-              className="group relative rounded-xl p-2 text-[#6366F1] hover:text-white hover:bg-[#6366F1]"
-              href="#"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="1.5"
-                stroke="currentColor"
-                className="w-6 h-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
-                />
-              </svg>
-
-              <Tooltip>Profile</Tooltip>
-            </a>
-          </nav>
-        </aside>
+        {/* Side navigation bar */}
+        <SideNavBar />
 
         {/* main body - chart */}
-        <div className="flex h-full">
-          <Chart
-            width={1000}
-            height={800}
+        <div className="flex w-full justify-center">
+          <SelectDropdown></SelectDropdown>
+          {/* <Dropdown></Dropdown> */}
+          {/* <Chart
+            width={800}
+            height={600}
             pricingData={data}
             stream={sse}
             syntheticModel={"crash_300"}
-          />
+          /> */}
         </div>
 
         {/* right side menu */}
         <aside className="absolute inset-y-0 right-0 h-screen w-[300px] flex flex-col bg-[#F1F1F1] border-l border-gray-200">
-          <div className="flex h-18 items-center gap-x-4 px-6">
+          <div className="flex h-18 items-center justify-center gap-x-4 px-6">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              fill="none"
               viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-6 h-6"
+              fill="#6366F1"
+              class="w-6 h-6"
             >
+              <path d="M10.464 8.746c.227-.18.497-.311.786-.394v2.795a2.252 2.252 0 01-.786-.393c-.394-.313-.546-.681-.546-1.004 0-.323.152-.691.546-1.004zM12.75 15.662v-2.824c.347.085.664.228.921.421.427.32.579.686.579.991 0 .305-.152.671-.579.991a2.534 2.534 0 01-.921.42z" />
               <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                fill-rule="evenodd"
+                d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM12.75 6a.75.75 0 00-1.5 0v.816a3.836 3.836 0 00-1.72.756c-.712.566-1.112 1.35-1.112 2.178 0 .829.4 1.612 1.113 2.178.502.4 1.102.647 1.719.756v2.978a2.536 2.536 0 01-.921-.421l-.879-.66a.75.75 0 00-.9 1.2l.879.66c.533.4 1.169.645 1.821.75V18a.75.75 0 001.5 0v-.81a4.124 4.124 0 001.821-.749c.745-.559 1.179-1.344 1.179-2.191 0-.847-.434-1.632-1.179-2.191a4.122 4.122 0 00-1.821-.75V8.354c.29.082.559.213.786.393l.415.33a.75.75 0 00.933-1.175l-.415-.33a3.836 3.836 0 00-1.719-.755V6z"
+                clip-rule="evenodd"
               />
             </svg>
 
-            <h2 className="text-2xl font-bold text-gray-500 py3">
+            <h2 className="text-xl font-bold text-gray-700 py3">
               10,000.00 USD
             </h2>
           </div>
 
           {/* Trade Type */}
-          <div className="static h-36 w-38 m-7 bg-white rounded-md">
-            <h3 className="text-xl font-medium text-black py-2 px-3 border-b border-gray-300">
+          {/* <div className="static h-36 w-38 m-7 bg-white rounded-md align-center"> */}
+          <div className="m-7">
+            {/* <h3 className="mb-4 text-xl font-semibold text-gray-700 py-2 px-3 border-b border-gray-300 mx-4">
               Trade type
-            </h3>
-            <div className="absolute h-10 w-1/2 bg-gray-100 mx-12 my-7 border border-transparent rounded-s shadow-lg">
+            </h3> */}
+            <TradeTypeDropdown></TradeTypeDropdown>
+            {/* <div className="absolute h-10 w-1/2 bg-gray-100 mx-12 my-7 border border-transparent rounded-s shadow-lg">
               <h3 className="text-xl font-medium text-center pt-1">
                 Rise / Fall
               </h3>
-            </div>
+            </div> */}
           </div>
 
           {/* Duration */}
