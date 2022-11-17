@@ -58,7 +58,7 @@ export default function TradeTypeDropdown() {
                   setIsClicked(true);
                 }
               }}
-              className="w-54 inline-flex rounded-md bg-white px-4 py-4 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none"
+              className="w-[250px] h-[57px] inline-flex rounded-md bg-white px-4 py-4 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none"
             >
               <div className="flex justify-between">
                 <div className="flex-1 mr-4">
