@@ -282,7 +282,7 @@ const ResetPassword = () => {
                   href="login"
                   className="text-sm font-medium text-indigo-600 hover:text-indigo-500 text-center"
                 >
-                  Back to login
+                  Back to login page
                 </a>
               </div>
             </form>
