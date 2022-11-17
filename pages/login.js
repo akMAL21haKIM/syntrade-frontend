@@ -197,7 +197,7 @@ const Login = () => {
                         </svg>
 
                         <div className="text-sm text-red-600 px-2 font-medium">
-                          Invalid email
+                          Invalid email address
                         </div>
                       </div>
                     </div>
