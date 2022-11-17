@@ -58,7 +58,7 @@ export default function TradeTypeDropdown() {
                   setIsClicked(true);
                 }
               }}
-              className="w-54 inline-flex rounded-md bg-white px-4 py-4 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none"
+              className="w-[250px] h-[57px] inline-flex rounded-md bg-white px-4 py-4 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none"
             >
               <div className="flex justify-between">
                 <div className="flex-1 mr-4">
@@ -79,14 +79,10 @@ export default function TradeTypeDropdown() {
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
-              <Listbox.Options className="absolute left-0 z-10 mt-2 w-54 origin-top-left overflow-hidden rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                <div className="flex flex-col">
-                  <div className="flex justify-start">
-                    <p className="font-semibold p-4 text-sm">
-                      Boom / Crash Indices
-                    </p>
-                  </div>
-                </div>
+              <Listbox.Options className="absolute -left-[220px] -top-[10px] z-[10px] mt-2 w-54 overflow-hidden rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                <p className="font-semibold p-4 text-sm">
+                  Boom / Crash Indices
+                </p>
 
                 {tradeTypeOptions.map((option) => (
                   <Listbox.Option
