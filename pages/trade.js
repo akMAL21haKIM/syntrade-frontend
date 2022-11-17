@@ -50,6 +50,7 @@ const Trade = () => {
             width={800}
             height={600}
             pricingData={data}
+            stream={sse}
             syntheticModel={"crash_300"}
           /> */}
         </div>

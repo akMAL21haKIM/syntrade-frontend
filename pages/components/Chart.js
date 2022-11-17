@@ -13,17 +13,17 @@ const test = {
   time_utc: 1668522059,
 };
 
-const data = [
-  { value: 0, time: 1642425322 },
-  { value: 8, time: 1642511722 },
-  { value: 10, time: 1642598122 },
-  { value: 20, time: 1642684522 },
-  { value: 3, time: 1642770922 },
-  { value: 43, time: 1642857322 },
-  { value: 41, time: 1642943722 },
-  { value: 43, time: 1643030122 },
-  { value: 56, time: 1643116522 },
-  { value: 46, time: 1643202922 },
+let data = [
+  // { value: 100000, time: 1642425322 },
+  // { value: 100008, time: 1642511722 },
+  // { value: 100010, time: 1642598122 },
+  // { value: 100020, time: 1642684522 },
+  // { value: 100003, time: 1642770922 },
+  // { value: 100043, time: 1642857322 },
+  // { value: 100041, time: 1642943722 },
+  // { value: 100043, time: 1643030122 },
+  // { value: 100056, time: 1643116522 },
+  // { value: 100046, time: 1643202922 },
 ];
 
 // Get current price based on synthetic model
@@ -34,7 +34,7 @@ const getCurrentPrice = (pricingData, syntheticModel) => {
   };
 };
 
-const Chart = ({ width, height, pricingData, syntheticModel }) => {
+const Chart = ({ width, height, pricingData, syntheticModel, stream }) => {
   const chartRef = useRef(null);
 
   useEffect(() => {
@@ -55,12 +55,27 @@ const Chart = ({ width, height, pricingData, syntheticModel }) => {
     });
 
     areaSeries.setData(data);
-    chart.timeScale().fitContent();
-
-    // areaSeries.updateData(data);
-    return () => {
-      chart.remove();
+    // chart.timeScale().fitContent();
+    stream.onmessage = (e) => {
+      try {
+        let m = JSON.parse(e.data);
+        areaSeries.setData(
+          (data = [
+            ...data,
+            { time: m.time_utc, value: m.current_vol_10_price },
+          ])
+        );
+        // chart.timeScale().fitContent();
+      } catch (e) {
+        //arghhh
+        console.error(e);
+      }
     };
+    return () => (stream.onmessage = null);
+    // areaSeries.updateData(data);
+    // return () => {
+    //   chart.remove();
+    // };
   }, []);
 
   return <div ref={chartRef} />;
