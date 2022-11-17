@@ -79,7 +79,7 @@ export default function TradeTypeDropdown() {
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
-              <Listbox.Options className="absolute -left-[206px] -top-[10px] z-[10px] mt-2 w-54 overflow-hidden rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+              <Listbox.Options className="absolute -left-[220px] -top-[10px] z-[10px] mt-2 w-54 overflow-hidden rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                 <p className="font-semibold p-4 text-sm">
                   Boom / Crash Indices
                 </p>

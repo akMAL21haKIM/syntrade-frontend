@@ -46,17 +46,17 @@ const Trade = () => {
         <div className="flex w-full justify-center">
           <SelectDropdown></SelectDropdown>
           {/* <Dropdown></Dropdown> */}
-          {/* <Chart
+          <Chart
             width={800}
             height={600}
             pricingData={data}
             stream={sse}
             syntheticModel={"crash_300"}
-          /> */}
+          />
         </div>
 
         {/* right side menu */}
-        <aside className="absolute inset-y-0 right-0 h-screen w-[300px] flex flex-col bg-[#F1F1F1] border-l border-gray-200">
+        <aside className="absolute inset-y-0 right-0 h-screen w-[285px] flex flex-col bg-[#F1F1F1] border-l border-gray-200">
           <div className="flex h-18 items-center justify-center gap-x-4 px-6">
             <svg
               xmlns="http://www.w3.org/2000/svg"
