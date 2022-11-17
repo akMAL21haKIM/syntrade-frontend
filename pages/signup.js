@@ -31,6 +31,11 @@ const SignUp = () => {
       email: email,
       password: password,
     },
+    onError: (err) => {
+      if (err.message.toLowerCase() == "incorrect password") {
+        // handle invalid login details here
+      }
+    },
     onCompleted: ({ data }) => {
       console.log("data");
       console.log(data);
@@ -200,7 +205,9 @@ const SignUp = () => {
                         autoComplete="email"
                         placeholder="Enter email"
                         required
-                        className="placeholder:normal-case lowercase block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                        className={`placeholder:normal-case lowercase block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm ${
+                          showEmailError ? "border-red-600" : ""
+                        }`}
                         onChange={(e) => setEmail(e.target.value)}
                         value={email}
                       />
@@ -245,7 +252,9 @@ const SignUp = () => {
                         autoComplete="current-password"
                         placeholder="Enter password"
                         required
-                        className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                        className={`block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm ${
+                          showPasswordError ? "border-red-600" : ""
+                        }`}
                         onChange={(e) => setPassword(e.target.value)}
                         value={password}
                         maxLength="12"
@@ -333,7 +342,9 @@ const SignUp = () => {
                         autoComplete="current-password"
                         placeholder="Re-enter password"
                         required
-                        className="w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                        className={`w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm ${
+                          showConfirmPasswordError ? "border-red-600" : ""
+                        }`}
                         onChange={(e) => setConfirmPassword(e.target.value)}
                         value={confirmPassword}
                         maxLength="12"
