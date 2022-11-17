@@ -231,7 +231,7 @@ const SignUp = () => {
                         </svg>
 
                         <div className="text-sm text-red-600 px-2 font-medium">
-                          Invalid Email
+                          Invalid email address
                         </div>
                       </div>
                     </div>
