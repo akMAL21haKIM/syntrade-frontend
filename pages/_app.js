@@ -7,10 +7,9 @@ import {
   HttpLink,
 } from "@apollo/client";
 
-
 const createApolloClient = () => {
   const link = new HttpLink({
-    uri: "http://localhost:4000",
+    uri: "http://0.0.0.0:4000",
   });
 
   return new ApolloClient({
