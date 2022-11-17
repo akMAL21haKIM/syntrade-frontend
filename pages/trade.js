@@ -1,4 +1,3 @@
-import RangeSliderT from "./components/Slider";
 import Footer from "./components/Footer";
 import Head from "next/head";
 import dynamic from "next/dynamic";
@@ -8,6 +7,8 @@ import SideNavBar from "./components/SideNavBar";
 import Dropdown from "./components/Dropdown";
 import SelectDropdown from "./components/SyntheticModelDropdown";
 import TradeTypeDropdown from "./components/TradeTypeDropdown";
+import RangeSlider from "./components/RangeSlider";
+import StakePayout from "./components/StakePayout";
 
 const Chart = dynamic(() => import("./components/Chart"), {
   ssr: false,
@@ -44,7 +45,8 @@ const Trade = () => {
 
         {/* main body - chart */}
         <div className="flex w-full justify-center">
-          <SelectDropdown></SelectDropdown>
+          {/* <SelectDropdown></SelectDropdown> */}
+
           {/* <Dropdown></Dropdown> */}
           {/* <Chart
             width={800}
@@ -93,48 +95,21 @@ const Trade = () => {
 
           {/* Duration */}
           <div className="static h-36 w-38 m-6 bg-white rounded-md">
-            <h3 className="text-xl font-medium text-black py-2 px-3 border-b border-gray-300">
+            <h3 className="text-lg font-bold text-gray-700 py-2 px-3 border-b border-gray-300 text-center">
               Duration
             </h3>
             <div>
-              <RangeSliderT></RangeSliderT>
-              <Tooltip>23</Tooltip>
+              {/* <RangeSliderT></RangeSliderT>
+              <Tooltip>23</Tooltip> */}
+              <RangeSlider></RangeSlider>
             </div>
           </div>
 
           {/* Stake / Payout */}
-          <div className="static h-36 w-38 m-6 bg-white rounded-md items-center justify-center">
-            <button className="relative h-10 w-1/2 text-lg font-bold rounded-tl-md border-b border-r hover:bg-blue-500 hover:text-white">
-              Stake
-            </button>
-            <button className="relative h-10 w-1/2 text-lg font-bold rounded-tr-md border-b border-r hover:bg-blue-500 hover:text-white">
-              Payout
-            </button>
-            {/* number counter */}
-            <div className="flex h-10 w-3/4 rounded-lg relative bg-transparent mt-7 ml-8 shadow-lg">
-              <button
-                data-action="decrement"
-                className=" bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-l cursor-pointer outline-none"
-              >
-                <span className="m-auto text-2xl font-thin">−</span>
-              </button>
-              <input
-                type="text"
-                className="outline-none focus:outline-none text-center w-full bg-gray-300 font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700"
-                name="custom-input-number"
-                placeholder="USD"
-              ></input>
-              <button
-                data-action="increment"
-                className="bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-r cursor-pointer"
-              >
-                <span className="m-auto text-2xl font-thin">+</span>
-              </button>
-            </div>
-          </div>
+          <StakePayout></StakePayout>
 
           {/* Rise / Fall buttons */}
-          <div className="static h-36 w-38 bg-white rounded-md grid grid-cols-1 gap-2">
+          {/* <div className="static h-36 w-38 bg-white rounded-md grid grid-cols-1 gap-2">
             <div>
               <label className="block text-sm">Payout</label>
               <button className="absolute h-10 w-1/2 text-white bg-[#6366F1] rounded-md hover:bg-[#6366F1]/80 shadow-lg">
@@ -147,7 +122,7 @@ const Trade = () => {
                 Fall
               </button>
             </div>
-          </div>
+          </div> */}
         </aside>
 
         {/* footer */}
