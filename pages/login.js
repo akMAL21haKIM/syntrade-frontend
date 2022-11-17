@@ -132,7 +132,7 @@ const Login = () => {
   return (
     <>
       <Head>
-        <title>Login | Syntrade</title>
+        <title>Log in | Syntrade</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <div className="grid grid-cols-2 divide-x-2 min-h-full">
@@ -142,7 +142,7 @@ const Login = () => {
           <div className="mx-auto w-full max-w-sm lg:w-96">
             <div>
               <h2 className="mt-6 text-3xl text-center font-bold tracking-tight text-gray-900">
-                Login to your account
+                Log in to your account
               </h2>
               <p className="mt-2 text-sm text-center text-gray-600">
                 Welcome back! Please enter your details.
