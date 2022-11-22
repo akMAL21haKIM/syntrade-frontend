@@ -36,13 +36,7 @@ export function VolatilityIcon({ ...props }) {
 
 export function ChevronUpIcon({ ...props }) {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      {...props}
-      // fill="currentColor"
-      // className="w-6 h-6"
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
       <path
         fillRule="evenodd"
         d="M11.47 7.72a.75.75 0 011.06 0l7.5 7.5a.75.75 0 11-1.06 1.06L12 9.31l-6.97 6.97a.75.75 0 01-1.06-1.06l7.5-7.5z"
@@ -54,13 +48,7 @@ export function ChevronUpIcon({ ...props }) {
 
 export function ChevronDownIcon({ ...props }) {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      {...props}
-      // fill="currentColor"
-      // className="w-6 h-6 right-0"
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
       <path
         fill-rule="evenodd"
         d="M12.53 16.28a.75.75 0 01-1.06 0l-7.5-7.5a.75.75 0 011.06-1.06L12 14.69l6.97-6.97a.75.75 0 111.06 1.06l-7.5 7.5z"
@@ -72,14 +60,7 @@ export function ChevronDownIcon({ ...props }) {
 
 export function ChevronRightIcon({ ...props }) {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 20 20"
-      {...props}
-      // strokeWidth="1"
-      // fill="currentColor"
-      // className="w-4 h-4"
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" {...props}>
       <path
         fill-rule="evenodd"
         d="M16.28 11.47a.75.75 0 010 1.06l-7.5 7.5a.75.75 0 01-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 011.06-1.06l7.5 7.5z"
@@ -91,14 +72,7 @@ export function ChevronRightIcon({ ...props }) {
 
 export function ChevronLeftIcon({ ...props }) {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 20 20"
-      {...props}
-      // strokeWidth="1"
-      // fill="currentColor"
-      // className="w-4 h-4"
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" {...props}>
       <path
         fill-rule="evenodd"
         d="M7.72 12.53a.75.75 0 010-1.06l7.5-7.5a.75.75 0 111.06 1.06L9.31 12l6.97 6.97a.75.75 0 11-1.06 1.06l-7.5-7.5z"
@@ -111,26 +85,14 @@ export function ChevronLeftIcon({ ...props }) {
 export function RiseFallIcon({ ...props }) {
   return (
     <>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 20 20"
-        {...props}
-        // fill="currentColor"
-        // className="w-5 h-5"
-      >
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" {...props}>
         <path
           fill-rule="evenodd"
           d="M8.25 3.75H19.5a.75.75 0 01.75.75v11.25a.75.75 0 01-1.5 0V6.31L5.03 20.03a.75.75 0 01-1.06-1.06L17.69 5.25H8.25a.75.75 0 010-1.5z"
           clipRule="evenodd"
         />
       </svg>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 20 20"
-        {...props}
-        // fill="currentColor"
-        // className="w-5 h-5"
-      >
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" {...props}>
         <path
           fill-rule="evenodd"
           d="M3.97 3.97a.75.75 0 011.06 0l13.72 13.72V8.25a.75.75 0 011.5 0V19.5a.75.75 0 01-.75.75H8.25a.75.75 0 010-1.5h9.44L3.97 5.03a.75.75 0 010-1.06z"
@@ -144,30 +106,14 @@ export function RiseFallIcon({ ...props }) {
 export function MultipliersIcon({ ...props }) {
   return (
     <>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        {...props}
-        // fill="none"
-        // strokeWidth="1.5"
-        // stroke="currentColor"
-        // className="w-6 h-6"
-      >
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
         <path
           stroke-linecap="round"
           stroke-linejoin="round"
           d="M9 9V4.5M9 9H4.5M9 9L3.75 3.75M9 15v4.5M9 15H4.5M9 15l-5.25 5.25M15 9h4.5M15 9V4.5M15 9l5.25-5.25M15 15h4.5M15 15v4.5m0-4.5l5.25 5.25"
         />
       </svg>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        {...props}
-        // fill="none"
-        // strokeWidth="1.5"
-        // stroke="currentColor"
-        // className="w-6 h-6"
-      >
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
         <path
           stroke-linecap="round"
           stroke-linejoin="round"
@@ -181,30 +127,14 @@ export function MultipliersIcon({ ...props }) {
 export function EvenOddIcon({ ...props }) {
   return (
     <>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        {...props}
-        // fill="none"
-        // strokeWidth="1.5"
-        // stroke="currentColor"
-        // className="w-6 h-6"
-      >
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
         <path
           stroke-linecap="round"
           stroke-linejoin="round"
           d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z"
         />
       </svg>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        {...props}
-        // fill="none"
-        // strokeWidth="1.5"
-        // stroke="currentColor"
-        // className="w-6 h-6"
-      >
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
         <path
           stroke-linecap="round"
           stroke-linejoin="round"
@@ -218,30 +148,14 @@ export function EvenOddIcon({ ...props }) {
 export function MatchesDiffersIcon({ ...props }) {
   return (
     <>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        {...props}
-        // fill="none"
-        // strokeWidth="1.5"
-        // stroke="currentColor"
-        // className="w-6 h-6"
-      >
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
         <path
           stroke-linecap="round"
           stroke-linejoin="round"
           d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"
         />
       </svg>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        {...props}
-        // fill="none"
-        // strokeWidth="1.5"
-        // stroke="currentColor"
-        // className="w-6 h-6"
-      >
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
         <path
           stroke-linecap="round"
           stroke-linejoin="round"
@@ -255,15 +169,7 @@ export function MatchesDiffersIcon({ ...props }) {
 export function XMarkIcon({ ...props }) {
   return (
     <>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        {...props}
-        // fill="none"
-        // strokeWidth={1.5}
-        // stroke="currentColor"
-        // className="w-6 h-6"
-      >
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -276,15 +182,7 @@ export function XMarkIcon({ ...props }) {
 
 export function Bars3Icon({ ...props }) {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      {...props}
-      // fill="none"
-      // strokeWidth={1.5}
-      // stroke="currentColor"
-      // className="w-6 h-6"
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -296,13 +194,7 @@ export function Bars3Icon({ ...props }) {
 
 export function ReportsIcon({ ...props }) {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      {...props}
-      // fill="currentColor"
-      // class="w-6 h-6"
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
       <path
         fill-rule="evenodd"
         d="M5.625 1.5H9a3.75 3.75 0 013.75 3.75v1.875c0 1.036.84 1.875 1.875 1.875H16.5a3.75 3.75 0 013.75 3.75v7.875c0 1.035-.84 1.875-1.875 1.875H5.625a1.875 1.875 0 01-1.875-1.875V3.375c0-1.036.84-1.875 1.875-1.875zM9.75 17.25a.75.75 0 00-1.5 0V18a.75.75 0 001.5 0v-.75zm2.25-3a.75.75 0 01.75.75v3a.75.75 0 01-1.5 0v-3a.75.75 0 01.75-.75zm3.75-1.5a.75.75 0 00-1.5 0V18a.75.75 0 001.5 0v-5.25z"
@@ -315,13 +207,7 @@ export function ReportsIcon({ ...props }) {
 
 export function WalletIcon({ ...props }) {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      {...props}
-      // fill="currentColor"
-      // class="w-6 h-6"
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
       <path d="M2.273 5.625A4.483 4.483 0 015.25 4.5h13.5c1.141 0 2.183.425 2.977 1.125A3 3 0 0018.75 3H5.25a3 3 0 00-2.977 2.625zM2.273 8.625A4.483 4.483 0 015.25 7.5h13.5c1.141 0 2.183.425 2.977 1.125A3 3 0 0018.75 6H5.25a3 3 0 00-2.977 2.625zM5.25 9a3 3 0 00-3 3v6a3 3 0 003 3h13.5a3 3 0 003-3v-6a3 3 0 00-3-3H15a.75.75 0 00-.75.75 2.25 2.25 0 01-4.5 0A.75.75 0 009 9H5.25z" />
     </svg>
   );
@@ -329,13 +215,7 @@ export function WalletIcon({ ...props }) {
 
 export function ProfileIcon({ ...props }) {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      {...props}
-      // fill="currentColor"
-      // class="w-6 h-6"
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
       <path
         fill-rule="evenodd"
         d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z"
@@ -347,13 +227,7 @@ export function ProfileIcon({ ...props }) {
 
 export function SolidDollarIcon({ ...props }) {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      {...props}
-      // fill="currentColor"
-      // className="w-6 h-6 fill-indigo-600"
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
       <path d="M10.464 8.746c.227-.18.497-.311.786-.394v2.795a2.252 2.252 0 01-.786-.393c-.394-.313-.546-.681-.546-1.004 0-.323.152-.691.546-1.004zM12.75 15.662v-2.824c.347.085.664.228.921.421.427.32.579.686.579.991 0 .305-.152.671-.579.991a2.534 2.534 0 01-.921.42z" />
       <path
         fillRule="evenodd"
@@ -366,15 +240,7 @@ export function SolidDollarIcon({ ...props }) {
 
 export function OutlineDollarIcon({ ...props }) {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      {...props}
-      // fill="none"
-      // strokeWidth={1.5}
-      // stroke="currentColor"
-      // className="w-6 h-6 stroke-indigo-600"
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -386,15 +252,7 @@ export function OutlineDollarIcon({ ...props }) {
 
 export function EvenIcon({ ...props }) {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      {...props}
-      // fill="none"
-      // strokeWidth={1.5}
-      // stroke="currentColor"
-      // className="w-5 h-5"
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -406,15 +264,7 @@ export function EvenIcon({ ...props }) {
 
 export function OddIcon({ ...props }) {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      {...props}
-      // fill="none"
-      // strokeWidth={1.5}
-      // stroke="currentColor"
-      // className="w-6 h-6"
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
