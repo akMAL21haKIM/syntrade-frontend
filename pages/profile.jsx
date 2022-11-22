@@ -1,9 +1,9 @@
 import React from "react";
 import Footer from "./components/Footer";
 import Head from "next/head";
-import SideNavBar from "./components/NavBar";
+import NavBar from "./components/NavBar";
 
-const Profile = () => {
+export default function Profile() {
   return (
     <>
       <Head>
@@ -11,11 +11,10 @@ const Profile = () => {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
 
-      <div className="w-full flex justify-between">
-        {/* Side navigation bar */}
-        <SideNavBar />
+      <main>
+        <NavBar></NavBar>
 
-        <div className="flex justify-center items-center w-full">
+        <div className="flex justify-center items-center w-full mt-12">
           <div className="text-center">
             <span className="inline-block h-24 w-24 overflow-hidden rounded-full bg-gray-100">
               <svg
@@ -72,31 +71,9 @@ const Profile = () => {
             </div>
           </div>
         </div>
-
-        <div className="inline-flex items-right py-6 w-36 text-base font-medium text-indigo-600">
-          <p className="text-base font-semibold text-indigo-600 mr-2">
-            Log out
-          </p>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth="1.5"
-            stroke="currentColor"
-            className="w-5 h-5"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9"
-            />
-          </svg>
-        </div>
-      </div>
+      </main>
 
       <Footer />
     </>
   );
-};
-
-export default Profile;
+}
