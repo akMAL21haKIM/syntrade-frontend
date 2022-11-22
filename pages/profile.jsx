@@ -1,7 +1,7 @@
 import React from "react";
 import Footer from "./components/Footer";
 import Head from "next/head";
-import SideNavBar from "./components/SideNavBar";
+import SideNavBar from "./components/NavBar";
 
 const Profile = () => {
   return (
@@ -15,8 +15,8 @@ const Profile = () => {
         {/* Side navigation bar */}
         <SideNavBar />
 
-        <div class="flex justify-center items-center w-full">
-          <div class="text-center">
+        <div className="flex justify-center items-center w-full">
+          <div className="text-center">
             <span className="inline-block h-24 w-24 overflow-hidden rounded-full bg-gray-100">
               <svg
                 className="h-full w-full text-gray-300"
@@ -81,9 +81,9 @@ const Profile = () => {
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
-            stroke-width="1.5"
+            strokeWidth="1.5"
             stroke="currentColor"
-            class="w-5 h-5"
+            className="w-5 h-5"
           >
             <path
               stroke-linecap="round"

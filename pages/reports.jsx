@@ -1,7 +1,7 @@
 import React from "react";
 import Footer from "./components/Footer";
 import Head from "next/head";
-import SideNavBar from "./components/SideNavBar";
+import SideNavBar from "./components/NavBar";
 
 const people = [
   {
@@ -52,7 +52,7 @@ const Reports = () => {
       <div className="w-full flex justify-between">
         {/* Side navigation bar */}
         <SideNavBar />
-        <div class="flex justify-center items-center w-full">
+        <div className="flex justify-center items-center w-full">
           <div className="px-4 sm:px-6 lg:px-8">
             <div className="sm:flex sm:items-center">
               <div className="sm:flex-auto">
@@ -156,9 +156,9 @@ const Reports = () => {
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
                             viewBox="0 0 24 24"
-                            stroke-width="1.5"
+                            strokeWidth="1.5"
                             stroke="currentColor"
-                            class="w-6 h-6"
+                            className="w-6 h-6"
                           >
                             <path
                               stroke-linecap="round"
@@ -172,9 +172,9 @@ const Reports = () => {
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
                             viewBox="0 0 24 24"
-                            stroke-width="1.5"
+                            strokeWidth="1.5"
                             stroke="currentColor"
-                            class="w-6 h-6"
+                            className="w-6 h-6"
                           >
                             <path
                               stroke-linecap="round"

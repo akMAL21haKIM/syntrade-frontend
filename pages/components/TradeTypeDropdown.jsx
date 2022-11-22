@@ -12,7 +12,7 @@ import {
   Multipliers,
   EvenOdd,
   MatchesDiffers,
-} from "../../lib/trades";
+} from "../../lib/icons";
 
 const tradeTypeOptions = [
   {

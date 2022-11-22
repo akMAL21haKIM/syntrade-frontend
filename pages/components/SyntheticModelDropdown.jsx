@@ -1,58 +1,21 @@
 import { Fragment, useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
-import {
-  Boom,
-  Crash,
-  Volatility,
-  ChevronUp,
-  ChevronDown,
-} from "../../lib/trades";
-
-const syntheticModelOptions = [
-  {
-    title: "Boom 100 Index",
-    icon: Boom,
-  },
-  {
-    title: "Boom 300 Index",
-    icon: Boom,
-  },
-  {
-    title: "Boom 500 Index",
-    icon: Boom,
-  },
-  {
-    title: "Crash 100 Index",
-    icon: Crash,
-  },
-  {
-    title: "Crash 300 Index",
-    icon: Crash,
-  },
-  {
-    title: "Crash 500 Index",
-    icon: Crash,
-  },
-  {
-    title: "Volatility 10 Index",
-    icon: Volatility,
-  },
-  {
-    title: "Volatility 25 Index",
-    icon: Volatility,
-  },
-];
+import { ChevronUpIcon, ChevronDownIcon, BoomIcon } from "../../lib/icons";
+import { syntheticModelOptions } from "../../lib/options";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function SyntheticModelDropdown() {
-  const [selected, setSelected] = useState(syntheticModelOptions[0]);
+export default function SyntheticModelDropdown({
+  setSyntheticModel,
+  syntheticModel,
+}) {
+  // const [selected, setSelected] = useState(syntheticModelOptions[0]);
   const [isClicked, setIsClicked] = useState(false);
 
   return (
-    <Listbox value={selected} onChange={setSelected}>
+    <Listbox value={syntheticModel} onChange={setSyntheticModel}>
       {({ open }) => (
         <>
           <Listbox.Label className="sr-only">
@@ -68,18 +31,32 @@ export default function SyntheticModelDropdown() {
                   setIsClicked(true);
                 }
               }}
-              className="w-72 inline-flex justify-between border-gray-300 border-2 rounded-md bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none"
+              className="w-72 inline-flex justify-between border-gray-100 border-4 rounded-md bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:border-gray-200"
             >
               <div className="flex justify-between">
                 <div className="grid grid-flow-col">
-                  {selected.icon}
+                  {syntheticModel.icon}
 
                   <p className="font-bold text-base mr-12 ml-4">
-                    {selected.title}
+                    {syntheticModel.title}
                   </p>
                 </div>
-                <div className="flex-1">
-                  {isClicked ? ChevronDown : ChevronUp}
+                <div className="flex-1 ">
+                  {isClicked ? (
+                    <ChevronDownIcon
+                      fill="currentColor"
+                      // strokeWidth={1.0}
+                      // stroke="currentColor"
+                      className="w-6 h-6 right-0"
+                    />
+                  ) : (
+                    <ChevronUpIcon
+                      fill="currentColor"
+                      // strokeWidth={1.0}
+                      // stroke="currentColor"
+                      className="w-6 h-6 right-0"
+                    />
+                  )}
                 </div>
               </div>
             </Listbox.Button>
@@ -91,7 +68,7 @@ export default function SyntheticModelDropdown() {
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
-              <Listbox.Options className="absolute right-0 z-10 mt-2 w-72 origin-top-right overflow-hidden rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+              <Listbox.Options className="absolute left-0 z-10 mt-2 w-72 origin-top-right overflow-hidden rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                 <div className="flex flex-col">
                   <div className="flex justify-start">
                     <p className="font-semibold p-4 text-sm">
@@ -131,7 +108,7 @@ export default function SyntheticModelDropdown() {
                   </div>
                 </div>
 
-                {syntheticModelOptions.slice(-2, -1).map((option) => (
+                {syntheticModelOptions.slice(6, -1).map((option) => (
                   <Listbox.Option
                     key={option.title}
                     className={({ active }) =>
