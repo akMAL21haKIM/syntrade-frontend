@@ -1,14 +1,8 @@
 import Footer from "./components/Footer";
 import Head from "next/head";
 import dynamic from "next/dynamic";
-import Tooltip from "./components/Tooltip";
-import { useMutation, useSubscription, gql } from "@apollo/client";
 import NavBar from "./components/NavBar";
 import SyntheticModelDropdown from "./components/SyntheticModelDropdown";
-import TradeTypeDropdown from "./components/TradeTypeDropdown";
-import RangeSlider from "./components/RangeSlider";
-import StakePayout from "./components/StakePayout";
-import TopNavBar from "./components/TopNavBar";
 import { React, useState } from "react";
 import { syntheticModelOptions } from "../lib/options";
 import SideMenu from "./components/SideMenu";
