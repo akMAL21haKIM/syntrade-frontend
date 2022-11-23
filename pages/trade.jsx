@@ -56,7 +56,7 @@ const Trade = () => {
           <SkeletonLoaderTradePage />
         ) : (
           <div className="grid grid-cols-2">
-            <div className="mx-8 px-8 mt-8">
+            <div className="mx-8 px-8">
               <SyntheticModelDropdown
                 syntheticModel={syntheticModel}
                 setSyntheticModel={setSyntheticModel}
