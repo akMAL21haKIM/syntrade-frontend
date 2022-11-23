@@ -20,7 +20,7 @@ export default function SyntheticModelDropdown({
           <Listbox.Label className="sr-only">
             Change type of synthetic model
           </Listbox.Label>
-          <div className="relative text-left">
+          <div className="left-[30px] z-10 top-[100px] relative text-left">
             <Listbox.Button
               onClick={(e) => {
                 if (isClicked) {
