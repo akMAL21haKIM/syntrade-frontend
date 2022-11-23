@@ -1,4 +1,4 @@
-import { React, Fragment, useState } from "react";
+import { React, Fragment, useState, useEffect } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import RangeSlider from "./RangeSlider";
 import { tradeTypeOptions } from "../../lib/options";
@@ -15,31 +15,69 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function SideMenu() {
+export default function SideMenu({ syntheticModel }) {
+  const [loader, setLoader] = useState(false);
   const [selectedTradeType, setSelectedTradeType] = useState(
     tradeTypeOptions[0]
   );
   const [isClickedTradeTypeBox, setIsClickedTradeTypeBox] = useState(false);
   const [stakePayout, setStakePayout] = useState(10);
+  const [selectedStakePayout, setSelectedStakePayout] = useState(true);
+
+  useEffect(() => {
+    setLoader(true);
+    console.log("syntheticModel: ", syntheticModel);
+
+    setTimeout(async () => {
+      setLoader(false);
+    }, 1000);
+  }, [selectedTradeType, stakePayout, selectedStakePayout]);
 
   const increment = (e) => {
     e.preventDefault();
-    setStakePayout(stakePayout + 1);
+
+    if (parseFloat(stakePayout) > 30000) {
+    }
+
+    setStakePayout(parseInt(stakePayout) + 1);
   };
 
   const decrement = (e) => {
     e.preventDefault();
-    setStakePayout(stakePayout - 1);
-  };
-
-  const handleChange = (e) => {
-    e.preventDefault();
-
-    // Input must be numbers only
 
     // If stakePayout is less than 0, set it to 0
-    if (stakePayout < 0) {
-      setStakePayout(0);
+    if (stakePayout <= 0) {
+      setStakePayout(parseFloat(0.0).toFixed(2));
+      // TODO: Disable decrement button
+      // TODO: Show tooltip error message
+    } else {
+      setStakePayout((parseFloat(stakePayout) - 1).toFixed(2));
+    }
+  };
+
+  // Min stake / payout = 1.00
+  // Max stake / payout = 30000.00
+  // Input can only be numbers and a single dot
+  const handleStakePayoutChange = (e) => {
+    e.preventDefault();
+
+    // Remove non digit characters from input
+    // TODO: Make sure input can only take one period
+    // TODO: Make sure input can take only two numbers after period
+    const sanitisedInput = e.target.value.replace(
+      /\^[0-9]*[.]{0,1}[0-9]*$/g,
+      ""
+    );
+    console.log("sanitisedInput: ", sanitisedInput);
+
+    // If stakePayout is less than 0, set it to 0
+    if (stakePayout <= 0) {
+      setStakePayout(parseFloat(0.0).toFixed(2));
+      // TODO: Display tooltip error message about min max stake payout
+    } else if (stakePayout > 30000) {
+      // TODO: Display tooltip error message about min max stake payout
+    } else {
+      setStakePayout(parseFloat(sanitisedInput).toFixed(2));
     }
   };
 
@@ -109,17 +147,43 @@ export default function SideMenu() {
                   leaveFrom="opacity-100"
                   leaveTo="opacity-0"
                 >
-                  <Listbox.Options className="absolute -left-[235px] -top-[20px] z-10 mt-2 w-54 overflow-hidden rounded-md bg-white border-gray-100 border-4">
+                  <Listbox.Options className="absolute -left-[235px] -top-[20px] z-10 mt-2 w-[13rem] rounded-md bg-white border-gray-100 border-4">
                     <p className="font-semibold p-4 text-sm">Trade Types</p>
+                    {syntheticModel.trade_type.map((tradeTypeOption) => (
+                      <Listbox.Option
+                        key={tradeTypeOption.title}
+                        className={({ active, selected }) =>
+                          classNames(
+                            selected
+                              ? "bg-gray-100 text-gray-900"
+                              : "text-gray-700 hover:bg-gray-50",
+                            "cursor-default select-none p-4 text-sm"
+                          )
+                        }
+                        value={tradeTypeOption}
+                      >
+                        {({ selected, active }) => (
+                          <div className="flex flex-col">
+                            <div className="flex justify-start">
+                              {tradeTypeOption.icon}
 
-                    {tradeTypeOptions.map((option) => (
+                              <p className="font-medium ml-5">
+                                {tradeTypeOption.title}
+                              </p>
+                            </div>
+                          </div>
+                        )}
+                      </Listbox.Option>
+                    ))}
+
+                    {/* {tradeTypeOptions.map((option) => (
                       <Listbox.Option
                         key={option.title}
-                        className={({ active }) =>
+                        className={({ active, selected }) =>
                           classNames(
-                            active
+                            selected
                               ? "bg-gray-100 text-gray-900"
-                              : "text-gray-700",
+                              : "text-gray-700 hover:bg-gray-50",
                             "cursor-default select-none p-4 text-sm"
                           )
                         }
@@ -135,7 +199,7 @@ export default function SideMenu() {
                           </div>
                         )}
                       </Listbox.Option>
-                    ))}
+                    ))} */}
                   </Listbox.Options>
                 </Transition>
               </div>
@@ -150,13 +214,37 @@ export default function SideMenu() {
         <span className="grid grid-cols-2 justify-between rounded">
           <button
             type="button"
-            className="rounded-tl bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-gray-100 hover:text-gray-700"
+            className={`rounded-tl px-4 py-2 text-sm font-semibold ${
+              selectedStakePayout
+                ? "bg-indigo-600 text-white"
+                : "bg-transparent text-gray-700 hover:bg-gray-100"
+            }`}
+            onClick={(e) => {
+              e.preventDefault();
+              if (selectedStakePayout) {
+                setSelectedStakePayout(false);
+              } else {
+                setSelectedStakePayout(true);
+              }
+            }}
           >
             Stake
           </button>
           <button
             type="button"
-            className="rounded-tr bg-transparent px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-100"
+            className={`rounded-tl px-4 py-2 text-sm font-semibold ${
+              !selectedStakePayout
+                ? "bg-indigo-600 text-white"
+                : "bg-transparent text-gray-700 hover:bg-gray-100"
+            }`}
+            onClick={(e) => {
+              e.preventDefault();
+              if (selectedStakePayout) {
+                setSelectedStakePayout(false);
+              } else {
+                setSelectedStakePayout(true);
+              }
+            }}
           >
             Payout
           </button>
@@ -165,17 +253,19 @@ export default function SideMenu() {
           <span className="grid grid-cols-4 justify-between">
             <button
               type="button"
-              className="col-span-1 rounded-l px-4 py-4 text-sm font-semibold text-gray-700 hover:bg-gray-50  focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+              className="col-span-1 rounded-l px-4 py-4 text-sm font-semibold text-gray-700 hover:bg-gray-100"
+              onClick={(e) => decrement(e)}
             >
               –
             </button>
             <div className="col-span-2 grid grid-cols-3 justify-center align-center pr-4 ">
               <input
-                type="tel"
+                type="text"
                 className="font-medium text-gray-700 col-span-2 focus:outline-none"
                 name="stake-payout-input"
-                defaultValue={10}
-                onChange={(e) => handleChange(e)}
+                defaultValue="10"
+                value={stakePayout}
+                onChange={(e) => handleStakePayoutChange(e)}
               ></input>
               <p className="text-gray-600 font-medium my-auto col-span-1">
                 USD
@@ -184,7 +274,8 @@ export default function SideMenu() {
 
             <button
               type="button"
-              className="col-span-1 rounded-r px-4 py-4 text-sm font-semibold text-gray-700 hover:bg-gray-50 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+              className="col-span-1 rounded-r px-4 py-4 text-sm font-semibold text-gray-700 hover:bg-gray-100"
+              onClick={(e) => increment(e)}
             >
               +
             </button>
@@ -195,38 +286,52 @@ export default function SideMenu() {
         <div>
           <div className="grid grid-cols-2">
             <p className="text-sm font-light text-gray-500 mb-1">Payout</p>
-            <p className="text-sm font-semibold text-gray-700 mb-1 text-right">
-              12.00 USD
-            </p>
+            {loader ? (
+              <div className="animate-pulse h-[1.25rem] flex bg-gray-300 rounded"></div>
+            ) : (
+              <p className="text-sm font-semibold text-gray-700 mb-1 text-right">
+                12.00 USD
+              </p>
+            )}
           </div>
 
-          <button className="px-4 py-4 bg-indigo-600 rounded w-full grid grid-cols-2 hover:bg-indigo-700">
-            <EvenIcon
-              fill="none"
-              strokeWidth={2}
-              stroke="currentColor"
-              className="w-5 h-5 stroke-white"
-            />
+          <button
+            className={`px-4 py-4 rounded w-full grid grid-cols-2  ${
+              loader
+                ? "bg-indigo-600 opacity-50 disabled:pointer-events-none"
+                : "hover:bg-indigo-700 bg-indigo-600"
+            }`}
+          >
+            {selectedTradeType.blueIcon}
 
-            <p className="text-sm font-semibold text-white text-right">Even</p>
+            <p className="text-sm font-semibold text-white text-right">
+              {selectedTradeType.blueText}
+            </p>
           </button>
         </div>
         <div>
           <div className="grid grid-cols-2 mt-4">
             <p className="text-sm font-light text-gray-500 mb-1">Payout</p>
-            <p className="text-sm font-semibold text-gray-700 mb-1 text-right">
-              12.00 USD
-            </p>
+            {loader ? (
+              <div className="animate-pulse h-[1.25rem] flex bg-gray-300 rounded"></div>
+            ) : (
+              <p className="text-sm font-semibold text-gray-700 mb-1 text-right">
+                12.00 USD
+              </p>
+            )}
           </div>
-          <button className="px-4 py-4 bg-red-600 rounded w-full grid grid-cols-2 hover:bg-red-700">
-            <OddIcon
-              fill="none"
-              strokeWidth={2}
-              stroke="currentColor"
-              className="w-5 h-5 stroke-white"
-            />
+          <button
+            className={`px-4 py-4 rounded w-full grid grid-cols-2 ${
+              loader
+                ? "bg-red-600 opacity-50 disabled:pointer-events-none"
+                : "hover:bg-red-700 bg-red-600"
+            }`}
+          >
+            {selectedTradeType.redIcon}
 
-            <p className="text-sm font-semibold text-white text-right">Odd</p>
+            <p className="text-sm font-semibold text-white text-right">
+              {selectedTradeType.redText}
+            </p>
           </button>
         </div>
       </div>

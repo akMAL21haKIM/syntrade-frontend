@@ -6,6 +6,12 @@ import {
   MultipliersIcon,
   EvenOddIcon,
   MatchesDiffersIcon,
+  RiseIcon,
+  FallIcon,
+  EvenIcon,
+  OddIcon,
+  MatchesIcon,
+  DiffersIcon,
 } from "./icons";
 
 export const syntheticModelOptions = [
@@ -20,6 +26,31 @@ export const syntheticModelOptions = [
       />
     ),
     type: "boom_100",
+    trade_type: [
+      {
+        title: "Rise / Fall",
+        simplified_title: "rise_fall",
+        icon: <RiseFallIcon fill="currentColor" className="w-5 h-5" />,
+        blueIcon: (
+          <RiseIcon
+            fill="none"
+            strokeWidth={2}
+            stroke="currentColor"
+            className="w-5 h-5 stroke-white"
+          />
+        ),
+        redIcon: (
+          <FallIcon
+            fill="none"
+            strokeWidth={2}
+            stroke="currentColor"
+            className="w-5 h-5 stroke-white"
+          />
+        ),
+        blueText: "Rise",
+        redText: "Fall",
+      },
+    ],
   },
   // {
   //   title: "Boom 300 Index",
@@ -56,6 +87,31 @@ export const syntheticModelOptions = [
       />
     ),
     type: "crash_100",
+    trade_type: [
+      {
+        title: "Rise / Fall",
+        simplified_title: "rise_fall",
+        icon: <RiseFallIcon fill="currentColor" className="w-5 h-5" />,
+        blueIcon: (
+          <RiseIcon
+            fill="none"
+            strokeWidth={2}
+            stroke="currentColor"
+            className="w-5 h-5 stroke-white"
+          />
+        ),
+        redIcon: (
+          <FallIcon
+            fill="none"
+            strokeWidth={2}
+            stroke="currentColor"
+            className="w-5 h-5 stroke-white"
+          />
+        ),
+        blueText: "Rise",
+        redText: "Fall",
+      },
+    ],
   },
   // {
   //   title: "Crash 300 Index",
@@ -92,6 +148,91 @@ export const syntheticModelOptions = [
       />
     ),
     type: "vol_10",
+    trade_type: [
+      {
+        title: "Rise / Fall",
+        simplified_title: "rise_fall",
+        icon: <RiseFallIcon fill="currentColor" className="w-5 h-5" />,
+        blueIcon: (
+          <RiseIcon
+            fill="none"
+            strokeWidth={2}
+            stroke="currentColor"
+            className="w-5 h-5 stroke-white"
+          />
+        ),
+        redIcon: (
+          <FallIcon
+            fill="none"
+            strokeWidth={2}
+            stroke="currentColor"
+            className="w-5 h-5 stroke-white"
+          />
+        ),
+        blueText: "Rise",
+        redText: "Fall",
+      },
+      {
+        title: "Even / Odd",
+        simplified_title: "even_odd",
+        icon: (
+          <EvenOddIcon
+            fill="none"
+            strokeWidth="1.5"
+            stroke="currentColor"
+            className="w-5 h-5"
+          />
+        ),
+        blueIcon: (
+          <EvenIcon
+            fill="none"
+            strokeWidth={2}
+            stroke="currentColor"
+            className="w-5 h-5 stroke-white"
+          />
+        ),
+        redIcon: (
+          <OddIcon
+            fill="none"
+            strokeWidth={2}
+            stroke="currentColor"
+            className="w-5 h-5 stroke-white"
+          />
+        ),
+        blueText: "Even",
+        redText: "Odd",
+      },
+      {
+        title: "Matches / Differs",
+        simplified_title: "matches_differs",
+        icon: (
+          <MatchesDiffersIcon
+            fill="none"
+            strokeWidth="1.5"
+            stroke="currentColor"
+            className="w-5 h-5"
+          />
+        ),
+        blueIcon: (
+          <MatchesIcon
+            fill="none"
+            strokeWidth={2}
+            stroke="currentColor"
+            className="w-5 h-5 stroke-white"
+          />
+        ),
+        redIcon: (
+          <DiffersIcon
+            fill="none"
+            strokeWidth={2}
+            stroke="currentColor"
+            className="w-5 h-5 stroke-white"
+          />
+        ),
+        blueText: "Matches",
+        redText: "Differs",
+      },
+    ],
   },
   {
     title: "Volatility 25 Index",
@@ -104,27 +245,132 @@ export const syntheticModelOptions = [
       />
     ),
     type: "vol_25",
+    trade_type: [
+      {
+        title: "Rise / Fall",
+        simplified_title: "rise_fall",
+        icon: <RiseFallIcon fill="currentColor" className="w-5 h-5" />,
+        blueIcon: (
+          <RiseIcon
+            fill="none"
+            strokeWidth={2}
+            stroke="currentColor"
+            className="w-5 h-5 stroke-white"
+          />
+        ),
+        redIcon: (
+          <FallIcon
+            fill="none"
+            strokeWidth={2}
+            stroke="currentColor"
+            className="w-5 h-5 stroke-white"
+          />
+        ),
+        blueText: "Rise",
+        redText: "Fall",
+      },
+      {
+        title: "Even / Odd",
+        simplified_title: "even_odd",
+        icon: (
+          <EvenOddIcon
+            fill="none"
+            strokeWidth="1.5"
+            stroke="currentColor"
+            className="w-5 h-5"
+          />
+        ),
+        blueIcon: (
+          <EvenIcon
+            fill="none"
+            strokeWidth={2}
+            stroke="currentColor"
+            className="w-5 h-5 stroke-white"
+          />
+        ),
+        redIcon: (
+          <OddIcon
+            fill="none"
+            strokeWidth={2}
+            stroke="currentColor"
+            className="w-5 h-5 stroke-white"
+          />
+        ),
+        blueText: "Even",
+        redText: "Odd",
+      },
+      {
+        title: "Matches / Differs",
+        simplified_title: "matches_differs",
+        icon: (
+          <MatchesDiffersIcon
+            fill="none"
+            strokeWidth="1.5"
+            stroke="currentColor"
+            className="w-5 h-5"
+          />
+        ),
+        blueIcon: (
+          <MatchesIcon
+            fill="none"
+            strokeWidth={2}
+            stroke="currentColor"
+            className="w-5 h-5 stroke-white"
+          />
+        ),
+        redIcon: (
+          <DiffersIcon
+            fill="none"
+            strokeWidth={2}
+            stroke="currentColor"
+            className="w-5 h-5 stroke-white"
+          />
+        ),
+        blueText: "Matches",
+        redText: "Differs",
+      },
+    ],
   },
 ];
 
 export const tradeTypeOptions = [
   {
     title: "Rise / Fall",
+    simplified_title: "rise_fall",
     icon: <RiseFallIcon fill="currentColor" className="w-5 h-5" />,
-  },
-  {
-    title: "Multipliers",
-    icon: (
-      <MultipliersIcon
+    blueIcon: (
+      <RiseIcon
         fill="none"
-        strokeWidth="1.5"
+        strokeWidth={2}
         stroke="currentColor"
-        className="w-5 h-5"
+        className="w-5 h-5 stroke-white"
       />
     ),
+    redIcon: (
+      <FallIcon
+        fill="none"
+        strokeWidth={2}
+        stroke="currentColor"
+        className="w-5 h-5 stroke-white"
+      />
+    ),
+    blueText: "Rise",
+    redText: "Fall",
   },
+  // {
+  //   title: "Multipliers",
+  //   icon: (
+  //     <MultipliersIcon
+  //       fill="none"
+  //       strokeWidth="1.5"
+  //       stroke="currentColor"
+  //       className="w-5 h-5"
+  //     />
+  //   ),
+  // },
   {
     title: "Even / Odd",
+    simplified_title: "even_odd",
     icon: (
       <EvenOddIcon
         fill="none"
@@ -133,9 +379,28 @@ export const tradeTypeOptions = [
         className="w-5 h-5"
       />
     ),
+    blueIcon: (
+      <EvenIcon
+        fill="none"
+        strokeWidth={2}
+        stroke="currentColor"
+        className="w-5 h-5 stroke-white"
+      />
+    ),
+    redIcon: (
+      <OddIcon
+        fill="none"
+        strokeWidth={2}
+        stroke="currentColor"
+        className="w-5 h-5 stroke-white"
+      />
+    ),
+    blueText: "Even",
+    redText: "Odd",
   },
   {
     title: "Matches / Differs",
+    simplified_title: "matches_differs",
     icon: (
       <MatchesDiffersIcon
         fill="none"
@@ -144,5 +409,23 @@ export const tradeTypeOptions = [
         className="w-5 h-5"
       />
     ),
+    blueIcon: (
+      <MatchesIcon
+        fill="none"
+        strokeWidth={2}
+        stroke="currentColor"
+        className="w-5 h-5 stroke-white"
+      />
+    ),
+    redIcon: (
+      <DiffersIcon
+        fill="none"
+        strokeWidth={2}
+        stroke="currentColor"
+        className="w-5 h-5 stroke-white"
+      />
+    ),
+    blueText: "Matches",
+    redText: "Differs",
   },
 ];
