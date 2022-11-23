@@ -2,7 +2,7 @@ import { React, useState, useEffect } from "react";
 import Footer from "./components/Footer";
 import Head from "next/head";
 import NavBar from "./components/NavBar";
-import SkeletonLoaderReportsPage from "./components/SkeletonLoaderReportsPage";
+import { SkeletonLoaderReportsPage } from "./components/SkeletonLoaders";
 
 const people = [
   {
@@ -62,72 +62,71 @@ const Reports = () => {
       </Head>
       <main>
         <NavBar />
-        {loader ? (
-          <SkeletonLoaderReportsPage />
-        ) : (
-          <div className="w-8/12 mt-12 mb-4 mx-auto">
-            {/* <div className="flex justify-center items-center"> */}
-            <div className="px-4 sm:px-6 lg:px-8">
-              <div className="sm:flex sm:items-center">
-                <div className="sm:flex-auto">
-                  <h1 className="text-xl font-semibold text-gray-900">
-                    Reports
-                  </h1>
-                  <p className="mt-2 text-sm text-gray-700">
-                    A list of all the trades in your account.
-                  </p>
-                </div>
+
+        <div className="w-8/12 mt-12 mb-4 mx-auto">
+          {/* <div className="flex justify-center items-center"> */}
+          <div className="px-4 sm:px-6 lg:px-8">
+            <div className="sm:flex sm:items-center">
+              <div className="sm:flex-auto">
+                <h1 className="text-xl font-semibold text-gray-900">Reports</h1>
+                <p className="mt-2 text-sm text-gray-700">
+                  A list of all the trades in your account.
+                </p>
               </div>
-              <div className="-mx-4 mt-8 overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:-mx-6 md:mx-0 md:rounded-lg">
-                <table className="min-w-full divide-y divide-gray-300">
-                  <thead className="bg-gray-50">
-                    <tr>
-                      <th
-                        scope="col"
-                        className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
-                      >
-                        Ref. ID
-                      </th>
-                      <th
-                        scope="col"
-                        className="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell"
-                      >
-                        Type
-                      </th>
-                      <th
-                        scope="col"
-                        className="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell"
-                      >
-                        Currency
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell"
-                      >
-                        Transaction Time
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell"
-                      >
-                        Transaction
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-3 py-3.5 text-right text-sm font-semibold text-gray-900 lg:table-cell"
-                      >
-                        Profit / Loss
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-3 py-3.5 text-right text-sm font-semibold text-gray-900"
-                      >
-                        Balance
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-gray-200 bg-white">
-                    {people.map((person) => (
+            </div>
+            <div className="-mx-4 mt-8 overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:-mx-6 md:mx-0 md:rounded-lg">
+              <table className="min-w-full divide-y divide-gray-300">
+                <thead className="bg-gray-50">
+                  <tr>
+                    <th
+                      scope="col"
+                      className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
+                    >
+                      Ref. ID
+                    </th>
+                    <th
+                      scope="col"
+                      className="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell"
+                    >
+                      Type
+                    </th>
+                    <th
+                      scope="col"
+                      className="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell"
+                    >
+                      Currency
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell"
+                    >
+                      Transaction Time
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell"
+                    >
+                      Transaction
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-3 py-3.5 text-right text-sm font-semibold text-gray-900 lg:table-cell"
+                    >
+                      Profit / Loss
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-3 py-3.5 text-right text-sm font-semibold text-gray-900"
+                    >
+                      Balance
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-200 bg-white">
+                  {loader ? (
+                    <SkeletonLoaderReportsPage />
+                  ) : (
+                    people.map((person) => (
                       <tr key={person.referenceId}>
                         <td className="w-full max-w-0 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:w-auto sm:max-w-none sm:pl-6">
                           {person.referenceId}
@@ -234,14 +233,14 @@ const Reports = () => {
                           {person.balance.toFixed(2)}
                         </td>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+                    ))
+                  )}
+                </tbody>
+              </table>
             </div>
-            {/* </div> */}
           </div>
-        )}
+          {/* </div> */}
+        </div>
       </main>
       <Footer />
     </>

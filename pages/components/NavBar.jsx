@@ -1,14 +1,11 @@
 import { Fragment } from "react";
 import { Popover, Transition, Menu } from "@headlessui/react";
 import {
-  ChevronDownIcon,
   XMarkIcon,
   Bars3Icon,
   ReportsIcon,
   ProfileIcon,
 } from "../../lib/icons";
-import Image from "next/image";
-import logo from "../../public/logo.svg";
 
 let isUserLoggedIn = true;
 
@@ -64,6 +61,80 @@ export default function NavBar() {
                     stroke="currentColor"
                   />
                 </Popover.Button>
+                {/* Mobile menu transition */}
+                <Transition
+                  as={Fragment}
+                  enter="duration-200 ease-out"
+                  enterFrom="opacity-0 scale-95"
+                  enterTo="opacity-100 scale-100"
+                  leave="duration-100 ease-in"
+                  leaveFrom="opacity-100 scale-100"
+                  leaveTo="opacity-0 scale-95"
+                >
+                  <Popover.Panel
+                    focus
+                    className="z-20 absolute inset-x-0 top-0 origin-top-right transform p-2 transition md:hidden"
+                  >
+                    <div className="divide-y-2 divide-gray-50 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5">
+                      <div className="px-5 pt-5 pb-6">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <img
+                              className="h-8 w-auto"
+                              src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                              alt="Syntrade"
+                            />
+                          </div>
+                          <div className="-mr-2">
+                            <Popover.Button className="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+                              <span className="sr-only">Close menu</span>
+                              <XMarkIcon
+                                className="h-6 w-6"
+                                aria-hidden="true"
+                                fill="none"
+                                strokeWidth={1.5}
+                                stroke="currentColor"
+                              />
+                            </Popover.Button>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="space-y-1 py-6 px-2">
+                        <div>
+                          <a href="/trade">
+                            <p className="mt-0 px-3 py-3 text-base font-medium text-gray-700 hover:bg-gray-100 hover:rounded">
+                              Trade
+                            </p>
+                          </a>
+
+                          <a href="/profile">
+                            <p className="mt-1 px-3 py-3 text-base font-medium text-gray-700 hover:bg-gray-100 hover:rounded">
+                              Profile
+                            </p>
+                          </a>
+
+                          <a href="/reports">
+                            <p className="mt-1 px-3 py-3 text-base font-medium text-gray-700 hover:bg-gray-100 hover:rounded">
+                              Reports
+                            </p>
+                          </a>
+
+                          <a href="#">
+                            <p className="mt-1 px-3 py-3 text-base font-medium text-gray-700 hover:bg-gray-100 hover:rounded">
+                              Reset balance
+                            </p>
+                          </a>
+
+                          <a href="#">
+                            <p className="mt-1 px-3 py-3 text-base font-medium text-gray-700 hover:bg-gray-100 hover:rounded">
+                              Sign out
+                            </p>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </Popover.Panel>
+                </Transition>
               </div>
               {/* Desktop menu */}
               <div className="hidden items-center justify-end md:flex md:flex-1 lg:w-0">
@@ -74,7 +145,7 @@ export default function NavBar() {
                       <span className="sr-only">Open user menu</span>
                       <span className="inline-block h-10 w-10 overflow-hidden rounded-full bg-gray-100">
                         <svg
-                          className="h-full w-full text-gray-300"
+                          className="h-full w-full text-gray-300 hover:text-indigo-600 hover:opacity-60"
                           fill="currentColor"
                           viewBox="0 0 24 24"
                         >
@@ -93,6 +164,21 @@ export default function NavBar() {
                     leaveTo="transform opacity-0 scale-95"
                   >
                     <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                      <Menu.Item>
+                        {({ active }) => (
+                          <>
+                            <a
+                              href="/trade"
+                              className={classNames(
+                                active ? "bg-gray-100" : "",
+                                "block px-4 py-2 text-sm text-gray-700"
+                              )}
+                            >
+                              Trade
+                            </a>
+                          </>
+                        )}
+                      </Menu.Item>
                       <Menu.Item>
                         {({ active }) => (
                           <>

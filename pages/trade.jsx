@@ -6,7 +6,7 @@ import SyntheticModelDropdown from "./components/SyntheticModelDropdown";
 import { React, useState, useEffect } from "react";
 import { syntheticModelOptions } from "../lib/options";
 import SideMenu from "./components/SideMenu";
-import SkeletonLoaderTradePage from "./components/SkeletonLoaderTradePage";
+import { SkeletonLoaderTradePage } from "./components/SkeletonLoaders";
 
 const Chart = dynamic(() => import("./components/Chart"), {
   ssr: false,
