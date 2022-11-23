@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import { Popover, Transition } from "@headlessui/react";
+import { Popover, Transition, Menu } from "@headlessui/react";
 import {
   ChevronDownIcon,
   XMarkIcon,
@@ -8,8 +8,11 @@ import {
   ProfileIcon,
 } from "../../lib/icons";
 import Image from "next/image";
+import logo from "../../public/logo.svg";
 
-const solutions = [
+let isUserLoggedIn = true;
+
+const navigations = [
   {
     name: "Reports",
     href: "/reports",
@@ -42,83 +45,207 @@ export default function NavBar() {
             </a>
             <p className="px-6 py-2 text-xl font-bold">Syntrade</p>
           </div>
-          <div className="-my-2 -mr-2 md:hidden">
-            <Popover.Button className="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
-              <span className="sr-only">Open menu</span>
-              <Bars3Icon className="h-6 w-6" aria-hidden="true" />
-            </Popover.Button>
-          </div>
 
-          <div className="hidden items-center justify-end md:flex md:flex-1 lg:w-0">
-            <a
-              href="/login"
-              className="ml-8 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-indigo-600 bg-white px-4 py-1 text-sm font-semibold text-indigo-600 shadow-sm hover:bg-indigo-50"
-            >
-              Log in
-            </a>
-            <a
-              href="/signup"
-              className="ml-8 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-indigo-600 px-4 py-1 text-sm font-semibold text-white shadow-sm hover:bg-indigo-700"
-            >
-              Sign up
-            </a>
-          </div>
-        </div>
-      </div>
+          {/* Check if user is logged in or not. 
+              If user is logged in, show profile icon.
+              Else, show log in and sign up buttons. */}
 
-      <Transition
-        as={Fragment}
-        enter="duration-200 ease-out"
-        enterFrom="opacity-0 scale-95"
-        enterTo="opacity-100 scale-100"
-        leave="duration-100 ease-in"
-        leaveFrom="opacity-100 scale-100"
-        leaveTo="opacity-0 scale-95"
-      >
-        <Popover.Panel
-          focus
-          className="z-20 absolute inset-x-0 top-0 origin-top-right transform p-2 transition md:hidden"
-        >
-          <div className="divide-y-2 divide-gray-50 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5">
-            <div className="px-5 pt-5 pb-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <img
-                    className="h-8 w-auto"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                    alt="Syntrade"
+          {isUserLoggedIn ? (
+            <>
+              {/* Mobile menu */}
+              <div className="-my-2 -mr-2 md:hidden">
+                <Popover.Button className="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+                  <span className="sr-only">Open menu</span>
+                  <Bars3Icon
+                    className="h-6 w-6"
+                    aria-hidden="true"
+                    fill="none"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
                   />
-                </div>
-                <div className="-mr-2">
-                  <Popover.Button className="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
-                    <span className="sr-only">Close menu</span>
-                    <XMarkIcon className="h-6 w-6" aria-hidden="true" />
-                  </Popover.Button>
-                </div>
+                </Popover.Button>
               </div>
-            </div>
-            <div className="space-y-6 py-6 px-5">
-              <div>
+              {/* Desktop menu */}
+              <div className="hidden items-center justify-end md:flex md:flex-1 lg:w-0">
+                {/* Profile dropdown */}
+                <Menu as="div" className="relative ml-3">
+                  <div>
+                    <Menu.Button className="flex rounded-full bg-transparent text-sm focus:outline-none hover:ring-gray-100 hover:ring-4">
+                      <span className="sr-only">Open user menu</span>
+                      <span className="inline-block h-10 w-10 overflow-hidden rounded-full bg-gray-100">
+                        <svg
+                          className="h-full w-full text-gray-300"
+                          fill="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                        </svg>
+                      </span>
+                    </Menu.Button>
+                  </div>
+                  <Transition
+                    as={Fragment}
+                    enter="transition ease-out duration-100"
+                    enterFrom="transform opacity-0 scale-95"
+                    enterTo="transform opacity-100 scale-100"
+                    leave="transition ease-in duration-75"
+                    leaveFrom="transform opacity-100 scale-100"
+                    leaveTo="transform opacity-0 scale-95"
+                  >
+                    <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                      <Menu.Item>
+                        {({ active }) => (
+                          <>
+                            <a
+                              href="/profile"
+                              className={classNames(
+                                active ? "bg-gray-100" : "",
+                                "block px-4 py-2 text-sm text-gray-700"
+                              )}
+                            >
+                              Profile
+                            </a>
+                          </>
+                        )}
+                      </Menu.Item>
+                      <Menu.Item>
+                        {({ active }) => (
+                          <a
+                            href="/reports"
+                            className={classNames(
+                              active ? "bg-gray-100" : "",
+                              "block px-4 py-2 text-sm text-gray-700"
+                            )}
+                          >
+                            Reports
+                          </a>
+                        )}
+                      </Menu.Item>
+                      <Menu.Item>
+                        {({ active }) => (
+                          <a
+                            href="#"
+                            className={classNames(
+                              active ? "bg-gray-100" : "",
+                              "block px-4 py-2 text-sm text-gray-700"
+                            )}
+                          >
+                            Reset balance
+                          </a>
+                        )}
+                      </Menu.Item>
+                      <Menu.Item>
+                        {({ active }) => (
+                          <a
+                            href="#"
+                            className={classNames(
+                              active ? "bg-gray-100" : "",
+                              "block px-4 py-2 text-sm text-gray-700"
+                            )}
+                          >
+                            Sign out
+                          </a>
+                        )}
+                      </Menu.Item>
+                    </Menu.Items>
+                  </Transition>
+                </Menu>
+              </div>
+            </>
+          ) : (
+            <>
+              {/* Mobile menu */}
+              <div className="-my-2 -mr-2 md:hidden">
+                <Popover.Button className="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+                  <span className="sr-only">Open menu</span>
+                  <Bars3Icon
+                    className="h-6 w-6"
+                    aria-hidden="true"
+                    fill="none"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                  />
+                </Popover.Button>
+                {/* Mobile menu transition */}
+                <Transition
+                  as={Fragment}
+                  enter="duration-200 ease-out"
+                  enterFrom="opacity-0 scale-95"
+                  enterTo="opacity-100 scale-100"
+                  leave="duration-100 ease-in"
+                  leaveFrom="opacity-100 scale-100"
+                  leaveTo="opacity-0 scale-95"
+                >
+                  <Popover.Panel
+                    focus
+                    className="z-20 absolute inset-x-0 top-0 origin-top-right transform p-2 transition md:hidden"
+                  >
+                    <div className="divide-y-2 divide-gray-50 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5">
+                      <div className="px-5 pt-5 pb-6">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <img
+                              className="h-8 w-auto"
+                              src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                              alt="Syntrade"
+                            />
+                          </div>
+                          <div className="-mr-2">
+                            <Popover.Button className="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+                              <span className="sr-only">Close menu</span>
+                              <XMarkIcon
+                                className="h-6 w-6"
+                                aria-hidden="true"
+                                fill="none"
+                                strokeWidth={1.5}
+                                stroke="currentColor"
+                              />
+                            </Popover.Button>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="space-y-6 py-6 px-5">
+                        <div>
+                          <a
+                            href="/signup"
+                            className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+                          >
+                            Sign up
+                          </a>
+                          <p className="mt-6 text-center text-base font-medium text-gray-500">
+                            Existing user?{" "}
+                            <a
+                              href="/login"
+                              className="text-indigo-600 hover:text-indigo-500"
+                            >
+                              Log in
+                            </a>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </Popover.Panel>
+                </Transition>
+              </div>
+              {/* Desktop menu */}
+              <div className="hidden items-center justify-end md:flex md:flex-1 lg:w-0">
+                <a
+                  href="/login"
+                  className="ml-8 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-indigo-600 bg-white px-4 py-1 text-sm font-semibold text-indigo-600 shadow-sm hover:bg-indigo-50"
+                >
+                  Log in
+                </a>
                 <a
                   href="/signup"
-                  className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+                  className="ml-8 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-indigo-600 px-4 py-1 text-sm font-semibold text-white shadow-sm hover:bg-indigo-700"
                 >
                   Sign up
                 </a>
-                <p className="mt-6 text-center text-base font-medium text-gray-500">
-                  Existing user?{" "}
-                  <a
-                    href="/login"
-                    className="text-indigo-600 hover:text-indigo-500"
-                  >
-                    Log in
-                  </a>
-                </p>
               </div>
-            </div>
-          </div>
-        </Popover.Panel>
-      </Transition>
+            </>
+          )}
+        </div>
+      </div>
     </Popover>
   );
 }

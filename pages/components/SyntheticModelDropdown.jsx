@@ -11,7 +11,6 @@ export default function SyntheticModelDropdown({
   setSyntheticModel,
   syntheticModel,
 }) {
-  // const [selected, setSelected] = useState(syntheticModelOptions[0]);
   const [isClicked, setIsClicked] = useState(false);
 
   return (
@@ -19,8 +18,7 @@ export default function SyntheticModelDropdown({
       {({ open }) => (
         <>
           <Listbox.Label className="sr-only">
-            {" "}
-            Change type of synthetic model{" "}
+            Change type of synthetic model
           </Listbox.Label>
           <div className="relative text-left">
             <Listbox.Button
@@ -45,15 +43,11 @@ export default function SyntheticModelDropdown({
                   {isClicked ? (
                     <ChevronDownIcon
                       fill="currentColor"
-                      // strokeWidth={1.0}
-                      // stroke="currentColor"
                       className="w-6 h-6 right-0"
                     />
                   ) : (
                     <ChevronUpIcon
                       fill="currentColor"
-                      // strokeWidth={1.0}
-                      // stroke="currentColor"
                       className="w-6 h-6 right-0"
                     />
                   )}
@@ -108,7 +102,48 @@ export default function SyntheticModelDropdown({
                   </div>
                 </div>
 
-                {syntheticModelOptions.slice(6, -1).map((option) => (
+                <Listbox.Option
+                  key={syntheticModelOptions[6].title}
+                  className={({ active }) =>
+                    classNames(
+                      active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                      "cursor-default select-none p-4 text-sm"
+                    )
+                  }
+                  value={syntheticModelOptions[6]}
+                >
+                  <div className="flex flex-col">
+                    <div className="flex justify-start">
+                      {syntheticModelOptions[6].icon}
+
+                      <p className="font-medium ml-5">
+                        {syntheticModelOptions[6].title}
+                      </p>
+                    </div>
+                  </div>
+                </Listbox.Option>
+                <Listbox.Option
+                  key={syntheticModelOptions[7].title}
+                  className={({ active }) =>
+                    classNames(
+                      active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                      "cursor-default select-none p-4 text-sm"
+                    )
+                  }
+                  value={syntheticModelOptions[7]}
+                >
+                  <div className="flex flex-col">
+                    <div className="flex justify-start">
+                      {syntheticModelOptions[7].icon}
+
+                      <p className="font-medium ml-5">
+                        {syntheticModelOptions[7].title}
+                      </p>
+                    </div>
+                  </div>
+                </Listbox.Option>
+
+                {/* {syntheticModelOptions.slice(-2, -1).map((option) => (
                   <Listbox.Option
                     key={option.title}
                     className={({ active }) =>
@@ -127,7 +162,7 @@ export default function SyntheticModelDropdown({
                       </div>
                     </div>
                   </Listbox.Option>
-                ))}
+                ))} */}
               </Listbox.Options>
             </Transition>
           </div>
