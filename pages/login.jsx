@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Router from "next/router";
 import { useMutation, gql } from "@apollo/client";
 import Head from "next/head";
+import { isEmailValid, isPasswordValid } from "../lib/input_validations";
 
 const Login = () => {
   const [openPassword, setOpenPassword] = useState(false);
@@ -27,6 +28,8 @@ const Login = () => {
     onError: (err) => {
       if (err.message.toLowerCase() == "incorrect password") {
         // handle invalid login details here
+      } else {
+        console.log(err);
       }
     },
     onCompleted: ({ data }) => {
@@ -41,71 +44,32 @@ const Login = () => {
     setOpenPassword(!openPassword);
   };
 
-  // Check whether email is valid or not
-  const isEmailValid = () => {
-    // Check if email is empty or not
-    if (!email) {
-      console.log("Error: Email cannot be empty");
-      setShowEmailError(true);
-      return false;
-    }
+  // Validate email dynamically
+  const handleEmail = (e) => {
+    // Set email from input
+    setEmail(e);
 
-    // Check if email contains any whitespace or not
-    if (/\s/.test(email)) {
-      console.log("Error: Email cannot contain spaces");
-      setShowEmailError(true);
-      return false;
-    }
+    console.log("e", e);
 
-    // Check if email is in correct format or not
-    if (!/\S+@\S+\.\S+/.test(email)) {
-      console.log("Error: Invalid email format");
+    // Show email error if email is invalid
+    if (!isEmailValid(email)) {
       setShowEmailError(true);
-      return false;
+    } else {
+      setShowEmailError(false);
     }
-    return true;
   };
 
-  // Check whether password is valid or not
-  const isPasswordValid = () => {
-    // Password must be between 8-12 characters
-    // Password must have at least:
-    // 1 capital letter, 1 lowercase letter, 1 digit and 1 special characters (~`!@#$%^&*()_-+={[}]|\:;"'<,>.?/)
-    var pattern = new RegExp(
-      "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[-+_!@#$%^&*.,?]).+$"
-    );
+  // Validate password dynamically
+  const handlePassword = (e) => {
+    // Set password from input
+    setPassword(e);
 
-    // Check if password is empty or not
-    if (!password) {
-      console.log("Error: Password cannot be empty");
+    // Show password error if password is invalid
+    if (!isPasswordValid(password)) {
       setShowPasswordError(true);
-      return false;
+    } else {
+      setShowPasswordError(false);
     }
-
-    // Check if length of password is between 8-12 characters or not
-    if (password.length < 8 || password.length > 12) {
-      console.log("Error: Password must be between 8-12 characters");
-      setShowPasswordError(true);
-      return false;
-    }
-
-    // Check if password contains any whitespace or not
-    if (/\s/.test(password)) {
-      console.log("Error: Password cannot contain spaces");
-      setShowPasswordError(true);
-      return false;
-    }
-
-    // Check if password have at least 1 uppercase letter, 1 lowercase letter, 1 digit and 1 special character
-    if (!pattern.test(password)) {
-      console.log(
-        "Error: Password must have at least 1 uppercase letter, 1 lowercase letter, 1 digit and 1 special character"
-      );
-      setShowPasswordError(true);
-      return false;
-    }
-
-    return true;
   };
 
   // TODO: Login user
@@ -117,8 +81,8 @@ const Login = () => {
     console.log(`email: ${email}`);
     console.log(`password: ${password}`);
 
-    const emailValidity = isEmailValid();
-    const passwordValidity = isPasswordValid();
+    const emailValidity = isEmailValid(email);
+    const passwordValidity = isPasswordValid(password);
     // Use GraphQL login mutation to perform login
     // If email does not exist in database, display modal to user saying
     // there is no user account associated with the email address
@@ -172,7 +136,7 @@ const Login = () => {
                         className={`placeholder:normal-case lowercase block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm ${
                           showEmailError ? "border-red-600" : ""
                         }`}
-                        onChange={(e) => setEmail(e.target.value)}
+                        onChange={(e) => handleEmail(e.target.value)}
                         value={email}
                       />
                     </div>
@@ -192,7 +156,7 @@ const Login = () => {
                           <path
                             fill-rule="evenodd"
                             d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-5a.75.75 0 01.75.75v4.5a.75.75 0 01-1.5 0v-4.5A.75.75 0 0110 5zm0 10a1 1 0 100-2 1 1 0 000 2z"
-                            clip-rule="evenodd"
+                            clipRule="evenodd"
                           />
                         </svg>
 
@@ -221,7 +185,7 @@ const Login = () => {
                         className={`block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm ${
                           showPasswordError ? "border-red-600" : ""
                         }`}
-                        onChange={(e) => setPassword(e.target.value)}
+                        onChange={(e) => handlePassword(e.target.value)}
                         value={password}
                         maxLength="12"
                         minLength="8"
@@ -271,7 +235,7 @@ const Login = () => {
                             <path
                               fill-rule="evenodd"
                               d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-5a.75.75 0 01.75.75v4.5a.75.75 0 01-1.5 0v-4.5A.75.75 0 0110 5zm0 10a1 1 0 100-2 1 1 0 000 2z"
-                              clip-rule="evenodd"
+                              clipRule="evenodd"
                             />
                           </svg>
 
