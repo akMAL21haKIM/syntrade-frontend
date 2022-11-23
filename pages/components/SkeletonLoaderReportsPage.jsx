@@ -1,66 +1,62 @@
+import { BoomIcon } from "../../lib/icons";
+
+const people = [
+  {
+    referenceId: "1",
+    type: "boom_100-rise",
+    currency: "USD",
+    transactionTime: "16 Nov 2022,6:24:02 AM",
+    transactionType: "Buy",
+    profitLoss: -1000.0,
+    balance: 9000.0,
+  },
+  {
+    referenceId: "2",
+    type: "crash_100-fall",
+    currency: "USD",
+    transactionTime: "17 Nov 2022,6:24:02 AM",
+    transactionType: "Sell",
+    profitLoss: -789.9,
+    balance: 4000.9,
+  },
+  {
+    referenceId: "1",
+    type: "boom_500-rise",
+    currency: "USD",
+    transactionTime: "18 Nov 2022,6:24:02 AM",
+    transactionType: "Buy",
+    profitLoss: +900.0,
+    balance: 8000.0,
+  },
+];
+
 export default function SkeletonLoaderReportsPage() {
-  return (
-    <div className="w-8/12 mt-12 mb-4 mx-auto">
-      <div className="px-4 sm:px-6 lg:px-8">
-        <div className="sm:flex sm:items-center">
-          <div className="sm:flex-auto">
-            <h1 className="text-xl font-semibold text-gray-900">Reports</h1>
-            <p className="mt-2 text-sm text-gray-700">
-              A list of all the trades in your account.
-            </p>
-          </div>
-        </div>
-        <div className="-mx-4 mt-8 overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:-mx-6 md:mx-0 md:rounded-lg">
-          <table className="min-w-full divide-y divide-gray-300">
-            <thead className="bg-gray-50">
-              <tr>
-                <th
-                  scope="col"
-                  className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
-                >
-                  Ref. ID
-                </th>
-                <th
-                  scope="col"
-                  className="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell"
-                >
-                  Type
-                </th>
-                <th
-                  scope="col"
-                  className="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell"
-                >
-                  Currency
-                </th>
-                <th
-                  scope="col"
-                  className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell"
-                >
-                  Transaction Time
-                </th>
-                <th
-                  scope="col"
-                  className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell"
-                >
-                  Transaction
-                </th>
-                <th
-                  scope="col"
-                  className="px-3 py-3.5 text-right text-sm font-semibold text-gray-900 lg:table-cell"
-                >
-                  Profit / Loss
-                </th>
-                <th
-                  scope="col"
-                  className="px-3 py-3.5 text-right text-sm font-semibold text-gray-900"
-                >
-                  Balance
-                </th>
-              </tr>
-            </thead>
-          </table>
-        </div>
-      </div>
-    </div>
-  );
+  return Array(5)
+    .fill()
+    .map((item, index) => (
+      <tr key={index} className="animate-pulse">
+        <td className="w-full max-w-0 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:w-auto sm:max-w-none sm:pl-6">
+          <div className="h-8 flex bg-gray-300 rounded"></div>
+        </td>
+        <td className="hidden px-3 py-4 text-sm text-gray-500 lg:table-cell">
+          <div className="h-8 flex bg-gray-300 rounded"></div>
+        </td>
+        <td className="hidden px-3 py-4 text-sm text-gray-500 lg:table-cell">
+          <div className="h-8 flex bg-gray-300 rounded"></div>
+        </td>
+        <td className="whitespace-nowrap px-3 py-4 space-y-1 text-sm text-gray-500 hidden lg:table-cell md:table-cell">
+          <div className="h-5 flex bg-gray-300 rounded"></div>
+          <div className="h-5 flex bg-gray-300 rounded"></div>
+        </td>
+        <td className="whitespace-nowrap hidden px-3 py-4 text-sm lg:table-cell md:table-cell">
+          <div className="h-8 flex bg-gray-300 rounded"></div>
+        </td>
+        <td className="whitespace-nowrap hidden px-3 py-4 text-sm lg:table-cell md:table-cell font-semibold text-right">
+          <div className="h-8 bg-gray-300 rounded flex-end"></div>
+        </td>
+        <td className="whitespace-nowrap px-3 py-4 pr-4 text-sm text-gray-700 text-right">
+          <div className="h-8 bg-gray-300 rounded flex-end"></div>
+        </td>
+      </tr>
+    ));
 }
