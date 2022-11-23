@@ -37,9 +37,11 @@ export default function SideMenu({ syntheticModel }) {
     e.preventDefault();
 
     if (parseFloat(stakePayout) > 30000) {
+      // TODO: Disable increment button
+      // TODO: Show tooltip error message
     }
 
-    setStakePayout(parseInt(stakePayout) + 1);
+    setStakePayout((parseFloat(stakePayout) + 1.0).toFixed(2));
   };
 
   const decrement = (e) => {
@@ -64,17 +66,16 @@ export default function SideMenu({ syntheticModel }) {
     // Remove non digit characters from input
     // TODO: Make sure input can only take one period
     // TODO: Make sure input can take only two numbers after period
-    const sanitisedInput = e.target.value.replace(
-      /\^[0-9]*[.]{0,1}[0-9]*$/g,
-      ""
+    const sanitisedInput = parseFloat(
+      e.target.value.replace(/^[0-9]*\.?[0-9]*$/g, "")
     );
     console.log("sanitisedInput: ", sanitisedInput);
 
     // If stakePayout is less than 0, set it to 0
-    if (stakePayout <= 0) {
+    if (stanitisedInput <= 0) {
       setStakePayout(parseFloat(0.0).toFixed(2));
       // TODO: Display tooltip error message about min max stake payout
-    } else if (stakePayout > 30000) {
+    } else if (sanitisedInput > 30000) {
       // TODO: Display tooltip error message about min max stake payout
     } else {
       setStakePayout(parseFloat(sanitisedInput).toFixed(2));
@@ -175,31 +176,6 @@ export default function SideMenu({ syntheticModel }) {
                         )}
                       </Listbox.Option>
                     ))}
-
-                    {/* {tradeTypeOptions.map((option) => (
-                      <Listbox.Option
-                        key={option.title}
-                        className={({ active, selected }) =>
-                          classNames(
-                            selected
-                              ? "bg-gray-100 text-gray-900"
-                              : "text-gray-700 hover:bg-gray-50",
-                            "cursor-default select-none p-4 text-sm"
-                          )
-                        }
-                        value={option}
-                      >
-                        {({ selected, active }) => (
-                          <div className="flex flex-col">
-                            <div className="flex justify-start">
-                              {option.icon}
-
-                              <p className="font-medium ml-5">{option.title}</p>
-                            </div>
-                          </div>
-                        )}
-                      </Listbox.Option>
-                    ))} */}
                   </Listbox.Options>
                 </Transition>
               </div>
