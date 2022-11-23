@@ -109,7 +109,7 @@ export default function SideMenu() {
                   leaveFrom="opacity-100"
                   leaveTo="opacity-0"
                 >
-                  <Listbox.Options className="absolute -left-[235px] -top-[20px] z-[70px] mt-2 w-54 overflow-hidden rounded-md bg-white border-gray-100 border-4">
+                  <Listbox.Options className="absolute -left-[235px] -top-[20px] z-10 mt-2 w-54 overflow-hidden rounded-md bg-white border-gray-100 border-4">
                     <p className="font-semibold p-4 text-sm">Trade Types</p>
 
                     {tradeTypeOptions.map((option) => (
