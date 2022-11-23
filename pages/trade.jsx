@@ -70,7 +70,7 @@ const Trade = () => {
                 syntheticModel={syntheticModel.type}
               />
             </div>
-            <SideMenu></SideMenu>
+            <SideMenu syntheticModel={syntheticModel}></SideMenu>
           </div>
         )}
       </main>
