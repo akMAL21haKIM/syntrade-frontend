@@ -71,7 +71,7 @@ export default function SyntheticModelDropdown({
                   </div>
                 </div>
 
-                {syntheticModelOptions.slice(0, 5).map((option) => (
+                {syntheticModelOptions.slice(0, 2).map((option) => (
                   <Listbox.Option
                     key={option.title}
                     className={({ active }) =>
@@ -103,41 +103,41 @@ export default function SyntheticModelDropdown({
                 </div>
 
                 <Listbox.Option
-                  key={syntheticModelOptions[6].title}
+                  key={syntheticModelOptions[2].title}
                   className={({ active }) =>
                     classNames(
                       active ? "bg-gray-100 text-gray-900" : "text-gray-700",
                       "cursor-default select-none p-4 text-sm"
                     )
                   }
-                  value={syntheticModelOptions[6]}
+                  value={syntheticModelOptions[2]}
                 >
                   <div className="flex flex-col">
                     <div className="flex justify-start">
-                      {syntheticModelOptions[6].icon}
+                      {syntheticModelOptions[2].icon}
 
                       <p className="font-medium ml-5">
-                        {syntheticModelOptions[6].title}
+                        {syntheticModelOptions[2].title}
                       </p>
                     </div>
                   </div>
                 </Listbox.Option>
                 <Listbox.Option
-                  key={syntheticModelOptions[7].title}
+                  key={syntheticModelOptions[3].title}
                   className={({ active }) =>
                     classNames(
                       active ? "bg-gray-100 text-gray-900" : "text-gray-700",
                       "cursor-default select-none p-4 text-sm"
                     )
                   }
-                  value={syntheticModelOptions[7]}
+                  value={syntheticModelOptions[3]}
                 >
                   <div className="flex flex-col">
                     <div className="flex justify-start">
-                      {syntheticModelOptions[7].icon}
+                      {syntheticModelOptions[3].icon}
 
                       <p className="font-medium ml-5">
-                        {syntheticModelOptions[7].title}
+                        {syntheticModelOptions[3].title}
                       </p>
                     </div>
                   </div>

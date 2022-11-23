@@ -21,30 +21,30 @@ export const syntheticModelOptions = [
     ),
     type: "boom_100",
   },
-  {
-    title: "Boom 300 Index",
-    icon: (
-      <BoomIcon
-        fill="none"
-        strokeWidth="1.5"
-        stroke="currentColor"
-        className="w-6 h-6"
-      />
-    ),
-    type: "boom_300",
-  },
-  {
-    title: "Boom 500 Index",
-    icon: (
-      <BoomIcon
-        fill="none"
-        strokeWidth="1.5"
-        stroke="currentColor"
-        className="w-6 h-6"
-      />
-    ),
-    type: "boom_500",
-  },
+  // {
+  //   title: "Boom 300 Index",
+  //   icon: (
+  //     <BoomIcon
+  //       fill="none"
+  //       strokeWidth="1.5"
+  //       stroke="currentColor"
+  //       className="w-6 h-6"
+  //     />
+  //   ),
+  //   type: "boom_300",
+  // },
+  // {
+  //   title: "Boom 500 Index",
+  //   icon: (
+  //     <BoomIcon
+  //       fill="none"
+  //       strokeWidth="1.5"
+  //       stroke="currentColor"
+  //       className="w-6 h-6"
+  //     />
+  //   ),
+  //   type: "boom_500",
+  // },
   {
     title: "Crash 100 Index",
     icon: (
@@ -57,30 +57,30 @@ export const syntheticModelOptions = [
     ),
     type: "crash_100",
   },
-  {
-    title: "Crash 300 Index",
-    icon: (
-      <CrashIcon
-        fill="none"
-        strokeWidth="1.5"
-        stroke="currentColor"
-        className="w-6 h-6"
-      />
-    ),
-    type: "crash_300",
-  },
-  {
-    title: "Crash 500 Index",
-    icon: (
-      <CrashIcon
-        fill="none"
-        strokeWidth="1.5"
-        stroke="currentColor"
-        className="w-6 h-6"
-      />
-    ),
-    type: "crash_500",
-  },
+  // {
+  //   title: "Crash 300 Index",
+  //   icon: (
+  //     <CrashIcon
+  //       fill="none"
+  //       strokeWidth="1.5"
+  //       stroke="currentColor"
+  //       className="w-6 h-6"
+  //     />
+  //   ),
+  //   type: "crash_300",
+  // },
+  // {
+  //   title: "Crash 500 Index",
+  //   icon: (
+  //     <CrashIcon
+  //       fill="none"
+  //       strokeWidth="1.5"
+  //       stroke="currentColor"
+  //       className="w-6 h-6"
+  //     />
+  //   ),
+  //   type: "crash_500",
+  // },
   {
     title: "Volatility 10 Index",
     icon: (
