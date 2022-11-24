@@ -26,7 +26,6 @@ export default function SideMenu({ syntheticModel }) {
 
   useEffect(() => {
     setLoader(true);
-    console.log("syntheticModel: ", syntheticModel);
 
     setTimeout(async () => {
       setLoader(false);
@@ -41,7 +40,7 @@ export default function SideMenu({ syntheticModel }) {
       // TODO: Show tooltip error message
     }
 
-    setStakePayout((parseFloat(stakePayout) + 1.0).toFixed(2));
+    setStakePayout(stakePayout + 1);
   };
 
   const decrement = (e) => {
@@ -49,11 +48,11 @@ export default function SideMenu({ syntheticModel }) {
 
     // If stakePayout is less than 0, set it to 0
     if (stakePayout <= 0) {
-      setStakePayout(parseFloat(0.0).toFixed(2));
+      setStakePayout(0);
       // TODO: Disable decrement button
       // TODO: Show tooltip error message
     } else {
-      setStakePayout((parseFloat(stakePayout) - 1).toFixed(2));
+      setStakePayout(stakePayout - 1);
     }
   };
 
@@ -66,19 +65,18 @@ export default function SideMenu({ syntheticModel }) {
     // Remove non digit characters from input
     // TODO: Make sure input can only take one period
     // TODO: Make sure input can take only two numbers after period
-    const sanitisedInput = parseFloat(
-      e.target.value.replace(/^[0-9]*\.?[0-9]*$/g, "")
-    );
+    const sanitisedInput = e.target.value.replace(/\D/g, "");
     console.log("sanitisedInput: ", sanitisedInput);
 
     // If stakePayout is less than 0, set it to 0
-    if (stanitisedInput <= 0) {
-      setStakePayout(parseFloat(0.0).toFixed(2));
+    if (sanitisedInput <= 0) {
+      setStakePayout(0);
       // TODO: Display tooltip error message about min max stake payout
     } else if (sanitisedInput > 30000) {
       // TODO: Display tooltip error message about min max stake payout
+      setStakePayout(sanitisedInput);
     } else {
-      setStakePayout(parseFloat(sanitisedInput).toFixed(2));
+      setStakePayout(sanitisedInput);
     }
   };
 
@@ -190,7 +188,7 @@ export default function SideMenu({ syntheticModel }) {
         <span className="grid grid-cols-2 justify-between rounded">
           <button
             type="button"
-            className={`rounded-tl px-4 py-2 text-sm font-semibold ${
+            className={`rounded-tl px-4 py-2 text-sm font-semibold focus:outline-none ${
               selectedStakePayout
                 ? "bg-indigo-600 text-white"
                 : "bg-transparent text-gray-700 hover:bg-gray-100"
@@ -208,7 +206,7 @@ export default function SideMenu({ syntheticModel }) {
           </button>
           <button
             type="button"
-            className={`rounded-tl px-4 py-2 text-sm font-semibold ${
+            className={`rounded-tl px-4 py-2 text-sm font-semibold focus:outline-none ${
               !selectedStakePayout
                 ? "bg-indigo-600 text-white"
                 : "bg-transparent text-gray-700 hover:bg-gray-100"
@@ -272,7 +270,7 @@ export default function SideMenu({ syntheticModel }) {
           </div>
 
           <button
-            className={`px-4 py-4 rounded w-full grid grid-cols-2  ${
+            className={`px-4 py-4 rounded w-full grid grid-cols-2 focus:outline-none ${
               loader
                 ? "bg-indigo-600 opacity-50 disabled:pointer-events-none"
                 : "hover:bg-indigo-700 bg-indigo-600"
@@ -297,7 +295,7 @@ export default function SideMenu({ syntheticModel }) {
             )}
           </div>
           <button
-            className={`px-4 py-4 rounded w-full grid grid-cols-2 ${
+            className={`px-4 py-4 rounded w-full grid grid-cols-2 focus:outline-none ${
               loader
                 ? "bg-red-600 opacity-50 disabled:pointer-events-none"
                 : "hover:bg-red-700 bg-red-600"
