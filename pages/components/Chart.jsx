@@ -23,7 +23,6 @@ const Chart = ({ width, height, syntheticModel, stream }) => {
         width: window.innerWidth - convertRemToPixels(20),
         height: window.innerHeight - convertRemToPixels(7),
       });
-      // setTimeout(() => chart.timeScale().fitContent(), 0);
       chart.timeScale().fitContent();
     };
 
@@ -34,9 +33,6 @@ const Chart = ({ width, height, syntheticModel, stream }) => {
     });
 
     areaSeries.setData(data);
-
-    // setTimeout(() => chart.timeScale().fitContent(), 100);
-
     stream.onmessage = (e) => {
       try {
         // Parse JSON pricing data from Server Sent Events (SSE)
@@ -52,10 +48,6 @@ const Chart = ({ width, height, syntheticModel, stream }) => {
             },
           ])
         );
-
-        // chart.timeScale().fitContent();
-
-        // setTimeout(() => chart.timeScale().fitContent(), 100);
       } catch (e) {
         console.error(e);
       }
