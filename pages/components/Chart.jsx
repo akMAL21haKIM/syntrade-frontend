@@ -3,19 +3,29 @@ import { useRef, useEffect } from "react";
 
 let data = [];
 
+function convertRemToPixels(rem) {
+  return rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
+}
+
 const Chart = ({ width, height, syntheticModel, stream }) => {
   const chartRef = useRef(null);
 
   useEffect(() => {
-    const chartOptions = {
-      width,
-      height,
+    const chart = createChart(document.body, {
       layout: {
         textColor: "black",
         background: { type: "solid", color: "white" },
       },
+    });
+
+    const resize = () => {
+      chart.applyOptions({
+        width: window.innerWidth - convertRemToPixels(20),
+        height: window.innerHeight - convertRemToPixels(7),
+      });
+      // setTimeout(() => chart.timeScale().fitContent(), 0);
+      chart.timeScale().fitContent();
     };
-    const chart = createChart(chartRef.current || "", chartOptions);
 
     const areaSeries = chart.addAreaSeries({
       lineColor: "#4f46e5",
@@ -25,10 +35,14 @@ const Chart = ({ width, height, syntheticModel, stream }) => {
 
     areaSeries.setData(data);
 
+    // setTimeout(() => chart.timeScale().fitContent(), 100);
+
     stream.onmessage = (e) => {
       try {
+        // Parse JSON pricing data from Server Sent Events (SSE)
         let m = JSON.parse(e.data);
 
+        // Append new data to areaSeries' data
         areaSeries.setData(
           (data = [
             ...data,
@@ -38,12 +52,18 @@ const Chart = ({ width, height, syntheticModel, stream }) => {
             },
           ])
         );
+
+        // chart.timeScale().fitContent();
+
+        // setTimeout(() => chart.timeScale().fitContent(), 100);
       } catch (e) {
         console.error(e);
       }
     };
 
-    // chart.timeScale().fitContent();
+    resize();
+
+    window.addEventListener("resize", resize, false);
 
     return () => {
       stream.onmessage = null;
@@ -51,7 +71,7 @@ const Chart = ({ width, height, syntheticModel, stream }) => {
     };
   }, [syntheticModel]);
 
-  return <div ref={chartRef} />;
+  return <div className="absolute" ref={chartRef} />;
 };
 
 export default Chart;
