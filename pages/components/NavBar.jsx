@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import { Popover, Transition, Menu } from "@headlessui/react";
 import {
   XMarkIcon,
@@ -27,6 +27,8 @@ function classNames(...classes) {
 }
 
 export default function NavBar() {
+  const [isMenuClicked, setIsMenuClicked] = useState(false);
+
   return (
     <Popover className="relative bg-white border-gray-100 border-b-2">
       <div className="w-full px-4 sm:px-6">
@@ -141,11 +143,24 @@ export default function NavBar() {
                 {/* Profile dropdown */}
                 <Menu as="div" className="relative ml-3">
                   <div>
-                    <Menu.Button className="flex rounded-full bg-transparent text-sm focus:outline-none hover:ring-gray-100 hover:ring-4">
+                    <Menu.Button
+                      onClick={(e) => {
+                        if (isMenuClicked) {
+                          setIsMenuClicked(false);
+                        } else {
+                          setIsMenuClicked(true);
+                        }
+                      }}
+                      className="flex rounded-full bg-transparent text-sm focus:outline-none hover:ring-gray-100 hover:ring-4"
+                    >
                       <span className="sr-only">Open user menu</span>
                       <span className="inline-block h-10 w-10 overflow-hidden rounded-full bg-gray-100">
                         <svg
-                          className="h-full w-full text-gray-300 hover:text-indigo-600 hover:opacity-60"
+                          className={`h-full w-full  hover:text-indigo-600 hover:opacity-60 ${
+                            isMenuClicked
+                              ? "text-indigo-600 opacity-60"
+                              : "text-gray-300"
+                          }`}
                           fill="currentColor"
                           viewBox="0 0 24 24"
                         >
