@@ -206,7 +206,7 @@ export default function SideMenu({ syntheticModel }) {
           </button>
           <button
             type="button"
-            className={`rounded-tl px-4 py-2 text-sm font-semibold focus:outline-none ${
+            className={`rounded-tr px-4 py-2 text-sm font-semibold focus:outline-none ${
               !selectedStakePayout
                 ? "bg-indigo-600 text-white"
                 : "bg-transparent text-gray-700 hover:bg-gray-100"
