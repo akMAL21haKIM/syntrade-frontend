@@ -35,7 +35,7 @@ export const syntheticModelOptions = [
           <RiseIcon
             fill="none"
             strokeWidth={2}
-            stroke="currentColor"
+            stroke="#ffffff"
             className="w-5 h-5 stroke-white"
           />
         ),
@@ -43,7 +43,7 @@ export const syntheticModelOptions = [
           <FallIcon
             fill="none"
             strokeWidth={2}
-            stroke="currentColor"
+            stroke="#ffffff"
             className="w-5 h-5 stroke-white"
           />
         ),
@@ -96,7 +96,7 @@ export const syntheticModelOptions = [
           <RiseIcon
             fill="none"
             strokeWidth={2}
-            stroke="currentColor"
+            stroke="#ffffff"
             className="w-5 h-5 stroke-white"
           />
         ),
@@ -104,7 +104,7 @@ export const syntheticModelOptions = [
           <FallIcon
             fill="none"
             strokeWidth={2}
-            stroke="currentColor"
+            stroke="#ffffff"
             className="w-5 h-5 stroke-white"
           />
         ),
@@ -164,7 +164,7 @@ export const syntheticModelOptions = [
           <EvenIcon
             fill="none"
             strokeWidth={2}
-            stroke="currentColor"
+            stroke="#ffffff"
             className="w-5 h-5 stroke-white"
           />
         ),
@@ -172,7 +172,7 @@ export const syntheticModelOptions = [
           <OddIcon
             fill="none"
             strokeWidth={2}
-            stroke="currentColor"
+            stroke="#ffffff"
             className="w-5 h-5 stroke-white"
           />
         ),
@@ -194,7 +194,7 @@ export const syntheticModelOptions = [
           <MatchesIcon
             fill="none"
             strokeWidth={2}
-            stroke="currentColor"
+            stroke="#ffffff"
             className="w-5 h-5 stroke-white"
           />
         ),
@@ -202,7 +202,7 @@ export const syntheticModelOptions = [
           <DiffersIcon
             fill="none"
             strokeWidth={2}
-            stroke="currentColor"
+            stroke="#ffffff"
             className="w-5 h-5 stroke-white"
           />
         ),
@@ -217,7 +217,7 @@ export const syntheticModelOptions = [
           <RiseIcon
             fill="none"
             strokeWidth={2}
-            stroke="currentColor"
+            stroke="#ffffff"
             className="w-5 h-5 stroke-white"
           />
         ),
@@ -225,7 +225,7 @@ export const syntheticModelOptions = [
           <FallIcon
             fill="none"
             strokeWidth={2}
-            stroke="currentColor"
+            stroke="#ffffff"
             className="w-5 h-5 stroke-white"
           />
         ),
@@ -314,7 +314,7 @@ export const syntheticModelOptions = [
           <RiseIcon
             fill="none"
             strokeWidth={2}
-            stroke="#ffffff"
+            stroke="#FFFFFF"
             className="w-5 h-5 stroke-white"
           />
         ),
@@ -322,7 +322,7 @@ export const syntheticModelOptions = [
           <FallIcon
             fill="none"
             strokeWidth={2}
-            stroke="#ffffff"
+            stroke="#FFFFFF"
             className="w-5 h-5 stroke-white"
           />
         ),

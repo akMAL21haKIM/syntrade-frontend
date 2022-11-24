@@ -18,7 +18,7 @@ function classNames(...classes) {
 export default function SideMenu({ syntheticModel }) {
   const [loader, setLoader] = useState(false);
   const [selectedTradeType, setSelectedTradeType] = useState(
-    tradeTypeOptions[0]
+    syntheticModel.trade_type[0]
   );
   const [isClickedTradeTypeBox, setIsClickedTradeTypeBox] = useState(false);
   const [stakePayout, setStakePayout] = useState(10);
