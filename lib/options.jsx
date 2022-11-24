@@ -150,29 +150,6 @@ export const syntheticModelOptions = [
     type: "vol_10",
     trade_type: [
       {
-        title: "Rise / Fall",
-        simplified_title: "rise_fall",
-        icon: <RiseFallIcon fill="currentColor" className="w-5 h-5" />,
-        blueIcon: (
-          <RiseIcon
-            fill="none"
-            strokeWidth={2}
-            stroke="currentColor"
-            className="w-5 h-5 stroke-white"
-          />
-        ),
-        redIcon: (
-          <FallIcon
-            fill="none"
-            strokeWidth={2}
-            stroke="currentColor"
-            className="w-5 h-5 stroke-white"
-          />
-        ),
-        blueText: "Rise",
-        redText: "Fall",
-      },
-      {
         title: "Even / Odd",
         simplified_title: "even_odd",
         icon: (
@@ -231,6 +208,29 @@ export const syntheticModelOptions = [
         ),
         blueText: "Matches",
         redText: "Differs",
+      },
+      {
+        title: "Rise / Fall",
+        simplified_title: "rise_fall",
+        icon: <RiseFallIcon fill="currentColor" className="w-5 h-5" />,
+        blueIcon: (
+          <RiseIcon
+            fill="none"
+            strokeWidth={2}
+            stroke="currentColor"
+            className="w-5 h-5 stroke-white"
+          />
+        ),
+        redIcon: (
+          <FallIcon
+            fill="none"
+            strokeWidth={2}
+            stroke="currentColor"
+            className="w-5 h-5 stroke-white"
+          />
+        ),
+        blueText: "Rise",
+        redText: "Fall",
       },
     ],
   },
@@ -247,29 +247,6 @@ export const syntheticModelOptions = [
     type: "vol_25",
     trade_type: [
       {
-        title: "Rise / Fall",
-        simplified_title: "rise_fall",
-        icon: <RiseFallIcon fill="currentColor" className="w-5 h-5" />,
-        blueIcon: (
-          <RiseIcon
-            fill="none"
-            strokeWidth={2}
-            stroke="currentColor"
-            className="w-5 h-5 stroke-white"
-          />
-        ),
-        redIcon: (
-          <FallIcon
-            fill="none"
-            strokeWidth={2}
-            stroke="currentColor"
-            className="w-5 h-5 stroke-white"
-          />
-        ),
-        blueText: "Rise",
-        redText: "Fall",
-      },
-      {
         title: "Even / Odd",
         simplified_title: "even_odd",
         icon: (
@@ -284,7 +261,7 @@ export const syntheticModelOptions = [
           <EvenIcon
             fill="none"
             strokeWidth={2}
-            stroke="currentColor"
+            stroke="#ffffff"
             className="w-5 h-5 stroke-white"
           />
         ),
@@ -292,7 +269,7 @@ export const syntheticModelOptions = [
           <OddIcon
             fill="none"
             strokeWidth={2}
-            stroke="currentColor"
+            stroke="#ffffff"
             className="w-5 h-5 stroke-white"
           />
         ),
@@ -314,7 +291,7 @@ export const syntheticModelOptions = [
           <MatchesIcon
             fill="none"
             strokeWidth={2}
-            stroke="currentColor"
+            stroke="#ffffff"
             className="w-5 h-5 stroke-white"
           />
         ),
@@ -322,12 +299,35 @@ export const syntheticModelOptions = [
           <DiffersIcon
             fill="none"
             strokeWidth={2}
-            stroke="currentColor"
+            stroke="#ffffff"
             className="w-5 h-5 stroke-white"
           />
         ),
         blueText: "Matches",
         redText: "Differs",
+      },
+      {
+        title: "Rise / Fall",
+        simplified_title: "rise_fall",
+        icon: <RiseFallIcon fill="currentColor" className="w-5 h-5" />,
+        blueIcon: (
+          <RiseIcon
+            fill="none"
+            strokeWidth={2}
+            stroke="#ffffff"
+            className="w-5 h-5 stroke-white"
+          />
+        ),
+        redIcon: (
+          <FallIcon
+            fill="none"
+            strokeWidth={2}
+            stroke="#ffffff"
+            className="w-5 h-5 stroke-white"
+          />
+        ),
+        blueText: "Rise",
+        redText: "Fall",
       },
     ],
   },
