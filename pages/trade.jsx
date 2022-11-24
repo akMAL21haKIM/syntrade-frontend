@@ -47,7 +47,7 @@ const Trade = () => {
   return (
     <>
       <Head>
-        <title>Trades | Syntrade</title>
+        <title>Trade | Syntrade</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <main>
