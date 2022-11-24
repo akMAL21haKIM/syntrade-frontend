@@ -189,16 +189,14 @@ export default function SideMenu({ syntheticModel }) {
           <button
             type="button"
             className={`rounded-tl px-4 py-2 text-sm font-semibold focus:outline-none ${
-              selectedStakePayout
+              selectedStakePayout != true
                 ? "bg-indigo-600 text-white"
                 : "bg-transparent text-gray-700 hover:bg-gray-100"
             }`}
             onClick={(e) => {
               e.preventDefault();
-              if (selectedStakePayout) {
+              if (selectedStakePayout == true) {
                 setSelectedStakePayout(false);
-              } else {
-                setSelectedStakePayout(true);
               }
             }}
           >
@@ -207,15 +205,13 @@ export default function SideMenu({ syntheticModel }) {
           <button
             type="button"
             className={`rounded-tr px-4 py-2 text-sm font-semibold focus:outline-none ${
-              !selectedStakePayout
+              selectedStakePayout != false
                 ? "bg-indigo-600 text-white"
                 : "bg-transparent text-gray-700 hover:bg-gray-100"
             }`}
             onClick={(e) => {
               e.preventDefault();
-              if (selectedStakePayout) {
-                setSelectedStakePayout(false);
-              } else {
+              if (selectedStakePayout == false) {
                 setSelectedStakePayout(true);
               }
             }}
