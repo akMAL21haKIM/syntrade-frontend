@@ -1,24 +1,16 @@
 import { createChart } from "lightweight-charts";
-import { useRef, useEffect, createPortal } from "react";
-import { render } from "react-dom";
+import { useRef, useEffect } from "react";
+import { convertRemToPixels } from "../../lib/utilities";
 
 let data = [];
 
-function convertRemToPixels(rem) {
-  return rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
-}
-
-const ChartWrapper = () => {
-  return <div style={{ padding: 40 }}></div>;
-};
-
-const Chart = ({ width, height, syntheticModel, stream }) => {
+const Chart = ({ syntheticModel, stream }) => {
   const chartRef = useRef(null);
 
   useEffect(() => {
     const chart = createChart("baka", {
       layout: {
-        textColor: "black",
+        textColor: "#374151",
         background: { type: "solid", color: "white" },
       },
       timeScale: {
@@ -44,7 +36,6 @@ const Chart = ({ width, height, syntheticModel, stream }) => {
         height: window.innerHeight - convertRemToPixels(7),
       });
       chart.timeScale().fitContent();
-      // chart.timeScale().scrollToRealTime();
     };
 
     const areaSeries = chart.addAreaSeries({
@@ -89,7 +80,11 @@ const Chart = ({ width, height, syntheticModel, stream }) => {
   }, [syntheticModel]);
 
   return (
-    <div id="baka" className="w-[100px] h-[20px] pl-[20px]" ref={chartRef} />
+    <div
+      id="baka"
+      className="w-[6.25rem] h-[1.25rem] pl-[1.25rem] absolute"
+      ref={chartRef}
+    />
   );
 };
 

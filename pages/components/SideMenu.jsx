@@ -1,19 +1,12 @@
 import { React, Fragment, useState, useEffect } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import RangeSlider from "./RangeSlider";
-import { tradeTypeOptions } from "../../lib/options";
 import {
   SolidDollarIcon,
   ChevronRightIcon,
   ChevronLeftIcon,
-  EvenOddIcon,
-  EvenIcon,
-  OddIcon,
 } from "../../lib/icons";
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
+import { classNames } from "../../lib/utilities";
 
 export default function SideMenu({ syntheticModel }) {
   const [loader, setLoader] = useState(false);
@@ -27,6 +20,26 @@ export default function SideMenu({ syntheticModel }) {
   const [disableDecrement, setDisableDecrement] = useState(false);
   const [blueIconTransition, setBlueIconTransition] = useState(false);
   const [redIconTransition, setRedIconTransition] = useState(false);
+
+  // // set the tooltip content element
+  // const targetEl = document.getElementById("tooltipContent");
+
+  // // set the element that trigger the tooltip using hover or click
+  // const triggerEl = document.getElementById("tooltipButton");
+
+  // // options with default values
+  // const options = {
+  //   placement: "left",
+  //   triggerType: "hover",
+  //   onHide: () => {
+  //     console.log("tooltip is shown");
+  //   },
+  //   onShow: () => {
+  //     console.log("tooltip is hidden");
+  //   },
+  // };
+
+  // const tooltip = new Tooltip(targetEl, triggerEl, options);
 
   useEffect(() => {
     setLoader(true);
@@ -42,7 +55,7 @@ export default function SideMenu({ syntheticModel }) {
     setDisableDecrement(false);
 
     if (parseFloat(stakePayout) > 30000) {
-      // TODO: Disable increment button
+      // Disable increment button
       setDisableIncrement(true);
       // TODO: Show tooltip error message
     }
@@ -53,12 +66,18 @@ export default function SideMenu({ syntheticModel }) {
   const decrement = (e) => {
     e.preventDefault();
 
+    setDisableIncrement(false);
+    // tooltip.hide();
+
     // If stakePayout is less than 0, set it to 0
     if (stakePayout <= 0) {
       setStakePayout(0);
+
       // Disable decrement button
       setDisableDecrement(true);
+
       // TODO: Show tooltip error message
+      // tooltip.show();
     } else {
       // Enable decrement button
       setDisableDecrement(false);
@@ -71,6 +90,7 @@ export default function SideMenu({ syntheticModel }) {
   // Input can only be numbers and a single dot
   const handleStakePayoutChange = (e) => {
     e.preventDefault();
+    // tooltip.hide();
 
     // Remove non digit characters from input
     // TODO: Make sure input can only take one period
@@ -82,9 +102,11 @@ export default function SideMenu({ syntheticModel }) {
     if (sanitisedInput <= 0) {
       setStakePayout(0);
       // TODO: Display tooltip error message about min max stake payout
+      // tooltip.show();
     } else if (sanitisedInput > 30000) {
-      // TODO: Display tooltip error message about min max stake payout
       setStakePayout(sanitisedInput);
+      // TODO: Display tooltip error message about min max stake payout
+      // tooltip.show();
     } else {
       setStakePayout(sanitisedInput);
     }
@@ -194,7 +216,7 @@ export default function SideMenu({ syntheticModel }) {
       <div class="mt-6 mx-6 py-2 px-4 bg-white rounded border-4 border-gray-100 ">
         <RangeSlider></RangeSlider>
       </div>
-      <div className="mt-6 mx-6 bg-gray-50 rounded border-4 border-gray-100">
+      <div className="mt-6 mx-6 bg-gray-50 rounded border-4 border-gray-100 group">
         <span className="grid grid-cols-2 justify-between rounded">
           <button
             type="button"
@@ -233,10 +255,7 @@ export default function SideMenu({ syntheticModel }) {
         <div className="bg-white rounded">
           <span className="grid grid-cols-4 justify-between">
             <button
-              // disableDecrement ? "visible" : "invisible"
               type="button"
-              data-tooltip-target="tooltip-left"
-              data-tooltip-placement="left"
               className={`col-span-1 rounded-l px-4 py-4 text-sm font-semibold text-gray-700 hover:bg-gray-100 ${
                 disableDecrement ? "cursor-not-allowed" : "cursor-pointer"
               }`}
@@ -244,16 +263,6 @@ export default function SideMenu({ syntheticModel }) {
             >
               –
             </button>
-            <div
-              id="tooltip-left"
-              role="tooltip"
-              class={`absolute z-20 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700 ${
-                disableDecrement ? "visible inline-block" : "invisible"
-              }`}
-            >
-              Tooltip on left
-              <div class="tooltip-arrow" data-popper-arrow></div>
-            </div>
             <div className="col-span-2 grid grid-cols-3 justify-center align-center pr-4 ">
               <input
                 type="text"
@@ -279,7 +288,35 @@ export default function SideMenu({ syntheticModel }) {
             </button>
           </span>
         </div>
+        <div class="absolute z-10 -left-[2.438rem] items-center hidden group-hover:flex">
+          <div class="w-3 h-3 -ml-2 rotate-45 bg-black"></div>
+          <span class="absolute flex z-10 p-2 text-xs leading-none text-white whitespace-no-wrap bg-black shadow-lg">
+            A left aligned tooltip.
+          </span>
+        </div>
       </div>
+
+      {/* <div class="relative flex items-center group">
+        <div class="absolute right-0 items-center hidden mr-6 group-hover:flex">
+          <span class="relative z-10 p-2 text-xs leading-none text-white whitespace-no-wrap bg-black shadow-lg">
+            A left aligned tooltip.
+          </span>
+          <div class="w-3 h-3 -ml-2 rotate-45 bg-black"></div>
+        </div>
+        <svg
+          class="w-5 h-5"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z"
+            clip-rule="evenodd"
+          />
+        </svg>
+      </div> */}
+
       <div className="mt-6 mx-6 py-2 px-4 rounded border-4 border-gray-100 bg-white">
         <div>
           <div className="grid grid-cols-2">

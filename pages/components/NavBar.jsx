@@ -6,25 +6,9 @@ import {
   ReportsIcon,
   ProfileIcon,
 } from "../../lib/icons";
+import { classNames } from "../../lib/utilities";
 
 let isUserLoggedIn = true;
-
-const navigations = [
-  {
-    name: "Reports",
-    href: "/reports",
-    icon: ReportsIcon,
-  },
-  {
-    name: "Profile",
-    href: "/profile",
-    icon: ProfileIcon,
-  },
-];
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
 
 export default function NavBar() {
   const [isMenuClicked, setIsMenuClicked] = useState(false);
