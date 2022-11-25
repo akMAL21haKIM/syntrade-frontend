@@ -25,6 +25,8 @@ export default function SideMenu({ syntheticModel }) {
   const [selectedStakePayout, setSelectedStakePayout] = useState(true);
   const [disableIncrement, setDisableIncrement] = useState(false);
   const [disableDecrement, setDisableDecrement] = useState(false);
+  const [blueIconTransition, setBlueIconTransition] = useState(false);
+  const [redIconTransition, setRedIconTransition] = useState(false);
 
   useEffect(() => {
     setLoader(true);
@@ -203,6 +205,7 @@ export default function SideMenu({ syntheticModel }) {
             }`}
             onClick={(e) => {
               e.preventDefault();
+
               if (selectedStakePayout == true) {
                 setSelectedStakePayout(false);
               }
@@ -297,7 +300,28 @@ export default function SideMenu({ syntheticModel }) {
                 : "hover:bg-indigo-700 bg-indigo-600"
             }`}
           >
-            {selectedTradeType.blueIcon}
+            <div
+              className={`bg-transparent ${
+                blueIconTransition
+                  ? "translate-x-20 ease-out cubic-bezier(0.4, 0, 1, 1) duration-200"
+                  : ""
+              }`}
+              onClick={(e) => {
+                e.preventDefault();
+                console.log("blueIconTransition", blueIconTransition);
+                if (blueIconTransition == false) {
+                  setBlueIconTransition(true);
+
+                  setTimeout(async () => {
+                    setBlueIconTransition(false);
+                  }, 700);
+                } else {
+                  setBlueIconTransition(false);
+                }
+              }}
+            >
+              {selectedTradeType.blueIcon}
+            </div>
 
             <p className="text-sm font-semibold text-white text-right">
               {selectedTradeType.blueText}
@@ -322,7 +346,28 @@ export default function SideMenu({ syntheticModel }) {
                 : "hover:bg-red-700 bg-red-600"
             }`}
           >
-            {selectedTradeType.redIcon}
+            <div
+              className={`bg-transparent ${
+                redIconTransition
+                  ? "translate-x-20 ease-out cubic-bezier(0.4, 0, 1, 1) duration-200"
+                  : ""
+              }`}
+              onClick={(e) => {
+                e.preventDefault();
+                console.log("redIconTransition", redIconTransition);
+                if (redIconTransition == false) {
+                  setRedIconTransition(true);
+
+                  setTimeout(async () => {
+                    setRedIconTransition(false);
+                  }, 700);
+                } else {
+                  setRedIconTransition(false);
+                }
+              }}
+            >
+              {selectedTradeType.redIcon}
+            </div>
 
             <p className="text-sm font-semibold text-white text-right">
               {selectedTradeType.redText}
