@@ -11,9 +11,7 @@ export default function RangeSlider() {
   return (
     <div>
       <div className="grid grid-flow-col justify-between">
-        <p className="text-sm mb-1 mt-0 font-thin tracking-wide text-gray-700">
-          Ticks
-        </p>
+        <p className="text-sm mb-1 mt-0 font-light text-gray-500">Ticks</p>
         <p className="text-sm mb-1 mt-0 font-semibold text-gray-700">
           {sliderValue}
         </p>
