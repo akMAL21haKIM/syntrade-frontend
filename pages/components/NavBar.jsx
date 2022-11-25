@@ -156,7 +156,7 @@ export default function NavBar() {
                       <span className="sr-only">Open user menu</span>
                       <span className="inline-block h-10 w-10 overflow-hidden rounded-full bg-gray-100">
                         <svg
-                          className={`h-full w-full  hover:text-indigo-600 hover:opacity-60 ${
+                          className={`h-full w-full hover:text-indigo-600 hover:opacity-60 ${
                             isMenuClicked
                               ? "text-indigo-600 opacity-60"
                               : "text-gray-300"
@@ -181,32 +181,28 @@ export default function NavBar() {
                     <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                       <Menu.Item>
                         {({ active }) => (
-                          <>
-                            <a
-                              href="/trade"
-                              className={classNames(
-                                active ? "bg-gray-100" : "",
-                                "block px-4 py-2 text-sm text-gray-700"
-                              )}
-                            >
-                              Trade
-                            </a>
-                          </>
+                          <a
+                            href="/trade"
+                            className={classNames(
+                              active ? "bg-gray-100" : "",
+                              "block px-4 py-2 text-sm text-gray-700"
+                            )}
+                          >
+                            Trade
+                          </a>
                         )}
                       </Menu.Item>
                       <Menu.Item>
                         {({ active }) => (
-                          <>
-                            <a
-                              href="/profile"
-                              className={classNames(
-                                active ? "bg-gray-100" : "",
-                                "block px-4 py-2 text-sm text-gray-700"
-                              )}
-                            >
-                              Profile
-                            </a>
-                          </>
+                          <a
+                            href="/profile"
+                            className={classNames(
+                              active ? "bg-gray-100" : "",
+                              "block px-4 py-2 text-sm text-gray-700"
+                            )}
+                          >
+                            Profile
+                          </a>
                         )}
                       </Menu.Item>
                       <Menu.Item>
