@@ -44,7 +44,6 @@ const Trade = () => {
   );
   const [loader, setLoader] = useState(false);
 
-
   useEffect(() => {
     setLoader(true);
 
@@ -64,7 +63,7 @@ const Trade = () => {
         {loader ? (
           <SkeletonLoaderTradePage />
         ) : (
-          <div className="mx-8 px-8">
+          <div>
             <SyntheticModelDropdown
               syntheticModel={syntheticModel}
               setSyntheticModel={setSyntheticModel}
