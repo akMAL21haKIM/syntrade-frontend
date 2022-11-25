@@ -1,7 +1,7 @@
 export const SkeletonLoaderTradePage = () => {
   return (
     <div className="grid grid-cols-2">
-      <div className="mx-8 px-8 mt-8">
+      <div className="pl-[1.25rem] mt-8">
         <div className="animate-pulse w-72 bg-gray-300 border-gray-300 border-4 rounded-md px-4 py-5" />
         <div className="animate-pulse w-[1250px] h-[600px] bg-gray-300 border-gray-300 border-4 rounded-md my-4" />
       </div>
