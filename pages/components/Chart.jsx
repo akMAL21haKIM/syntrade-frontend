@@ -68,7 +68,9 @@ const Chart = ({ width, height, syntheticModel, stream }) => {
     };
   }, [syntheticModel]);
 
-  return <div id="baka" className="pd-8" ref={chartRef} />;
+  return (
+    <div id="baka" className="w-[100px] h-[20px] pl-[20px]" ref={chartRef} />
+  );
 };
 
 export default Chart;
