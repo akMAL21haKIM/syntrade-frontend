@@ -23,6 +23,8 @@ export default function SideMenu({ syntheticModel }) {
   const [isClickedTradeTypeBox, setIsClickedTradeTypeBox] = useState(false);
   const [stakePayout, setStakePayout] = useState(10);
   const [selectedStakePayout, setSelectedStakePayout] = useState(true);
+  const [disableIncrement, setDisableIncrement] = useState(false);
+  const [disableDecrement, setDisableDecrement] = useState(false);
 
   useEffect(() => {
     setLoader(true);
@@ -35,8 +37,11 @@ export default function SideMenu({ syntheticModel }) {
   const increment = (e) => {
     e.preventDefault();
 
+    setDisableDecrement(false);
+
     if (parseFloat(stakePayout) > 30000) {
       // TODO: Disable increment button
+      setDisableIncrement(true);
       // TODO: Show tooltip error message
     }
 
@@ -49,9 +54,12 @@ export default function SideMenu({ syntheticModel }) {
     // If stakePayout is less than 0, set it to 0
     if (stakePayout <= 0) {
       setStakePayout(0);
-      // TODO: Disable decrement button
+      // Disable decrement button
+      setDisableDecrement(true);
       // TODO: Show tooltip error message
     } else {
+      // Enable decrement button
+      setDisableDecrement(false);
       setStakePayout(stakePayout - 1);
     }
   };
@@ -222,12 +230,27 @@ export default function SideMenu({ syntheticModel }) {
         <div className="bg-white rounded">
           <span className="grid grid-cols-4 justify-between">
             <button
+              // disableDecrement ? "visible" : "invisible"
               type="button"
-              className="col-span-1 rounded-l px-4 py-4 text-sm font-semibold text-gray-700 hover:bg-gray-100"
+              data-tooltip-target="tooltip-left"
+              data-tooltip-placement="left"
+              className={`col-span-1 rounded-l px-4 py-4 text-sm font-semibold text-gray-700 hover:bg-gray-100 ${
+                disableDecrement ? "cursor-not-allowed" : "cursor-pointer"
+              }`}
               onClick={(e) => decrement(e)}
             >
               –
             </button>
+            <div
+              id="tooltip-left"
+              role="tooltip"
+              class={`absolute z-20 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700 ${
+                disableDecrement ? "visible inline-block" : "invisible"
+              }`}
+            >
+              Tooltip on left
+              <div class="tooltip-arrow" data-popper-arrow></div>
+            </div>
             <div className="col-span-2 grid grid-cols-3 justify-center align-center pr-4 ">
               <input
                 type="text"
@@ -244,7 +267,9 @@ export default function SideMenu({ syntheticModel }) {
 
             <button
               type="button"
-              className="col-span-1 rounded-r px-4 py-4 text-sm font-semibold text-gray-700 hover:bg-gray-100"
+              className={`col-span-1 rounded-r px-4 py-4 text-sm font-semibold text-gray-700 hover:bg-gray-100 ${
+                disableIncrement ? "cursor-not-allowed" : "cursor-pointer"
+              }`}
               onClick={(e) => increment(e)}
             >
               +
