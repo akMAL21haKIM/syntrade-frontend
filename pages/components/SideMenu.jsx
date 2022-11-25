@@ -10,10 +10,7 @@ import {
   EvenIcon,
   OddIcon,
 } from "../../lib/icons";
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
+import { classNames } from "../../lib/utilities";
 
 export default function SideMenu({ syntheticModel }) {
   const [loader, setLoader] = useState(false);
