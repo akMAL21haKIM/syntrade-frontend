@@ -7,6 +7,14 @@ function convertRemToPixels(rem) {
   return rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
 }
 
+// Get the current users primary locale
+const currentLocale = window.navigator.languages[0];
+// Create a number format using Intl.NumberFormat
+const myPriceFormatter = Intl.NumberFormat(currentLocale, {
+  style: "currency",
+  currency: "USD", // Currency for data points
+}).format;
+
 const Chart = ({ width, height, syntheticModel, stream }) => {
   const chartRef = useRef(null);
 
@@ -16,6 +24,21 @@ const Chart = ({ width, height, syntheticModel, stream }) => {
         textColor: "black",
         background: { type: "solid", color: "white" },
       },
+      timeScale: {
+        timeVisible: true,
+        secondsVisible: true,
+        barSpacing: 6,
+        // fixRightEdge: true,
+        // fixLeftEdge: true,
+      },
+      grid: {
+        vertLines: {
+          color: "#f3f4f6",
+        },
+        horzLines: {
+          color: "#f3f4f6",
+        },
+      },
     });
 
     const resize = () => {
@@ -24,6 +47,7 @@ const Chart = ({ width, height, syntheticModel, stream }) => {
         height: window.innerHeight - convertRemToPixels(7),
       });
       chart.timeScale().fitContent();
+      // chart.timeScale().scrollToRealTime();
     };
 
     const areaSeries = chart.addAreaSeries({
@@ -43,11 +67,15 @@ const Chart = ({ width, height, syntheticModel, stream }) => {
           (data = [
             ...data,
             {
-              time: m.time_utc,
+              time: m.time_asia_kuala_lumpur,
               value: m[`current_${syntheticModel}_price`],
             },
           ])
         );
+        // areaSeries.update({
+        //   time: m.time_utc,
+        //   value: m[`current_${syntheticModel}_price`],
+        // });
       } catch (e) {
         console.error(e);
       }

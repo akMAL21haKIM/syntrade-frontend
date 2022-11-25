@@ -60,16 +60,11 @@ const Trade = () => {
               syntheticModel={syntheticModel}
               setSyntheticModel={setSyntheticModel}
             ></SyntheticModelDropdown>
-            {/* Resize chart according to screen size */}
             <Chart
-              // width={1250}
-              // height={680}
               pricingData={data}
               stream={sse}
               syntheticModel={syntheticModel.type}
             />
-
-            {/* </div> */}
             <SideMenu syntheticModel={syntheticModel}></SideMenu>
           </div>
         )}
