@@ -1,5 +1,6 @@
 import { createChart } from "lightweight-charts";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, createPortal } from "react";
+import { render } from "react-dom";
 
 let data = [];
 
@@ -7,11 +8,15 @@ function convertRemToPixels(rem) {
   return rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
 }
 
+const ChartWrapper = () => {
+  return <div style={{ padding: 40 }}></div>;
+};
+
 const Chart = ({ width, height, syntheticModel, stream }) => {
   const chartRef = useRef(null);
 
   useEffect(() => {
-    const chart = createChart(document.body, {
+    const chart = createChart("baka", {
       layout: {
         textColor: "black",
         background: { type: "solid", color: "white" },
@@ -20,7 +25,7 @@ const Chart = ({ width, height, syntheticModel, stream }) => {
 
     const resize = () => {
       chart.applyOptions({
-        width: window.innerWidth - convertRemToPixels(20),
+        width: window.innerWidth - convertRemToPixels(21),
         height: window.innerHeight - convertRemToPixels(7),
       });
       chart.timeScale().fitContent();
@@ -63,7 +68,7 @@ const Chart = ({ width, height, syntheticModel, stream }) => {
     };
   }, [syntheticModel]);
 
-  return <div className="absolute" ref={chartRef} />;
+  return <div id="baka" className="pd-8" ref={chartRef} />;
 };
 
 export default Chart;
