@@ -8,6 +8,23 @@ import {
 } from "../../lib/icons";
 import { classNames } from "../../lib/utilities";
 
+const Tooltip = ({ msg = " A left aligned tooltip.", children }) => {
+  return (
+    <div class="relative flex justify-left align-left group w-full">
+      <div
+        class="absolute z-99 top-0 hidden group-hover:flex"
+        style={{ left: "-3rem" }}
+      >
+        <span class="flex z-10 p-2 text-xs leading-none text-white bg-black shadow-lg">
+          {msg}
+        </span>
+        <div class="absolute bottom-[0.5rem] w-3 h-3 ml-[1.75rem] rotate-45 bg-black hover:-top-2"></div>
+      </div>
+      {children}
+    </div>
+  );
+};
+
 export default function SideMenu({ syntheticModel }) {
   const [loader, setLoader] = useState(false);
   const [selectedTradeType, setSelectedTradeType] = useState(
@@ -18,6 +35,8 @@ export default function SideMenu({ syntheticModel }) {
   const [selectedStakePayout, setSelectedStakePayout] = useState(true);
   const [disableIncrement, setDisableIncrement] = useState(false);
   const [disableDecrement, setDisableDecrement] = useState(false);
+  const [blueIconTransition, setBlueIconTransition] = useState(false);
+  const [redIconTransition, setRedIconTransition] = useState(false);
 
   // // set the tooltip content element
   // const targetEl = document.getElementById("tooltipContent");
@@ -214,41 +233,54 @@ export default function SideMenu({ syntheticModel }) {
       <div class="mt-6 mx-6 py-2 px-4 bg-white rounded border-4 border-gray-100 ">
         <RangeSlider></RangeSlider>
       </div>
-      <div className="mt-6 mx-6 bg-gray-50 rounded border-4 border-gray-100 group">
-        <span className="grid grid-cols-2 justify-between rounded">
-          <button
-            type="button"
-            className={`rounded-tl px-4 py-2 text-sm font-semibold focus:outline-none ${
-              selectedStakePayout != true
-                ? "bg-indigo-600 text-white"
-                : "bg-transparent text-gray-700 hover:bg-gray-100"
-            }`}
-            onClick={(e) => {
-              e.preventDefault();
-              if (selectedStakePayout == true) {
-                setSelectedStakePayout(false);
-              }
-            }}
-          >
-            Stake
-          </button>
-          <button
-            type="button"
-            className={`rounded-tr px-4 py-2 text-sm font-semibold focus:outline-none ${
-              selectedStakePayout != false
-                ? "bg-indigo-600 text-white"
-                : "bg-transparent text-gray-700 hover:bg-gray-100"
-            }`}
-            onClick={(e) => {
-              e.preventDefault();
-              if (selectedStakePayout == false) {
-                setSelectedStakePayout(true);
-              }
-            }}
-          >
-            Payout
-          </button>
-        </span>
+      <div className="relative mt-6 mx-6 bg-gray-50 rounded border-4 border-gray-100">
+        <div className="relative">
+          <span className="relative grid grid-cols-2 justify-between rounded">
+            <Tooltip msg="test">
+              <button
+                type="button"
+                className={`rounded-tl w-full px-4 py-2 text-sm font-semibold focus:outline-none ${
+                  selectedStakePayout != true
+                    ? "bg-indigo-600 text-white"
+                    : "bg-transparent text-gray-700 hover:bg-gray-100"
+                }`}
+                onClick={(e) => {
+                  e.preventDefault();
+
+                  if (selectedStakePayout == true) {
+                    setSelectedStakePayout(false);
+                  }
+                }}
+              >
+                Stake
+              </button>
+            </Tooltip>
+            <Tooltip msg="baka">
+              <button
+                type="button"
+                className={`rounded-tr w-full px-4 py-2 text-sm font-semibold focus:outline-none ${
+                  selectedStakePayout != false
+                    ? "bg-indigo-600 text-white"
+                    : "bg-transparent text-gray-700 hover:bg-gray-100"
+                }`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (selectedStakePayout == false) {
+                    setSelectedStakePayout(true);
+                  }
+                }}
+              >
+                Payout
+              </button>
+            </Tooltip>
+          </span>
+          {/* <div class="absolute z-10 top-0 -left-3 items-center hidden group-hover:flex">
+            <div class="w-3 h-3 -ml-2 rotate-45 bg-black"></div>
+            <span class="flex z-10 p-2 -left-10 text-xs leading-none text-white whitespace-no-wrap bg-black shadow-lg">
+              A left aligned tooltip.
+            </span>
+          </div> */}
+        </div>
         <div className="bg-white rounded">
           <span className="grid grid-cols-4 justify-between">
             <button
@@ -285,12 +317,12 @@ export default function SideMenu({ syntheticModel }) {
             </button>
           </span>
         </div>
-        <div class="absolute z-10 -left-[2.438rem] items-center hidden group-hover:flex">
+        {/* <div class="absolute z-10 -left-[2.438rem] top-20 items-center hidden group-hover:flex">
           <div class="w-3 h-3 -ml-2 rotate-45 bg-black"></div>
-          <span class="absolute flex z-10 p-2 text-xs leading-none text-white whitespace-no-wrap bg-black shadow-lg">
+          <span class="flex z-10 p-2 text-xs leading-none text-white whitespace-no-wrap bg-black shadow-lg">
             A left aligned tooltip.
           </span>
-        </div>
+        </div> */}
       </div>
 
       {/* <div class="relative flex items-center group">
@@ -334,7 +366,28 @@ export default function SideMenu({ syntheticModel }) {
                 : "hover:bg-indigo-700 bg-indigo-600"
             }`}
           >
-            {selectedTradeType.blueIcon}
+            <div
+              className={`bg-transparent ${
+                blueIconTransition
+                  ? "translate-x-20 ease-out cubic-bezier(0.4, 0, 1, 1) duration-200"
+                  : ""
+              }`}
+              onClick={(e) => {
+                e.preventDefault();
+                console.log("blueIconTransition", blueIconTransition);
+                if (blueIconTransition == false) {
+                  setBlueIconTransition(true);
+
+                  setTimeout(async () => {
+                    setBlueIconTransition(false);
+                  }, 700);
+                } else {
+                  setBlueIconTransition(false);
+                }
+              }}
+            >
+              {selectedTradeType.blueIcon}
+            </div>
 
             <p className="text-sm font-semibold text-white text-right">
               {selectedTradeType.blueText}
@@ -359,7 +412,28 @@ export default function SideMenu({ syntheticModel }) {
                 : "hover:bg-red-700 bg-red-600"
             }`}
           >
-            {selectedTradeType.redIcon}
+            <div
+              className={`bg-transparent ${
+                redIconTransition
+                  ? "translate-x-20 ease-out cubic-bezier(0.4, 0, 1, 1) duration-200"
+                  : ""
+              }`}
+              onClick={(e) => {
+                e.preventDefault();
+                console.log("redIconTransition", redIconTransition);
+                if (redIconTransition == false) {
+                  setRedIconTransition(true);
+
+                  setTimeout(async () => {
+                    setRedIconTransition(false);
+                  }, 700);
+                } else {
+                  setRedIconTransition(false);
+                }
+              }}
+            >
+              {selectedTradeType.redIcon}
+            </div>
 
             <p className="text-sm font-semibold text-white text-right">
               {selectedTradeType.redText}
