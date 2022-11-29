@@ -8,17 +8,17 @@ import {
 } from "../../lib/icons";
 import { classNames } from "../../lib/utilities";
 
-const Tooltip = ({ msg = " A left aligned tooltip.", children }) => {
+const Tooltip = ({ msg = "", children }) => {
   return (
     <div class="relative flex justify-left align-left group w-full">
       <div
-        class="absolute z-99 top-0 hidden group-hover:flex"
+        class="absolute z-99 top-10 hidden group-hover:flex"
         style={{ left: "-3rem" }}
       >
-        <span class="flex z-10 p-2 text-xs leading-none text-white bg-black shadow-lg">
+        <span class="flex z-10 p-2 text-xs leading-none text-white bg-red-600 shadow-lg">
           {msg}
         </span>
-        <div class="absolute bottom-[0.5rem] w-3 h-3 ml-[1.75rem] rotate-45 bg-black hover:-top-2"></div>
+        <div class="absolute bottom-[0.5rem] w-3 h-3 ml-[1.75rem] rotate-45 bg-red-600 hover:-top-2"></div>
       </div>
       {children}
     </div>
@@ -37,26 +37,6 @@ export default function SideMenu({ syntheticModel }) {
   const [disableDecrement, setDisableDecrement] = useState(false);
   const [blueIconTransition, setBlueIconTransition] = useState(false);
   const [redIconTransition, setRedIconTransition] = useState(false);
-
-  // // set the tooltip content element
-  // const targetEl = document.getElementById("tooltipContent");
-
-  // // set the element that trigger the tooltip using hover or click
-  // const triggerEl = document.getElementById("tooltipButton");
-
-  // // options with default values
-  // const options = {
-  //   placement: "left",
-  //   triggerType: "hover",
-  //   onHide: () => {
-  //     console.log("tooltip is shown");
-  //   },
-  //   onShow: () => {
-  //     console.log("tooltip is hidden");
-  //   },
-  // };
-
-  // const tooltip = new Tooltip(targetEl, triggerEl, options);
 
   useEffect(() => {
     setLoader(true);
@@ -107,7 +87,6 @@ export default function SideMenu({ syntheticModel }) {
   // Input can only be numbers and a single dot
   const handleStakePayoutChange = (e) => {
     e.preventDefault();
-    // tooltip.hide();
 
     // Remove non digit characters from input
     // TODO: Make sure input can only take one period
@@ -119,11 +98,9 @@ export default function SideMenu({ syntheticModel }) {
     if (sanitisedInput <= 0) {
       setStakePayout(0);
       // TODO: Display tooltip error message about min max stake payout
-      // tooltip.show();
     } else if (sanitisedInput > 30000) {
       setStakePayout(sanitisedInput);
       // TODO: Display tooltip error message about min max stake payout
-      // tooltip.show();
     } else {
       setStakePayout(sanitisedInput);
     }
@@ -236,7 +213,7 @@ export default function SideMenu({ syntheticModel }) {
       <div className="relative mt-6 mx-6 bg-gray-50 rounded border-4 border-gray-100">
         <div className="relative">
           <span className="relative grid grid-cols-2 justify-between rounded">
-            <Tooltip msg="test">
+            <Tooltip msg="Stake and payout must be within 1.00 to 30000.00">
               <button
                 type="button"
                 className={`rounded-tl w-full px-4 py-2 text-sm font-semibold focus:outline-none ${
@@ -255,7 +232,7 @@ export default function SideMenu({ syntheticModel }) {
                 Stake
               </button>
             </Tooltip>
-            <Tooltip msg="baka">
+            <Tooltip msg="Stake and payout must be within 1.00 to 30000.00">
               <button
                 type="button"
                 className={`rounded-tr w-full px-4 py-2 text-sm font-semibold focus:outline-none ${
@@ -274,12 +251,6 @@ export default function SideMenu({ syntheticModel }) {
               </button>
             </Tooltip>
           </span>
-          {/* <div class="absolute z-10 top-0 -left-3 items-center hidden group-hover:flex">
-            <div class="w-3 h-3 -ml-2 rotate-45 bg-black"></div>
-            <span class="flex z-10 p-2 -left-10 text-xs leading-none text-white whitespace-no-wrap bg-black shadow-lg">
-              A left aligned tooltip.
-            </span>
-          </div> */}
         </div>
         <div className="bg-white rounded">
           <span className="grid grid-cols-4 justify-between">
@@ -317,34 +288,7 @@ export default function SideMenu({ syntheticModel }) {
             </button>
           </span>
         </div>
-        {/* <div class="absolute z-10 -left-[2.438rem] top-20 items-center hidden group-hover:flex">
-          <div class="w-3 h-3 -ml-2 rotate-45 bg-black"></div>
-          <span class="flex z-10 p-2 text-xs leading-none text-white whitespace-no-wrap bg-black shadow-lg">
-            A left aligned tooltip.
-          </span>
-        </div> */}
       </div>
-
-      {/* <div class="relative flex items-center group">
-        <div class="absolute right-0 items-center hidden mr-6 group-hover:flex">
-          <span class="relative z-10 p-2 text-xs leading-none text-white whitespace-no-wrap bg-black shadow-lg">
-            A left aligned tooltip.
-          </span>
-          <div class="w-3 h-3 -ml-2 rotate-45 bg-black"></div>
-        </div>
-        <svg
-          class="w-5 h-5"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 20 20"
-          fill="currentColor"
-        >
-          <path
-            fill-rule="evenodd"
-            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z"
-            clip-rule="evenodd"
-          />
-        </svg>
-      </div> */}
 
       <div className="mt-6 mx-6 py-2 px-4 rounded border-4 border-gray-100 bg-white">
         <div>
