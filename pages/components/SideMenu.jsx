@@ -37,6 +37,7 @@ export default function SideMenu({ syntheticModel }) {
   const [disableDecrement, setDisableDecrement] = useState(false);
   const [blueIconTransition, setBlueIconTransition] = useState(false);
   const [redIconTransition, setRedIconTransition] = useState(false);
+  const [selectedNumberPrediction, setSelectedNumberPrediction] = useState(0);
 
   useEffect(() => {
     setLoader(true);
@@ -300,41 +301,24 @@ export default function SideMenu({ syntheticModel }) {
       >
         <div className="select-none cursor-default">
           <div className="grid grid-flow-col justify-between">
-            <p className="text-sm mb-1 mt-0 font-semibold text-gray-700 cursor-default select-none">
+            <p className="text-sm mb-2 mt-0 font-semibold text-gray-700 cursor-default select-none">
               Number Predictions
             </p>
           </div>
           <div className="px-2 grid grid-cols-5 gap-5 justify-between">
-            <div className="text-sm py-2 px-4 bg-indigo-700 text-center text-white font-semibold justify-self-center rounded">
-              0
-            </div>
-            <div className="text-sm py-2 px-4 bg-indigo-700 text-center text-white font-semibold justify-self-center rounded">
-              1
-            </div>
-            <div className="text-sm py-2 px-4 bg-indigo-700 text-center text-white font-semibold justify-self-center rounded">
-              2
-            </div>
-            <div className="text-sm py-2 px-4 bg-indigo-700 text-center text-white font-semibold justify-self-center rounded">
-              3
-            </div>
-            <div className="text-sm py-2 px-4 bg-indigo-700 text-center text-white font-semibold justify-self-center rounded">
-              4
-            </div>
-            <div className="text-sm py-2 px-4 bg-indigo-700 text-center text-white font-semibold justify-self-center rounded">
-              5
-            </div>
-            <div className="text-sm py-2 px-4 bg-indigo-700 text-center text-white font-semibold justify-self-center rounded">
-              6
-            </div>
-            <div className="text-sm py-2 px-4 bg-indigo-700 text-center text-white font-semibold justify-self-center rounded">
-              7
-            </div>
-            <div className="text-sm py-2 px-4 bg-indigo-700 text-center text-white font-semibold justify-self-center rounded">
-              8
-            </div>
-            <div className="text-sm py-2 px-4 bg-indigo-700 text-center text-white font-semibold justify-self-center rounded">
-              9
-            </div>
+            {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((item, index) => (
+              <div
+                key={index}
+                className={`text-sm py-2 px-4 text-center border-2 font-semibold justify-self-center rounded ${
+                  selectedNumberPrediction == index
+                    ? "bg-indigo-600 text-white border-transparent"
+                    : "bg-gray-50 border-gray-100 text-gray-700 hover:bg-gray-100"
+                }`}
+                onClick={(e) => setSelectedNumberPrediction(index)}
+              >
+                {item}
+              </div>
+            ))}
           </div>
         </div>
       </div>
