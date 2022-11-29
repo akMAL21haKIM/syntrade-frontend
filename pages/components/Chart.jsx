@@ -32,7 +32,7 @@ const Chart = ({ syntheticModel, stream }) => {
 
     const resize = () => {
       chart.applyOptions({
-        width: window.innerWidth - convertRemToPixels(21),
+        width: window.innerWidth - convertRemToPixels(24),
         height: window.innerHeight - convertRemToPixels(7),
       });
       chart.timeScale().fitContent();

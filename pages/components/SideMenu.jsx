@@ -10,15 +10,15 @@ import { classNames } from "../../lib/utilities";
 
 const Tooltip = ({ msg = "", children }) => {
   return (
-    <div class="relative flex justify-left align-left group w-full">
+    <div class="relative flex justify-left items-center align-left group w-full">
       <div
-        class="absolute z-99 top-10 hidden group-hover:flex"
-        style={{ left: "-3rem" }}
+        class="absolute w-[6rem] z-99 hidden group-hover:flex"
+        style={{ left: "-7rem" }}
       >
         <span class="flex z-10 p-2 text-xs leading-none text-white bg-red-600 shadow-lg">
           {msg}
         </span>
-        <div class="absolute bottom-[0.5rem] w-3 h-3 ml-[1.75rem] rotate-45 bg-red-600 hover:-top-2"></div>
+        <div class="absolute bottom-[1rem] w-3 h-3 ml-[5.5rem] rotate-45 bg-red-600 hover:-top-2"></div>
       </div>
       {children}
     </div>
@@ -37,6 +37,7 @@ export default function SideMenu({ syntheticModel }) {
   const [disableDecrement, setDisableDecrement] = useState(false);
   const [blueIconTransition, setBlueIconTransition] = useState(false);
   const [redIconTransition, setRedIconTransition] = useState(false);
+  const [selectedNumberPrediction, setSelectedNumberPrediction] = useState(0);
 
   useEffect(() => {
     setLoader(true);
@@ -108,7 +109,7 @@ export default function SideMenu({ syntheticModel }) {
 
   return (
     <aside
-      class="w-72 h-11/12 right-0 absolute bg-gray-50 pb-8"
+      class="w-80 h-11/12 right-0 absolute bg-gray-50 pb-8"
       aria-label="Sidebar"
     >
       <div class="mt-8 mx-6 py-2 px-4 bg-white rounded border-4 border-gray-100 ">
@@ -291,7 +292,36 @@ export default function SideMenu({ syntheticModel }) {
           </span>
         </div>
       </div>
-
+      <div
+        className={`mt-6 mx-6 py-2 px-4 bg-white rounded border-4 border-gray-100 ${
+          selectedTradeType.simplified_title == "matches_differs"
+            ? "block"
+            : "hidden"
+        }`}
+      >
+        <div className="select-none cursor-default">
+          <div className="grid grid-flow-col justify-between">
+            <p className="text-sm mb-2 mt-0 font-semibold text-gray-700 cursor-default select-none">
+              Number Predictions
+            </p>
+          </div>
+          <div className="px-2 grid grid-cols-5 gap-5 justify-between">
+            {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((item, index) => (
+              <div
+                key={index}
+                className={`text-sm py-2 px-4 text-center border-2 font-semibold justify-self-center rounded ${
+                  selectedNumberPrediction == index
+                    ? "bg-indigo-600 text-white border-transparent"
+                    : "bg-gray-50 border-gray-100 text-gray-700 hover:bg-gray-100"
+                }`}
+                onClick={(e) => setSelectedNumberPrediction(index)}
+              >
+                {item}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
       <div className="mt-6 mx-6 py-2 px-4 rounded border-4 border-gray-100 bg-white">
         <div>
           <div className="grid grid-cols-2">
