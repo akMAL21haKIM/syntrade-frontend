@@ -1,4 +1,5 @@
 import { React, useState } from "react";
+import LogoIcon from "../public/old_logo.svg";
 import Link from "next/link";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import Router from "next/router";
@@ -154,7 +155,23 @@ const SignUp = () => {
       </Head>
       <div className="grid grid-cols-2 divide-x-2 min-h-full">
         {/* Picture */}
-        <div className="flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24 bg-[#A6A6E0] h-screen"></div>
+        <div className="flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24 bg-[#A6A6E0] h-screen">
+          <div className="flex flex-col gap-10 bg-white h-5/6 w-11/12 rounded-xl mx-auto items-center justify-center">
+            <img
+              className="h-1/4 w-1/4"
+              src={LogoIcon.src}
+              alt="Syntrade logo"
+            />
+            <h1 className="text-4xl font-semibold">
+              Take <span className="font-bold text-[#6366F1]">1 tick</span> at a
+              time
+            </h1>
+            <p className="text-lg text-center w-2/3">
+              Some quit due to slow progress. Never grasping the fact that slow
+              progress is progress.
+            </p>
+          </div>
+        </div>
 
         {/* Sign up form */}
         <div className="flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24 bg-white h-screen">

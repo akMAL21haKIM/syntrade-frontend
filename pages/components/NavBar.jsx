@@ -21,7 +21,11 @@ export default function NavBar() {
           <div className="flex justify-start lg:w-0 lg:flex-1">
             <a href="/">
               <span className="sr-only">Syntrade</span>
-              <img className="h-8 w-auto sm:h-10" src={LogoIcon.src} alt="" />
+              <img
+                className="h-8 w-auto sm:h-10"
+                src={LogoIcon.src}
+                alt="Syntrade logo"
+              />
             </a>
             <p className="px-6 py-2 text-xl font-bold">Syntrade</p>
           </div>
