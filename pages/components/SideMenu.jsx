@@ -265,10 +265,10 @@ export default function SideMenu({ syntheticModel }) {
             >
               –
             </button>
-            <div className="col-span-2 grid grid-cols-3 justify-center align-center pr-4 ">
+            <div className="col-span-2 grid grid-cols-3 justify-center align-center pr-4 focus:outline-none border-none">
               <input
                 type="text"
-                className="font-medium text-gray-700 col-span-2 focus:outline-none"
+                className="font-medium text-gray-700 col-span-2 focus:outline-none border-none border-transparent focus:border-transparent focus:ring-0"
                 name="stake-payout-input"
                 defaultValue="10"
                 value={stakePayout}
