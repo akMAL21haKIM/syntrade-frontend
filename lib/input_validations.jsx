@@ -63,7 +63,6 @@ const doesPasswordsMatch = (passwordToValidate, confirmPasswordToValidate) => {
   // Check if password matches confirmPassword or not
   if (passwordToValidate !== confirmPasswordToValidate) {
     console.log("Error: Password and Confirm Password does not match");
-    setShowConfirmPasswordError(true);
     return false;
   }
   return true;
