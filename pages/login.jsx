@@ -3,6 +3,7 @@ import Router from "next/router";
 import { useMutation, gql } from "@apollo/client";
 import Head from "next/head";
 import { isEmailValid, isPasswordValid } from "../lib/input_validations";
+import { LoginIllustration } from "../lib/illustrations";
 
 const Login = () => {
   const [openPassword, setOpenPassword] = useState(false);
@@ -115,7 +116,9 @@ const Login = () => {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <div className="grid grid-cols-2 divide-x-2 min-h-full">
-        <div className="flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24 bg-[#A6A6E0] h-screen"></div>
+        <div className="flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24 bg-[#A6A6E0]/70 h-screen">
+          <LoginIllustration />
+        </div>
 
         <div className="flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24 bg-white h-screen">
           <div className="mx-auto w-full max-w-sm lg:w-96">
