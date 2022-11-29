@@ -98,25 +98,25 @@ const Reports = () => {
                     </th>
                     <th
                       scope="col"
-                      className="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell md:table-cell"
+                      className="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 md:table-cell"
                     >
                       Transaction Time
                     </th>
                     <th
                       scope="col"
-                      className="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell"
+                      className="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 md:table-cell"
                     >
                       Transaction
                     </th>
                     <th
                       scope="col"
-                      className="hidden px-3 py-3.5 text-right text-sm font-semibold text-gray-900 lg:table-cell"
+                      className="hidden px-3 py-3.5 text-right text-sm font-semibold text-gray-900 md:table-cell"
                     >
                       Profit / Loss
                     </th>
                     <th
                       scope="col"
-                      className="px-3 py-3.5 text-right text-sm font-semibold text-gray-900 lg:table-cell"
+                      className="px-3 py-3.5 text-right text-sm font-semibold text-gray-900 md:table-cell"
                     >
                       Balance
                     </th>
