@@ -1,6 +1,7 @@
 import { React, useState } from "react";
 import Footer from "./components/Footer";
 import Head from "next/head";
+import { ResetPasswordIllustration } from "../lib/illustrations";
 
 const ResetPassword = () => {
   const [openPassword, setOpenPassword] = useState(false);
@@ -99,7 +100,7 @@ const ResetPassword = () => {
       <div className="min-h-full">
         <div className="flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24 bg-[#A6A6E0] h-screen">
           <div className="flex flex-col bg-[#ffffff]/80 h-5/6 rounded-lg space-y-4 shadow-xl items-center justify-start">
-            {/* <img src={ForgotPwIcon.src} className="h-1/4 w-1/6" /> */}
+            <ResetPasswordIllustration />
             <h1 className="text-black text-center text-4xl">Password Reset</h1>
             <p className="text-gray-600 text-center text-lg">
               Must be at least 8 characters
