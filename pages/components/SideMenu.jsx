@@ -10,15 +10,15 @@ import { classNames } from "../../lib/utilities";
 
 const Tooltip = ({ msg = "", children }) => {
   return (
-    <div class="relative flex justify-left align-left group w-full">
+    <div class="relative flex justify-left items-center align-left group w-full">
       <div
-        class="absolute z-99 top-10 hidden group-hover:flex"
-        style={{ left: "-3rem" }}
+        class="absolute w-[6rem] z-99 hidden group-hover:flex"
+        style={{ left: "-7rem" }}
       >
         <span class="flex z-10 p-2 text-xs leading-none text-white bg-red-600 shadow-lg">
           {msg}
         </span>
-        <div class="absolute bottom-[0.5rem] w-3 h-3 ml-[1.75rem] rotate-45 bg-red-600 hover:-top-2"></div>
+        <div class="absolute bottom-[1rem] w-3 h-3 ml-[5.5rem] rotate-45 bg-red-600 hover:-top-2"></div>
       </div>
       {children}
     </div>
