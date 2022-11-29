@@ -58,4 +58,14 @@ const isPasswordValid = (passwordToValidate) => {
   return true;
 };
 
-module.exports = { isEmailValid, isPasswordValid };
+// Check whether password and confirm password matches or not
+const doesPasswordsMatch = (passwordToValidate, confirmPasswordToValidate) => {
+  // Check if password matches confirmPassword or not
+  if (passwordToValidate !== confirmPasswordToValidate) {
+    console.log("Error: Password and Confirm Password does not match");
+    return false;
+  }
+  return true;
+};
+
+module.exports = { isEmailValid, isPasswordValid, doesPasswordsMatch };

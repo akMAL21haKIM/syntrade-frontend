@@ -9,12 +9,12 @@ export default function RangeSlider() {
   }
 
   return (
-    <div>
+    <div className="select-none cursor-default">
       <div className="grid grid-flow-col justify-between">
-        <p className="text-sm mb-1 mt-0 font-thin tracking-wide text-gray-700">
+        <p className="text-sm mb-1 mt-0 font-light text-gray-500 cursor-default select-none">
           Ticks
         </p>
-        <p className="text-sm mb-1 mt-0 font-semibold text-gray-700">
+        <p className="text-sm mb-1 mt-0 font-semibold text-gray-700 cursor-default select-none">
           {sliderValue}
         </p>
       </div>
@@ -24,7 +24,7 @@ export default function RangeSlider() {
         min="1"
         max="10"
         value={sliderValue}
-        className="range-base w-full accent-indigo-600"
+        className="range-base w-full accent-indigo-600 focus:outline-none cursor-default select-none"
         step="1"
         list="ticks"
         onChange={(e) => updateSliderValue(e.target.value)}

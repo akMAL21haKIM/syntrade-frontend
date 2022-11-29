@@ -3,10 +3,18 @@ import Head from "next/head";
 import dynamic from "next/dynamic";
 import NavBar from "./components/NavBar";
 import SyntheticModelDropdown from "./components/SyntheticModelDropdown";
-import { React, useState, useEffect } from "react";
+import {
+  React,
+  useState,
+  useEffect,
+  createPortal,
+  createRef,
+  useLayoutEffect,
+} from "react";
 import { syntheticModelOptions } from "../lib/options";
 import SideMenu from "./components/SideMenu";
 import { SkeletonLoaderTradePage } from "./components/SkeletonLoaders";
+import "./trade.module.css";
 
 const Chart = dynamic(() => import("./components/Chart"), {
   ssr: false,
@@ -47,7 +55,7 @@ const Trade = () => {
   return (
     <>
       <Head>
-        <title>Trades | Syntrade</title>
+        <title>Trade | Syntrade</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <main>
@@ -55,22 +63,17 @@ const Trade = () => {
         {loader ? (
           <SkeletonLoaderTradePage />
         ) : (
-          <div className="grid grid-cols-2">
-            <div className="mx-8 px-8 mt-8">
-              <SyntheticModelDropdown
-                syntheticModel={syntheticModel}
-                setSyntheticModel={setSyntheticModel}
-              ></SyntheticModelDropdown>
-              {/* Resize chart according to screen size */}
-              <Chart
-                width={1250}
-                height={680}
-                pricingData={data}
-                stream={sse}
-                syntheticModel={syntheticModel.type}
-              />
-            </div>
-            <SideMenu></SideMenu>
+          <div>
+            <SyntheticModelDropdown
+              syntheticModel={syntheticModel}
+              setSyntheticModel={setSyntheticModel}
+            ></SyntheticModelDropdown>
+            <Chart
+              pricingData={data}
+              stream={sse}
+              syntheticModel={syntheticModel.type}
+            />
+            <SideMenu syntheticModel={syntheticModel}></SideMenu>
           </div>
         )}
       </main>

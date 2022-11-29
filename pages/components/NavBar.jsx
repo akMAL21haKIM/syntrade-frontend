@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import { Popover, Transition, Menu } from "@headlessui/react";
 import {
   XMarkIcon,
@@ -6,27 +6,13 @@ import {
   ReportsIcon,
   ProfileIcon,
 } from "../../lib/icons";
+import { classNames } from "../../lib/utilities";
 
 let isUserLoggedIn = true;
 
-const navigations = [
-  {
-    name: "Reports",
-    href: "/reports",
-    icon: ReportsIcon,
-  },
-  {
-    name: "Profile",
-    href: "/profile",
-    icon: ProfileIcon,
-  },
-];
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
-
 export default function NavBar() {
+  const [isMenuClicked, setIsMenuClicked] = useState(false);
+
   return (
     <Popover className="relative bg-white border-gray-100 border-b-2">
       <div className="w-full px-4 sm:px-6">
@@ -141,11 +127,24 @@ export default function NavBar() {
                 {/* Profile dropdown */}
                 <Menu as="div" className="relative ml-3">
                   <div>
-                    <Menu.Button className="flex rounded-full bg-transparent text-sm focus:outline-none hover:ring-gray-100 hover:ring-4">
+                    <Menu.Button
+                      onClick={(e) => {
+                        if (isMenuClicked) {
+                          setIsMenuClicked(false);
+                        } else {
+                          setIsMenuClicked(true);
+                        }
+                      }}
+                      className="flex rounded-full bg-transparent text-sm focus:outline-none hover:ring-gray-100 hover:ring-4"
+                    >
                       <span className="sr-only">Open user menu</span>
                       <span className="inline-block h-10 w-10 overflow-hidden rounded-full bg-gray-100">
                         <svg
-                          className="h-full w-full text-gray-300 hover:text-indigo-600 hover:opacity-60"
+                          className={`h-full w-full hover:text-indigo-600 hover:opacity-60 ${
+                            isMenuClicked
+                              ? "text-indigo-600 opacity-60"
+                              : "text-gray-300"
+                          }`}
                           fill="currentColor"
                           viewBox="0 0 24 24"
                         >
@@ -166,32 +165,28 @@ export default function NavBar() {
                     <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                       <Menu.Item>
                         {({ active }) => (
-                          <>
-                            <a
-                              href="/trade"
-                              className={classNames(
-                                active ? "bg-gray-100" : "",
-                                "block px-4 py-2 text-sm text-gray-700"
-                              )}
-                            >
-                              Trade
-                            </a>
-                          </>
+                          <a
+                            href="/trade"
+                            className={classNames(
+                              active ? "bg-gray-100" : "",
+                              "block px-4 py-2 text-sm text-gray-700"
+                            )}
+                          >
+                            Trade
+                          </a>
                         )}
                       </Menu.Item>
                       <Menu.Item>
                         {({ active }) => (
-                          <>
-                            <a
-                              href="/profile"
-                              className={classNames(
-                                active ? "bg-gray-100" : "",
-                                "block px-4 py-2 text-sm text-gray-700"
-                              )}
-                            >
-                              Profile
-                            </a>
-                          </>
+                          <a
+                            href="/profile"
+                            className={classNames(
+                              active ? "bg-gray-100" : "",
+                              "block px-4 py-2 text-sm text-gray-700"
+                            )}
+                          >
+                            Profile
+                          </a>
                         )}
                       </Menu.Item>
                       <Menu.Item>

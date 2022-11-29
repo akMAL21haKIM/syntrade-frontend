@@ -1,11 +1,8 @@
 import { Fragment, useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
-import { ChevronUpIcon, ChevronDownIcon, BoomIcon } from "../../lib/icons";
+import { ChevronUpIcon, ChevronDownIcon } from "../../lib/icons";
 import { syntheticModelOptions } from "../../lib/options";
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
+import { classNames } from "../../lib/utilities";
 
 export default function SyntheticModelDropdown({
   setSyntheticModel,
@@ -20,7 +17,7 @@ export default function SyntheticModelDropdown({
           <Listbox.Label className="sr-only">
             Change type of synthetic model
           </Listbox.Label>
-          <div className="left-[30px] z-10 top-[100px] relative text-left">
+          <div className="left-[30px] z-10 top-[90px] absolute text-left">
             <Listbox.Button
               onClick={(e) => {
                 if (isClicked) {
@@ -62,7 +59,7 @@ export default function SyntheticModelDropdown({
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
-              <Listbox.Options className="absolute left-0 z-10 mt-2 w-72 origin-top-right overflow-hidden rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+              <Listbox.Options className="absolute left-0 z-10 mt-2 w-72 origin-top-right overflow-hidden rounded-md bg-white border-4 border-gray-100">
                 <div className="flex flex-col">
                   <div className="flex justify-start">
                     <p className="font-semibold p-4 text-sm">
@@ -142,27 +139,6 @@ export default function SyntheticModelDropdown({
                     </div>
                   </div>
                 </Listbox.Option>
-
-                {/* {syntheticModelOptions.slice(-2, -1).map((option) => (
-                  <Listbox.Option
-                    key={option.title}
-                    className={({ active }) =>
-                      classNames(
-                        active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                        "cursor-default select-none p-4 text-sm"
-                      )
-                    }
-                    value={option}
-                  >
-                    <div className="flex flex-col">
-                      <div className="flex justify-start">
-                        {option.icon}
-
-                        <p className="font-medium ml-5">{option.title}</p>
-                      </div>
-                    </div>
-                  </Listbox.Option>
-                ))} */}
               </Listbox.Options>
             </Transition>
           </div>

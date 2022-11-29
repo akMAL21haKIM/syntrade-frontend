@@ -3,6 +3,7 @@ import Router from "next/router";
 import { useMutation, gql } from "@apollo/client";
 import Head from "next/head";
 import { isEmailValid, isPasswordValid } from "../lib/input_validations";
+import { LoginIllustration } from "../lib/illustrations";
 
 const Login = () => {
   const [openPassword, setOpenPassword] = useState(false);
@@ -83,6 +84,21 @@ const Login = () => {
 
     const emailValidity = isEmailValid(email);
     const passwordValidity = isPasswordValid(password);
+
+    // Show email error if email is invalid
+    if (!emailValidity) {
+      setShowEmailError(true);
+    } else {
+      setShowEmailError(false);
+    }
+
+    // Show password error is password is invalid
+    if (!passwordValidity) {
+      setShowPasswordError(true);
+    } else {
+      setShowPasswordError(false);
+    }
+
     // Use GraphQL login mutation to perform login
     // If email does not exist in database, display modal to user saying
     // there is no user account associated with the email address
@@ -100,7 +116,9 @@ const Login = () => {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <div className="grid grid-cols-2 divide-x-2 min-h-full">
-        <div className="flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24 bg-[#A6A6E0] h-screen"></div>
+        <div className="flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24 bg-[#A6A6E0]/70 h-screen">
+          <LoginIllustration />
+        </div>
 
         <div className="flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24 bg-white h-screen">
           <div className="mx-auto w-full max-w-sm lg:w-96">
