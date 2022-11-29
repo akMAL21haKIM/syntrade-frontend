@@ -108,7 +108,7 @@ export default function SideMenu({ syntheticModel }) {
 
   return (
     <aside
-      class="w-72 h-11/12 right-0 absolute bg-gray-50 pb-8"
+      class="w-80 h-11/12 right-0 absolute bg-gray-50 pb-8"
       aria-label="Sidebar"
     >
       <div class="mt-8 mx-6 py-2 px-4 bg-white rounded border-4 border-gray-100 ">
@@ -291,7 +291,53 @@ export default function SideMenu({ syntheticModel }) {
           </span>
         </div>
       </div>
-
+      <div
+        className={`mt-6 mx-6 py-2 px-4 bg-white rounded border-4 border-gray-100 ${
+          selectedTradeType.simplified_title == "matches_differs"
+            ? "block"
+            : "hidden"
+        }`}
+      >
+        <div className="select-none cursor-default">
+          <div className="grid grid-flow-col justify-between">
+            <p className="text-sm mb-1 mt-0 font-semibold text-gray-700 cursor-default select-none">
+              Number Predictions
+            </p>
+          </div>
+          <div className="px-2 grid grid-cols-5 gap-5 justify-between">
+            <div className="text-sm py-2 px-4 bg-indigo-700 text-center text-white font-semibold justify-self-center rounded">
+              0
+            </div>
+            <div className="text-sm py-2 px-4 bg-indigo-700 text-center text-white font-semibold justify-self-center rounded">
+              1
+            </div>
+            <div className="text-sm py-2 px-4 bg-indigo-700 text-center text-white font-semibold justify-self-center rounded">
+              2
+            </div>
+            <div className="text-sm py-2 px-4 bg-indigo-700 text-center text-white font-semibold justify-self-center rounded">
+              3
+            </div>
+            <div className="text-sm py-2 px-4 bg-indigo-700 text-center text-white font-semibold justify-self-center rounded">
+              4
+            </div>
+            <div className="text-sm py-2 px-4 bg-indigo-700 text-center text-white font-semibold justify-self-center rounded">
+              5
+            </div>
+            <div className="text-sm py-2 px-4 bg-indigo-700 text-center text-white font-semibold justify-self-center rounded">
+              6
+            </div>
+            <div className="text-sm py-2 px-4 bg-indigo-700 text-center text-white font-semibold justify-self-center rounded">
+              7
+            </div>
+            <div className="text-sm py-2 px-4 bg-indigo-700 text-center text-white font-semibold justify-self-center rounded">
+              8
+            </div>
+            <div className="text-sm py-2 px-4 bg-indigo-700 text-center text-white font-semibold justify-self-center rounded">
+              9
+            </div>
+          </div>
+        </div>
+      </div>
       <div className="mt-6 mx-6 py-2 px-4 rounded border-4 border-gray-100 bg-white">
         <div>
           <div className="grid grid-cols-2">
