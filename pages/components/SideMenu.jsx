@@ -274,7 +274,7 @@ export default function SideMenu({ syntheticModel }) {
                 value={stakePayout}
                 onChange={(e) => handleStakePayoutChange(e)}
               ></input>
-              <p className="text-gray-600 font-medium my-auto col-span-1">
+              <p className="text-gray-600 font-medium my-auto col-span-1 focus:outline-none cursor-default select-none">
                 USD
               </p>
             </div>
@@ -295,11 +295,13 @@ export default function SideMenu({ syntheticModel }) {
       <div className="mt-6 mx-6 py-2 px-4 rounded border-4 border-gray-100 bg-white">
         <div>
           <div className="grid grid-cols-2">
-            <p className="text-sm font-light text-gray-500 mb-1">Payout</p>
+            <p className="text-sm font-light text-gray-500 mb-1 focus:outline-none cursor-default select-none">
+              Payout
+            </p>
             {loader ? (
-              <div className="animate-pulse h-[1.25rem] flex bg-gray-300 rounded"></div>
+              <div className="animate-pulse h-[1.25rem] flex bg-gray-300 rounded focus:outline-none cursor-default select-none"></div>
             ) : (
-              <p className="text-sm font-semibold text-gray-700 mb-1 text-right">
+              <p className="text-sm font-semibold text-gray-700 mb-1 text-right focus:outline-none cursor-default select-none">
                 12.00 USD
               </p>
             )}
@@ -335,18 +337,20 @@ export default function SideMenu({ syntheticModel }) {
               {selectedTradeType.blueIcon}
             </div>
 
-            <p className="text-sm font-semibold text-white text-right">
+            <p className="text-sm font-semibold text-white text-right focus:outline-none cursor-default select-none">
               {selectedTradeType.blueText}
             </p>
           </button>
         </div>
         <div>
           <div className="grid grid-cols-2 mt-4">
-            <p className="text-sm font-light text-gray-500 mb-1">Payout</p>
+            <p className="text-sm font-light text-gray-500 mb-1 focus:outline-none cursor-default select-none">
+              Payout
+            </p>
             {loader ? (
-              <div className="animate-pulse h-[1.25rem] flex bg-gray-300 rounded"></div>
+              <div className="animate-pulse h-[1.25rem] flex bg-gray-300 rounded focus:outline-none cursor-default select-none"></div>
             ) : (
-              <p className="text-sm font-semibold text-gray-700 mb-1 text-right">
+              <p className="text-sm font-semibold text-gray-700 mb-1 text-right focus:outline-none cursor-default select-none">
                 12.00 USD
               </p>
             )}
@@ -381,7 +385,7 @@ export default function SideMenu({ syntheticModel }) {
               {selectedTradeType.redIcon}
             </div>
 
-            <p className="text-sm font-semibold text-white text-right">
+            <p className="text-sm font-semibold text-white text-right focus:outline-none cursor-default select-none">
               {selectedTradeType.redText}
             </p>
           </button>
