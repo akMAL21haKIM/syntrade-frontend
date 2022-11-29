@@ -4,6 +4,11 @@ import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import Router from "next/router";
 import { useMutation, gql } from "@apollo/client";
 import Head from "next/head";
+import {
+  doesPasswordsMatch,
+  isEmailValid,
+  isPasswordValid,
+} from "../lib/input_validations";
 
 const SignUp = () => {
   const [openPassword, setOpenPassword] = useState(false);
@@ -53,82 +58,43 @@ const SignUp = () => {
     setOpenConfirmPassword(!openConfirmPassword);
   };
 
-  // Check whether email is valid or not
-  const isEmailValid = () => {
-    // Check if email is empty or not
-    if (!email) {
-      console.log("Error: Email cannot be empty");
-      setShowEmailError(true);
-      return false;
-    }
+  // Validate email dynamically
+  const handleEmail = (e) => {
+    // Set email from input
+    setEmail(e);
 
-    // Check if email contains any whitespace or not
-    if (/\s/.test(email)) {
-      console.log("Error: Email cannot contain spaces");
+    // Show email error if email is invalid
+    if (!isEmailValid(email)) {
       setShowEmailError(true);
-      return false;
+    } else {
+      setShowEmailError(false);
     }
-
-    // Check if email is in correct format or not
-    if (!/\S+@\S+\.\S+/.test(email)) {
-      console.log("Error: Invalid email format");
-      setShowEmailError(true);
-      return false;
-    }
-    return true;
   };
 
-  // Check whether password is valid or not
-  const isPasswordValid = () => {
-    // Password must be between 8-12 characters
-    // Password must have at least:
-    // 1 capital letter, 1 lowercase letter, 1 digit and 1 special characters (~`!@#$%^&*()_-+={[}]|\:;"'<,>.?/)
-    var pattern = new RegExp(
-      "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[-+_!@#$%^&*.,?]).+$"
-    );
+  // Validate password dynamically
+  const handlePassword = (e) => {
+    // Set password from input
+    setPassword(e);
 
-    // Check if password is empty or not
-    if (!password) {
-      console.log("Error: Password cannot be empty");
+    // Show password error if password is invalid
+    if (!isPasswordValid(password)) {
       setShowPasswordError(true);
-      return false;
+    } else {
+      setShowPasswordError(false);
     }
-
-    // Check if length of password is between 8-12 characters or not
-    if (password.length < 8 || password.length > 12) {
-      console.log("Error: Password must be between 8-12 characters");
-      setShowPasswordError(true);
-      return false;
-    }
-
-    // Check if password contains any whitespace or not
-    if (/\s/.test(password)) {
-      console.log("Error: Password cannot contain spaces");
-      setShowPasswordError(true);
-      return false;
-    }
-
-    // Check if password have at least 1 uppercase letter, 1 lowercase letter, 1 digit and 1 special character
-    if (!pattern.test(password)) {
-      console.log(
-        "Error: Password must have at least 1 uppercase letter, 1 lowercase letter, 1 digit and 1 special character"
-      );
-      setShowPasswordError(true);
-      return false;
-    }
-
-    return true;
   };
 
-  // Check whether password and confirm password matches or not
-  const doesPasswordsMatch = () => {
-    // Check if password matches confirmPassword or not
-    if (password !== confirmPassword) {
-      console.log("Error: Password and Confirm Password does not match");
+  // Validate confirm password dynamically
+  const handleConfirmPassword = (e) => {
+    // Set confirm password from input
+    setConfirmPassword(e);
+
+    // Show confirm password error if confirm password is invalid
+    if (!doesPasswordsMatch(password, confirmPassword)) {
       setShowConfirmPasswordError(true);
-      return false;
+    } else {
+      setShowConfirmPasswordError(false);
     }
-    return true;
   };
 
   // TODO: Sign up for a new user account
@@ -142,11 +108,36 @@ const SignUp = () => {
     console.log(`password: ${password}`);
     console.log(`confirmPassword: ${confirmPassword}`);
 
-    const emailValidity = isEmailValid();
-    const passwordValidity = isPasswordValid() && doesPasswordsMatch();
+    const emailValidity = isEmailValid(email);
+    const passwordValidity = isPasswordValid(password);
+    const confirmPasswordValidity = doesPasswordsMatch(
+      password,
+      confirmPassword
+    );
+
+    // Show email error if email is invalid
+    if (!emailValidity) {
+      setShowEmailError(true);
+    } else {
+      setShowEmailError(false);
+    }
+
+    // Show password error is password is invalid
+    if (!passwordValidity) {
+      setShowPasswordError(true);
+    } else {
+      setShowPasswordError(false);
+    }
+
+    // Show confirm password error if confirm password is invalid
+    if (!confirmPassword) {
+      setShowConfirmPasswordError(true);
+    } else {
+      setShowConfirmPasswordError(false);
+    }
 
     // Check if email, password and confirm password are valid
-    if (emailValidity && passwordValidity) {
+    if (emailValidity && passwordValidity && confirmPasswordValidity) {
       // Use GraphQL signup mutation to perform sign up
       // If email already exists in database, display modal to user saying
       // an account has already been created with the email address
@@ -162,12 +153,8 @@ const SignUp = () => {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <div className="grid grid-cols-2 divide-x-2 min-h-full">
-        {/* Carousel */}
-        <div className="flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24 bg-[#A6A6E0] h-screen">
-          {/* <div className="flex bg-[#ffffff]/80 h-5/6 rounded-lg shadow-xl">
-      <Carousel></Carousel>
-    </div> */}
-        </div>
+        {/* Picture */}
+        <div className="flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24 bg-[#A6A6E0] h-screen"></div>
 
         {/* Sign up form */}
         <div className="flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24 bg-white h-screen">
@@ -208,7 +195,7 @@ const SignUp = () => {
                         className={`placeholder:normal-case lowercase block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm ${
                           showEmailError ? "border-red-600" : ""
                         }`}
-                        onChange={(e) => setEmail(e.target.value)}
+                        onChange={(e) => handleEmail(e.target.value)}
                         value={email}
                       />
                     </div>
@@ -255,7 +242,7 @@ const SignUp = () => {
                         className={`block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm ${
                           showPasswordError ? "border-red-600" : ""
                         }`}
-                        onChange={(e) => setPassword(e.target.value)}
+                        onChange={(e) => handlePassword(e.target.value)}
                         value={password}
                         maxLength="12"
                         minLength="8"
@@ -345,7 +332,7 @@ const SignUp = () => {
                         className={`w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm ${
                           showConfirmPasswordError ? "border-red-600" : ""
                         }`}
-                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        onChange={(e) => handleConfirmPassword(e.target.value)}
                         value={confirmPassword}
                         maxLength="12"
                         minLength="8"

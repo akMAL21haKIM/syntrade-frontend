@@ -83,6 +83,21 @@ const Login = () => {
 
     const emailValidity = isEmailValid(email);
     const passwordValidity = isPasswordValid(password);
+
+    // Show email error if email is invalid
+    if (!emailValidity) {
+      setShowEmailError(true);
+    } else {
+      setShowEmailError(false);
+    }
+
+    // Show password error is password is invalid
+    if (!passwordValidity) {
+      setShowPasswordError(true);
+    } else {
+      setShowPasswordError(false);
+    }
+
     // Use GraphQL login mutation to perform login
     // If email does not exist in database, display modal to user saying
     // there is no user account associated with the email address
