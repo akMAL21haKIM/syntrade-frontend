@@ -120,7 +120,7 @@ export default function SideMenu({ syntheticModel }) {
           <span class="ml-3">10,000.00 USD</span>
         </p>
       </div>
-      <div class="z-30 mt-6 mx-6 py-2 px-4 bg-white rounded border-4 border-gray-100 hover:border-gray-200">
+      <div class="z-30 mt-6 mx-6 py-2 px-4 bg-white rounded border-4 border-gray-100 hover:border-gray-200 focus:outline-none">
         <Listbox value={selectedTradeType} onChange={setSelectedTradeType}>
           {({ open }) => (
             <>
@@ -137,7 +137,7 @@ export default function SideMenu({ syntheticModel }) {
                       setIsClickedTradeTypeBox(true);
                     }
                   }}
-                  className="select-none items-center rounded-md bg-white py-2 text-xs font-medium text-gray-700"
+                  className="select-none items-center rounded-md bg-white py-2 text-xs font-medium text-gray-700 focus:outline-none"
                 >
                   <div className="flex justify-between">
                     <div className="flex-1 mr-2">
@@ -172,8 +172,10 @@ export default function SideMenu({ syntheticModel }) {
                   leaveFrom="opacity-100"
                   leaveTo="opacity-0"
                 >
-                  <Listbox.Options className="absolute -left-[235px] -top-[20px] z-10 mt-2 w-[13rem] rounded-md bg-white border-gray-100 border-4">
-                    <p className="font-semibold p-4 text-sm">Trade Types</p>
+                  <Listbox.Options className="absolute -left-[235px] -top-[20px] z-10 mt-2 w-[13rem] rounded-md bg-white border-gray-100 border-4 focus:outline-none">
+                    <p className="font-semibold p-4 text-sm select-none cursor-default">
+                      Trade Types
+                    </p>
                     {syntheticModel.trade_type.map((tradeTypeOption) => (
                       <Listbox.Option
                         key={tradeTypeOption.title}
