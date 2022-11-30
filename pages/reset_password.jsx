@@ -1,6 +1,7 @@
 import { React, useState } from "react";
 import Footer from "./components/Footer";
 import Head from "next/head";
+import Link from "next/link";
 import { ResetPasswordIllustration } from "../lib/illustrations";
 
 const ResetPassword = () => {

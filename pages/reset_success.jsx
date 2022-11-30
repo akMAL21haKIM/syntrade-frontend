@@ -2,6 +2,7 @@ import React from "react";
 import Footer from "./components/Footer";
 import { TiTick } from "react-icons/ti";
 import Head from "next/head";
+import Link from "next/link";
 
 const ResetSuccess = () => {
   return (

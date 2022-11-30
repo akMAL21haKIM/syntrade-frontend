@@ -1,6 +1,7 @@
 import { React, useState, useEffect } from "react";
 import Footer from "./components/Footer";
 import Head from "next/head";
+import Link from "next/link";
 import NavBar from "./components/NavBar";
 import { SkeletonLoaderProfilePage } from "./components/SkeletonLoaders";
 
