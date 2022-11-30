@@ -8,6 +8,7 @@ import {
   ProfileIcon,
 } from "../../lib/icons";
 import { classNames } from "../../lib/utilities";
+import Link from "next/link";
 
 let isUserLoggedIn = true;
 
@@ -19,14 +20,14 @@ export default function NavBar() {
       <div className="w-full px-4 sm:px-6">
         <div className="flex items-center justify-between py-2 md:justify-start md:space-x-10">
           <div className="flex justify-start lg:w-0 lg:flex-1">
-            <a href="/">
+            <Link href="/">
               <span className="sr-only">Syntrade</span>
               <img
                 className="h-8 w-auto sm:h-10"
                 src={LogoIcon.src}
                 alt="Syntrade logo"
               />
-            </a>
+            </Link>
             <p className="px-6 py-2 text-xl font-bold">Syntrade</p>
           </div>
 
@@ -88,35 +89,35 @@ export default function NavBar() {
                       </div>
                       <div className="space-y-1 py-6 px-2">
                         <div>
-                          <a href="/trade">
+                          <Link href="/trade">
                             <p className="mt-0 px-3 py-3 text-base font-medium text-gray-700 hover:bg-gray-100 hover:rounded">
                               Trade
                             </p>
-                          </a>
+                          </Link>
 
-                          <a href="/profile">
+                          <Link href="/profile">
                             <p className="mt-1 px-3 py-3 text-base font-medium text-gray-700 hover:bg-gray-100 hover:rounded">
                               Profile
                             </p>
-                          </a>
+                          </Link>
 
-                          <a href="/reports">
+                          <Link href="/reports">
                             <p className="mt-1 px-3 py-3 text-base font-medium text-gray-700 hover:bg-gray-100 hover:rounded">
                               Reports
                             </p>
-                          </a>
+                          </Link>
 
-                          <a href="#">
+                          <Link href="#">
                             <p className="mt-1 px-3 py-3 text-base font-medium text-gray-700 hover:bg-gray-100 hover:rounded">
                               Reset balance
                             </p>
-                          </a>
+                          </Link>
 
-                          <a href="#">
+                          <Link href="#">
                             <p className="mt-1 px-3 py-3 text-base font-medium text-gray-700 hover:bg-gray-100 hover:rounded">
                               Sign out
                             </p>
-                          </a>
+                          </Link>
                         </div>
                       </div>
                     </div>
@@ -166,7 +167,7 @@ export default function NavBar() {
                     <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                       <Menu.Item>
                         {({ active }) => (
-                          <a
+                          <Link
                             href="/trade"
                             className={classNames(
                               active ? "bg-gray-100" : "",
@@ -174,12 +175,12 @@ export default function NavBar() {
                             )}
                           >
                             Trade
-                          </a>
+                          </Link>
                         )}
                       </Menu.Item>
                       <Menu.Item>
                         {({ active }) => (
-                          <a
+                          <Link
                             href="/profile"
                             className={classNames(
                               active ? "bg-gray-100" : "",
@@ -187,12 +188,12 @@ export default function NavBar() {
                             )}
                           >
                             Profile
-                          </a>
+                          </Link>
                         )}
                       </Menu.Item>
                       <Menu.Item>
                         {({ active }) => (
-                          <a
+                          <Link
                             href="/reports"
                             className={classNames(
                               active ? "bg-gray-100" : "",
@@ -200,12 +201,12 @@ export default function NavBar() {
                             )}
                           >
                             Reports
-                          </a>
+                          </Link>
                         )}
                       </Menu.Item>
                       <Menu.Item>
                         {({ active }) => (
-                          <a
+                          <Link
                             href="#"
                             className={classNames(
                               active ? "bg-gray-100" : "",
@@ -213,12 +214,12 @@ export default function NavBar() {
                             )}
                           >
                             Reset balance
-                          </a>
+                          </Link>
                         )}
                       </Menu.Item>
                       <Menu.Item>
                         {({ active }) => (
-                          <a
+                          <Link
                             href="#"
                             className={classNames(
                               active ? "bg-gray-100" : "",
@@ -226,7 +227,7 @@ export default function NavBar() {
                             )}
                           >
                             Sign out
-                          </a>
+                          </Link>
                         )}
                       </Menu.Item>
                     </Menu.Items>
@@ -288,20 +289,20 @@ export default function NavBar() {
                       </div>
                       <div className="space-y-6 py-6 px-5">
                         <div>
-                          <a
+                          <Link
                             href="/signup"
                             className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
                           >
                             Sign up
-                          </a>
+                          </Link>
                           <p className="mt-6 text-center text-base font-medium text-gray-500">
                             Existing user?{" "}
-                            <a
+                            <Link
                               href="/login"
                               className="text-indigo-600 hover:text-indigo-500"
                             >
                               Log in
-                            </a>
+                            </Link>
                           </p>
                         </div>
                       </div>
@@ -311,18 +312,18 @@ export default function NavBar() {
               </div>
               {/* Desktop menu */}
               <div className="hidden items-center justify-end md:flex md:flex-1 lg:w-0">
-                <a
+                <Link
                   href="/login"
                   className="ml-8 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-indigo-600 bg-white px-4 py-1 text-sm font-semibold text-indigo-600 shadow-sm hover:bg-indigo-50"
                 >
                   Log in
-                </a>
-                <a
+                </Link>
+                <Link
                   href="/signup"
                   className="ml-8 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-indigo-600 px-4 py-1 text-sm font-semibold text-white shadow-sm hover:bg-indigo-700"
                 >
                   Sign up
-                </a>
+                </Link>
               </div>
             </>
           )}
