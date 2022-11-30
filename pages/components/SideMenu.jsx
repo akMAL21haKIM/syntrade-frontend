@@ -26,13 +26,49 @@ export default function SideMenu({ syntheticModel }) {
   const [sliderValue, setSliderValue] = useState(5);
   const [stakePayoutError, setStakePayoutError] = useState(false);
 
+  const Prices = gql`
+    query Prices(
+      $selectedStakePayout: Boolean!
+      $synth: String!
+      $tradeType: String!
+      $parsedStakePayout: Float!
+      $parsedSliderValue: Int
+    ) {
+      prices(
+        type: $selectedStakePayout
+        syntheticModel: $synth
+        tradeType: $tradeType
+        stake: $parsedStakePayout
+        ticks: $parsedSliderValue
+      )
+    }
+  `;
+
+  console.log("syntheticModel: ", syntheticModel.type);
+
+  const synth = syntheticModel.type;
+  const parsedStakePayout = parseFloat(stakePayout);
+  const tradeType = selectedTradeType.simplified_title;
+  const parsedSliderValue = parseInt(sliderValue);
+
+  const { data, loading, error } = useQuery(Prices, {
+    variables: {
+      selectedStakePayout,
+      synth,
+      tradeType,
+      parsedStakePayout,
+      parsedSliderValue,
+      selectedNumberPrediction,
+    },
+  });
+
   useEffect(() => {
     setLoader(true);
 
     setTimeout(async () => {
       setLoader(false);
     }, 1000);
-  }, [selectedTradeType, stakePayout, selectedStakePayout, sliderValue]);
+  }, [selectedTradeType, stakePayout, selectedStakePayout, sliderValue, data]);
 
   const increment = (e) => {
     e.preventDefault();
@@ -98,42 +134,6 @@ export default function SideMenu({ syntheticModel }) {
 
     console.log("stakePayout", stakePayout);
   };
-
-  const Prices = gql`
-    query Prices(
-      $selectedStakePayout: Boolean!
-      $synth: String!
-      $tradeType: String!
-      $parsedStakePayout: Float!
-      $parsedSliderValue: Int
-    ) {
-      prices(
-        type: $selectedStakePayout
-        syntheticModel: $synth
-        tradeType: $tradeType
-        stake: $parsedStakePayout
-        ticks: $parsedSliderValue
-      )
-    }
-  `;
-
-  console.log("syntheticModel: ", syntheticModel.type);
-
-  const synth = syntheticModel.type;
-  const parsedStakePayout = parseFloat(stakePayout);
-  const tradeType = selectedTradeType.simplified_title;
-  const parsedSliderValue = parseInt(sliderValue);
-
-  const { data, loading, error } = useQuery(Prices, {
-    variables: {
-      selectedStakePayout,
-      synth,
-      tradeType,
-      parsedStakePayout,
-      parsedSliderValue,
-      selectedNumberPrediction,
-    },
-  });
 
   // console.log(Object.values(data)[0]);
   console.log(data);
