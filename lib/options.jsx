@@ -147,7 +147,7 @@ export const syntheticModelOptions = [
         className="w-6 h-6"
       />
     ),
-    type: "vol_10",
+    type: "volatility_10",
     trade_type: [
       {
         title: "Even / Odd",
@@ -244,7 +244,7 @@ export const syntheticModelOptions = [
         className="w-6 h-6"
       />
     ),
-    type: "vol_25",
+    type: "volatility_25",
     trade_type: [
       {
         title: "Even / Odd",

@@ -7,23 +7,8 @@ import {
   ChevronLeftIcon,
 } from "../../lib/icons";
 import { classNames } from "../../lib/utilities";
-
-const Tooltip = ({ msg = "", children }) => {
-  return (
-    <div class="relative flex justify-left items-center align-left group w-full">
-      <div
-        class="absolute w-[6rem] z-99 hidden group-hover:flex"
-        style={{ left: "-7rem" }}
-      >
-        <span class="flex z-10 p-2 text-xs leading-none text-white bg-red-600 shadow-lg">
-          {msg}
-        </span>
-        <div class="absolute bottom-[1rem] w-3 h-3 ml-[5.5rem] rotate-45 bg-red-600 hover:-top-2"></div>
-      </div>
-      {children}
-    </div>
-  );
-};
+import { useQuery, gql } from "@apollo/client";
+import { Tooltip } from "../components/Tooltip";
 
 export default function SideMenu({ syntheticModel }) {
   const [loader, setLoader] = useState(false);
@@ -32,12 +17,14 @@ export default function SideMenu({ syntheticModel }) {
   );
   const [isClickedTradeTypeBox, setIsClickedTradeTypeBox] = useState(false);
   const [stakePayout, setStakePayout] = useState(10);
-  const [selectedStakePayout, setSelectedStakePayout] = useState(true);
+  const [selectedStakePayout, setSelectedStakePayout] = useState(false);
   const [disableIncrement, setDisableIncrement] = useState(false);
   const [disableDecrement, setDisableDecrement] = useState(false);
   const [blueIconTransition, setBlueIconTransition] = useState(false);
   const [redIconTransition, setRedIconTransition] = useState(false);
   const [selectedNumberPrediction, setSelectedNumberPrediction] = useState(0);
+  const [sliderValue, setSliderValue] = useState(5);
+  const [stakePayoutError, setStakePayoutError] = useState(false);
 
   useEffect(() => {
     setLoader(true);
@@ -45,7 +32,7 @@ export default function SideMenu({ syntheticModel }) {
     setTimeout(async () => {
       setLoader(false);
     }, 1000);
-  }, [selectedTradeType, stakePayout, selectedStakePayout]);
+  }, [selectedTradeType, stakePayout, selectedStakePayout, sliderValue]);
 
   const increment = (e) => {
     e.preventDefault();
@@ -55,17 +42,18 @@ export default function SideMenu({ syntheticModel }) {
     if (parseFloat(stakePayout) > 30000) {
       // Disable increment button
       setDisableIncrement(true);
-      // TODO: Show tooltip error message
+      // Show tooltip error message
+      setStakePayoutError(true);
     }
 
     setStakePayout(stakePayout + 1);
+    setStakePayoutError(false);
   };
 
   const decrement = (e) => {
     e.preventDefault();
 
     setDisableIncrement(false);
-    // tooltip.hide();
 
     // If stakePayout is less than 0, set it to 0
     if (stakePayout <= 0) {
@@ -74,12 +62,13 @@ export default function SideMenu({ syntheticModel }) {
       // Disable decrement button
       setDisableDecrement(true);
 
-      // TODO: Show tooltip error message
-      // tooltip.show();
+      // Show tooltip error message
+      setStakePayoutError(true);
     } else {
       // Enable decrement button
       setDisableDecrement(false);
       setStakePayout(stakePayout - 1);
+      setStakePayoutError(false);
     }
   };
 
@@ -87,7 +76,7 @@ export default function SideMenu({ syntheticModel }) {
   // Max stake / payout = 30000.00
   // Input can only be numbers and a single dot
   const handleStakePayoutChange = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
 
     // Remove non digit characters from input
     // TODO: Make sure input can only take one period
@@ -98,14 +87,57 @@ export default function SideMenu({ syntheticModel }) {
     // If stakePayout is less than 0, set it to 0
     if (sanitisedInput <= 0) {
       setStakePayout(0);
-      // TODO: Display tooltip error message about min max stake payout
+      setStakePayoutError(true);
     } else if (sanitisedInput > 30000) {
       setStakePayout(sanitisedInput);
-      // TODO: Display tooltip error message about min max stake payout
+      setStakePayoutError(true);
     } else {
       setStakePayout(sanitisedInput);
+      setStakePayoutError(false);
     }
+
+    console.log("stakePayout", stakePayout);
   };
+
+  const Prices = gql`
+    query Prices(
+      $selectedStakePayout: Boolean!
+      $synth: String!
+      $tradeType: String!
+      $parsedStakePayout: Float!
+      $parsedSliderValue: Int
+    ) {
+      prices(
+        type: $selectedStakePayout
+        syntheticModel: $synth
+        tradeType: $tradeType
+        stake: $parsedStakePayout
+        ticks: $parsedSliderValue
+      )
+    }
+  `;
+
+  console.log("syntheticModel: ", syntheticModel.type);
+
+  const synth = syntheticModel.type;
+  const parsedStakePayout = parseFloat(stakePayout);
+  const tradeType = selectedTradeType.simplified_title;
+  const parsedSliderValue = parseInt(sliderValue);
+
+  const { data, loading, error } = useQuery(Prices, {
+    variables: {
+      selectedStakePayout,
+      synth,
+      tradeType,
+      parsedStakePayout,
+      parsedSliderValue,
+      selectedNumberPrediction,
+    },
+  });
+
+  // console.log(Object.values(data)[0]);
+  console.log(data);
+  // console.log(Object.values(data));
 
   return (
     <aside
@@ -118,7 +150,7 @@ export default function SideMenu({ syntheticModel }) {
             className="w-6 h-6 fill-indigo-600"
             fill="currentColor"
           />
-          <span class="ml-3">10,000.00 USD</span>
+          <span class="ml-3">10,000.00 MYR</span>
         </p>
       </div>
       <div class="z-30 mt-6 mx-6 py-2 px-4 bg-white rounded border-4 border-gray-100 hover:border-gray-200 focus:outline-none">
@@ -211,12 +243,18 @@ export default function SideMenu({ syntheticModel }) {
         </Listbox>
       </div>
       <div class="mt-6 mx-6 py-2 px-4 bg-white rounded border-4 border-gray-100 ">
-        <RangeSlider></RangeSlider>
+        <RangeSlider
+          sliderValue={sliderValue}
+          setSliderValue={setSliderValue}
+        ></RangeSlider>
       </div>
       <div className="relative mt-6 mx-6 bg-gray-50 rounded border-4 border-gray-100">
         <div className="relative">
           <span className="relative grid grid-cols-2 justify-between rounded">
-            <Tooltip msg="Stake and payout must be within 1.00 to 30000.00">
+            <Tooltip
+              msg="Minimum stake of 1.00 and maximum payout of 30000"
+              stakePayoutError={stakePayoutError}
+            >
               <button
                 type="button"
                 className={`rounded-tl w-full px-4 py-2 text-sm font-semibold focus:outline-none ${
@@ -235,24 +273,23 @@ export default function SideMenu({ syntheticModel }) {
                 Stake
               </button>
             </Tooltip>
-            <Tooltip msg="Stake and payout must be within 1.00 to 30000.00">
-              <button
-                type="button"
-                className={`rounded-tr w-full px-4 py-2 text-sm font-semibold focus:outline-none ${
-                  selectedStakePayout != false
-                    ? "bg-indigo-600 text-white"
-                    : "bg-transparent text-gray-700 hover:bg-gray-100"
-                }`}
-                onClick={(e) => {
-                  e.preventDefault();
-                  if (selectedStakePayout == false) {
-                    setSelectedStakePayout(true);
-                  }
-                }}
-              >
-                Payout
-              </button>
-            </Tooltip>
+
+            <button
+              type="button"
+              className={`rounded-tr w-full px-4 py-2 text-sm font-semibold focus:outline-none ${
+                selectedStakePayout != false
+                  ? "bg-indigo-600 text-white"
+                  : "bg-transparent text-gray-700 hover:bg-gray-100"
+              }`}
+              onClick={(e) => {
+                e.preventDefault();
+                if (selectedStakePayout == false) {
+                  setSelectedStakePayout(true);
+                }
+              }}
+            >
+              Payout
+            </button>
           </span>
         </div>
         <div className="bg-white rounded">
@@ -271,12 +308,11 @@ export default function SideMenu({ syntheticModel }) {
                 type="text"
                 className="font-medium text-gray-700 col-span-2 focus:outline-none border-none border-transparent focus:border-transparent focus:ring-0"
                 name="stake-payout-input"
-                defaultValue="10"
                 value={stakePayout}
                 onChange={(e) => handleStakePayoutChange(e)}
               ></input>
               <p className="text-gray-600 font-medium my-auto col-span-1 focus:outline-none cursor-default select-none">
-                USD
+                MYR
               </p>
             </div>
 
@@ -302,7 +338,7 @@ export default function SideMenu({ syntheticModel }) {
         <div className="select-none cursor-default">
           <div className="grid grid-flow-col justify-between">
             <p className="text-sm mb-2 mt-0 font-semibold text-gray-700 cursor-default select-none">
-              Number Predictions
+              Last Digit Prediction
             </p>
           </div>
           <div className="px-2 grid grid-cols-5 gap-5 justify-between">
@@ -326,13 +362,17 @@ export default function SideMenu({ syntheticModel }) {
         <div>
           <div className="grid grid-cols-2">
             <p className="text-sm font-light text-gray-500 mb-1 focus:outline-none cursor-default select-none">
-              Payout
+              {selectedStakePayout ? "Stake" : "Payout"}
             </p>
             {loader ? (
               <div className="animate-pulse h-[1.25rem] flex bg-gray-300 rounded focus:outline-none cursor-default select-none"></div>
+            ) : data ? (
+              <p className="text-sm font-semibold text-gray-700 mb-1 text-right focus:outline-none cursor-default select-none">
+                {Object.values(data)[0][0].toFixed(2)} MYR
+              </p>
             ) : (
               <p className="text-sm font-semibold text-gray-700 mb-1 text-right focus:outline-none cursor-default select-none">
-                12.00 USD
+                {"No data"} MYR
               </p>
             )}
           </div>
@@ -347,12 +387,12 @@ export default function SideMenu({ syntheticModel }) {
             <div
               className={`bg-transparent ${
                 blueIconTransition
-                  ? "translate-x-20 ease-out cubic-bezier(0.4, 0, 1, 1) duration-200"
+                  ? "translate-x-28 ease-out cubic-bezier(0.4, 0, 1, 1) duration-200"
                   : ""
               }`}
               onClick={(e) => {
                 e.preventDefault();
-                console.log("blueIconTransition", blueIconTransition);
+
                 if (blueIconTransition == false) {
                   setBlueIconTransition(true);
 
@@ -362,6 +402,8 @@ export default function SideMenu({ syntheticModel }) {
                 } else {
                   setBlueIconTransition(false);
                 }
+
+                // TODO: Create new trade
               }}
             >
               {selectedTradeType.blueIcon}
@@ -375,13 +417,17 @@ export default function SideMenu({ syntheticModel }) {
         <div>
           <div className="grid grid-cols-2 mt-4">
             <p className="text-sm font-light text-gray-500 mb-1 focus:outline-none cursor-default select-none">
-              Payout
+              {selectedStakePayout ? "Stake" : "Payout"}
             </p>
             {loader ? (
               <div className="animate-pulse h-[1.25rem] flex bg-gray-300 rounded focus:outline-none cursor-default select-none"></div>
+            ) : data ? (
+              <p className="text-sm font-semibold text-gray-700 mb-1 text-right focus:outline-none cursor-default select-none">
+                {Object.values(data)[0][1].toFixed(2)} MYR
+              </p>
             ) : (
               <p className="text-sm font-semibold text-gray-700 mb-1 text-right focus:outline-none cursor-default select-none">
-                12.00 USD
+                {"No data"} MYR
               </p>
             )}
           </div>
@@ -395,12 +441,12 @@ export default function SideMenu({ syntheticModel }) {
             <div
               className={`bg-transparent ${
                 redIconTransition
-                  ? "translate-x-20 ease-out cubic-bezier(0.4, 0, 1, 1) duration-200"
+                  ? "translate-x-28 ease-out cubic-bezier(0.4, 0, 1, 1) duration-200"
                   : ""
               }`}
               onClick={(e) => {
                 e.preventDefault();
-                console.log("redIconTransition", redIconTransition);
+
                 if (redIconTransition == false) {
                   setRedIconTransition(true);
 
@@ -410,6 +456,8 @@ export default function SideMenu({ syntheticModel }) {
                 } else {
                   setRedIconTransition(false);
                 }
+
+                // TODO: Create new trade
               }}
             >
               {selectedTradeType.redIcon}

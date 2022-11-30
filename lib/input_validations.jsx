@@ -29,6 +29,8 @@ const isPasswordValid = (passwordToValidate) => {
     "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[-+_!@#$%^&*.,?]).+$"
   );
 
+  console.log("password length", passwordToValidate.length);
+
   // Check if password is empty or not
   if (!passwordToValidate) {
     console.log("Error: Password cannot be empty");
@@ -36,7 +38,7 @@ const isPasswordValid = (passwordToValidate) => {
   }
 
   // Check if length of password is between 8-12 characters or not
-  if (passwordToValidate.length < 8 || passwordToValidate.length > 12) {
+  if (passwordToValidate.length <= 7 || passwordToValidate.length >= 11) {
     console.log("Error: Password must be between 8-12 characters");
     return false;
   }

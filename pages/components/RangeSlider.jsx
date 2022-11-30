@@ -1,8 +1,8 @@
 import React from "react";
 import { useState } from "react";
 
-export default function RangeSlider() {
-  const [sliderValue, setSliderValue] = useState(5);
+export default function RangeSlider({ sliderValue, setSliderValue }) {
+  // const [sliderValue, setSliderValue] = useState(5);
 
   function updateSliderValue(value) {
     setSliderValue(value);
