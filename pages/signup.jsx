@@ -74,7 +74,9 @@ const SignUp = () => {
   // Validate password dynamically
   const handlePassword = (e) => {
     // Set password from input
-    setPassword(e);
+    setPassword(e.target.value);
+
+    console.log("password", password);
 
     // Show password error if password is invalid
     if (!isPasswordValid(password)) {
@@ -242,7 +244,7 @@ const SignUp = () => {
                         className={`block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm ${
                           showPasswordError ? "border-red-600" : ""
                         }`}
-                        onChange={(e) => handlePassword(e.target.value)}
+                        onChange={(e) => handlePassword(e)}
                         value={password}
                         maxLength="12"
                         minLength="8"
