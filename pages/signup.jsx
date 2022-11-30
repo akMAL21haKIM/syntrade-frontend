@@ -456,7 +456,7 @@ const SignUp = () => {
 
                   <div id="button-container">
                     <button
-                      id="submit_button"
+                      id="submit"
                       type="submit"
                       className="flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-md font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                       onClick={handleSignup}
