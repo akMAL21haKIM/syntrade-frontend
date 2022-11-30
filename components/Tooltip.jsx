@@ -1,4 +1,4 @@
-export const Tooltip = ({ msg, children, stakePayoutError }) => {
+export default function Tooltip({ msg, children, stakePayoutError }) {
   return (
     <div class="relative flex justify-left items-center align-left group w-full">
       <div
@@ -13,4 +13,4 @@ export const Tooltip = ({ msg, children, stakePayoutError }) => {
       {children}
     </div>
   );
-};
+}

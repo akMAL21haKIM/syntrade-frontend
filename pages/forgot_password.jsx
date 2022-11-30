@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Footer from "./components/Footer";
+import Footer from "../components/Footer";
 import Head from "next/head";
 import Link from "next/link";
 import { isEmailValid } from "../lib/input_validations";

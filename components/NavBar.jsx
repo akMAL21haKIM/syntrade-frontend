@@ -1,13 +1,8 @@
 import { Fragment, useState } from "react";
 import { Popover, Transition, Menu } from "@headlessui/react";
-import LogoIcon from "../../public/old_logo.svg";
-import {
-  XMarkIcon,
-  Bars3Icon,
-  ReportsIcon,
-  ProfileIcon,
-} from "../../lib/icons";
-import { classNames } from "../../lib/utilities";
+import LogoIcon from "../public/logo.svg";
+import { XMarkIcon, Bars3Icon, ReportsIcon, ProfileIcon } from "../lib/icons";
+import { classNames } from "../lib/utilities";
 import Link from "next/link";
 
 let isUserLoggedIn = true;

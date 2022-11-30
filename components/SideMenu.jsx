@@ -5,12 +5,12 @@ import {
   SolidDollarIcon,
   ChevronRightIcon,
   ChevronLeftIcon,
-} from "../../lib/icons";
-import { classNames } from "../../lib/utilities";
+} from "../lib/icons";
+import { classNames } from "../lib/utilities";
 import { useQuery, gql } from "@apollo/client";
-import { Tooltip } from "../components/Tooltip";
+import Tooltip from "./Tooltip";
 
-export default function SideMenu({ syntheticModel }) {
+const SideMenu = ({ syntheticModel }) => {
   const [loader, setLoader] = useState(false);
   const [selectedTradeType, setSelectedTradeType] = useState(
     syntheticModel.trade_type[0]
@@ -471,4 +471,6 @@ export default function SideMenu({ syntheticModel }) {
       </div>
     </aside>
   );
-}
+};
+
+module.exports = SideMenu;

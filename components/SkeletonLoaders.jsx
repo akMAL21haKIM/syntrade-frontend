@@ -1,4 +1,4 @@
-export const SkeletonLoaderTradePage = () => {
+export function SkeletonLoaderTradePage() {
   return (
     <div className="grid grid-cols-2">
       <div className="pl-[1.25rem] mt-8">
@@ -17,9 +17,9 @@ export const SkeletonLoaderTradePage = () => {
       </aside>
     </div>
   );
-};
+}
 
-export const SkeletonLoaderReportsPage = () => {
+export function SkeletonLoaderReportsPage() {
   return Array(5)
     .fill()
     .map((item, index) => (
@@ -48,9 +48,9 @@ export const SkeletonLoaderReportsPage = () => {
         </td>
       </tr>
     ));
-};
+}
 
-export const SkeletonLoaderProfilePage = () => {
+export function SkeletonLoaderProfilePage() {
   return (
     <div className="flex justify-center items-center w-full mt-12">
       <div className="text-center">
@@ -73,4 +73,10 @@ export const SkeletonLoaderProfilePage = () => {
       </div>
     </div>
   );
+}
+
+module.exports = {
+  SkeletonLoaderTradePage,
+  SkeletonLoaderReportsPage,
+  SkeletonLoaderProfilePage,
 };

@@ -1,6 +1,6 @@
 import { createChart } from "lightweight-charts";
 import { useRef, useEffect } from "react";
-import { convertRemToPixels } from "../../lib/utilities";
+import { convertRemToPixels } from "../lib/utilities";
 
 let data = [];
 
@@ -8,7 +8,7 @@ const Chart = ({ syntheticModel, stream }) => {
   const chartRef = useRef(null);
 
   useEffect(() => {
-    const chart = createChart("baka", {
+    const chart = createChart("chart", {
       layout: {
         textColor: "#374151",
         background: { type: "solid", color: "white" },
@@ -60,10 +60,6 @@ const Chart = ({ syntheticModel, stream }) => {
             },
           ])
         );
-        // areaSeries.update({
-        //   time: m.time_utc,
-        //   value: m[`current_${syntheticModel}_price`],
-        // });
       } catch (e) {
         console.error(e);
       }
@@ -81,7 +77,7 @@ const Chart = ({ syntheticModel, stream }) => {
 
   return (
     <div
-      id="baka"
+      id="chart"
       className="w-[6.25rem] h-[1.25rem] pl-[1.25rem] absolute"
       ref={chartRef}
     />

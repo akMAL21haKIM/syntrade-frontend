@@ -1,8 +1,8 @@
 import { React, useState, useEffect } from "react";
-import Footer from "./components/Footer";
+import Footer from "../components/Footer";
 import Head from "next/head";
-import NavBar from "./components/NavBar";
-import { SkeletonLoaderReportsPage } from "./components/SkeletonLoaders";
+import NavBar from "../components/NavBar";
+import { SkeletonLoaderReportsPage } from "../components/SkeletonLoaders";
 
 const trades = [
   {
@@ -168,7 +168,7 @@ const Reports = () => {
                               className="w-6 h-6"
                             >
                               <path
-                                stroke-linecap="round"
+                                strokeLinecap="round"
                                 stroke-linejoin="round"
                                 d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941"
                               />
@@ -184,7 +184,7 @@ const Reports = () => {
                               className="w-6 h-6"
                             >
                               <path
-                                stroke-linecap="round"
+                                strokeLinecap="round"
                                 stroke-linejoin="round"
                                 d="M12 19.5v-15m0 0l-6.75 6.75M12 4.5l6.75 6.75"
                               />
