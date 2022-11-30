@@ -252,12 +252,12 @@ const Login = () => {
 
                     <p className="mt-2 text-sm text-center text-gray-600">
                       Don&apos;t have an account?&nbsp;
-                      <a
+                      <Link
                         href="signup"
                         className="font-medium text-indigo-600 hover:text-indigo-500"
                       >
                         Sign up
-                      </a>
+                      </Link>
                     </p>
                   </div>
                 </form>

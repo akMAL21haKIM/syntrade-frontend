@@ -25,12 +25,12 @@ const ResetSuccess = () => {
               className="space-y-6 mx-auto w-full max-w-sm lg:w-96"
             >
               <div className="text-center justify-center">
-                <a
-                  href="pages/login.js"
+                <Link
+                  href="login"
                   className="font-medium text-indigo-600 hover:text-indigo-500 text-center mt-10"
                 >
                   Back to login
-                </a>
+                </Link>
               </div>
             </form>
           </div>

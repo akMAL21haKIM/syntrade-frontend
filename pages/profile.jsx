@@ -66,20 +66,20 @@ const Profile = () => {
 
               <div className="mt-8 flex justify-center">
                 <div className="inline-flex rounded-md shadow">
-                  <a
+                  <Link
                     href="/reset_password"
                     className="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-7 py-3 text-base font-medium text-white hover:bg-indigo-700"
                   >
                     Change password
-                  </a>
+                  </Link>
                 </div>
                 <div className="ml-3 inline-flex">
-                  <a
+                  <Link
                     href="#"
                     className="inline-flex items-center justify-center rounded-md border border-transparent bg-red-500 px-7 py-3 text-base font-medium text-white hover:bg-red-600"
                   >
                     Delete account
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>

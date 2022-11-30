@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Footer from "./components/Footer";
 import Head from "next/head";
+import Link from "next/link";
 import { isEmailValid } from "../lib/input_validations";
 import { ForgotPasswordIllustration } from "../lib/illustrations";
 
@@ -115,12 +116,12 @@ const ForgotPassword = () => {
                   Submit
                 </button>
 
-                <a
+                <Link
                   href="login"
                   className="text-sm font-medium text-indigo-600 hover:text-indigo-500 text-center pt-4"
                 >
                   Back to login page
-                </a>
+                </Link>
               </div>
             </form>
           </div>
