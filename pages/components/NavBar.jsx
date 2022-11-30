@@ -1,5 +1,6 @@
 import { Fragment, useState } from "react";
 import { Popover, Transition, Menu } from "@headlessui/react";
+import LogoIcon from "../../public/old_logo.svg";
 import {
   XMarkIcon,
   Bars3Icon,
@@ -22,8 +23,8 @@ export default function NavBar() {
               <span className="sr-only">Syntrade</span>
               <img
                 className="h-8 w-auto sm:h-10"
-                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                alt=""
+                src={LogoIcon.src}
+                alt="Syntrade logo"
               />
             </a>
             <p className="px-6 py-2 text-xl font-bold">Syntrade</p>
