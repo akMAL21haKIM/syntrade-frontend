@@ -4,7 +4,7 @@ import Head from "next/head";
 import NavBar from "./components/NavBar";
 import { SkeletonLoaderReportsPage } from "./components/SkeletonLoaders";
 
-const people = [
+const trades = [
   {
     referenceId: "1",
     type: "boom_100-rise",
@@ -126,34 +126,34 @@ const Reports = () => {
                   {loader ? (
                     <SkeletonLoaderReportsPage />
                   ) : (
-                    people.map((person) => (
-                      <tr key={person.referenceId}>
+                    trades.map((trade) => (
+                      <tr key={trade.referenceId}>
                         <td className="w-full max-w-0 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:w-auto sm:max-w-none sm:pl-6">
-                          {person.referenceId}
+                          {trade.referenceId}
                           <dl className="font-normal lg:hidden">
                             <dt className="sr-only">Type</dt>
                             <dd className="mt-1 truncate text-gray-700">
-                              {person.type}
+                              {trade.type}
                             </dd>
                             <dt className="sr-only sm:hidden">Currency</dt>
                             <dd className="mt-1 truncate text-gray-500">
                               <span className="inline-flex items-center rounded bg-gray-100 px-2 py-0.5 text-xs font-semibold text-gray-800">
-                                {person.currency.toUpperCase()}
+                                {trade.currency.toUpperCase()}
                               </span>
                             </dd>
                             <dt className="sr-only sm:hidden">
                               Transaction Time
                             </dt>
                             <dd className="mt-1 truncate text-gray-700 sm:hidden">
-                              {person.transactionTime}
+                              {trade.transactionTime}
                             </dd>
                             <dt className="sr-only sm:hidden">Trade Type</dt>
                             <dd className="mt-1 truncate text-gray-500 sm:hidden">
-                              {person.transactionType}
+                              {trade.transactionType}
                             </dd>
                             <dt className="sr-only sm:hidden">Profit / Loss</dt>
                             <dd className="mt-1 truncate text-gray-500 sm:hidden">
-                              {person.profitLoss}
+                              {trade.profitLoss}
                             </dd>
                           </dl>
                         </td>
@@ -190,47 +190,47 @@ const Reports = () => {
                               />
                             </svg>
                           </span>
-                          {/* {person.type.split("-")[1]} */}
+                          {/* {trade.type.split("-")[1]} */}
                         </td>
                         <td className="hidden px-3 py-4 text-sm text-gray-500 lg:table-cell">
                           <span className="inline-flex items-center rounded bg-gray-100 px-2 py-0.5 text-xs font-semibold text-gray-800">
-                            {person.currency.toUpperCase()}
+                            {trade.currency.toUpperCase()}
                           </span>
                         </td>
 
                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 hidden lg:table-cell md:table-cell">
                           <div className="text-gray-900">
-                            {person.transactionTime.split(",")[0]}
+                            {trade.transactionTime.split(",")[0]}
                           </div>
                           <div className="text-gray-500">
-                            {person.transactionTime.split(",")[1]}
+                            {trade.transactionTime.split(",")[1]}
                           </div>
                         </td>
 
                         <td className="hidden px-3 py-4 text-sm lg:table-cell md:table-cell">
                           <span
                             className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${
-                              person.transactionType.toLowerCase() == "buy"
+                              trade.transactionType.toLowerCase() == "buy"
                                 ? "bg-green-100 text-green-800"
                                 : "bg-red-100 text-red-800"
                             }`}
                           >
-                            {person.transactionType}
+                            {trade.transactionType}
                           </span>
                         </td>
                         <td
                           className={`hidden px-3 py-4 text-sm lg:table-cell md:table-cell font-semibold text-right ${
-                            person.profitLoss < 0
+                            trade.profitLoss < 0
                               ? "text-red-500"
                               : "text-green-500"
                           }`}
                         >
-                          {person.profitLoss.toFixed(2) > 0
-                            ? `+${person.profitLoss.toFixed(2)}`
-                            : `${person.profitLoss.toFixed(2)}`}
+                          {trade.profitLoss.toFixed(2) > 0
+                            ? `+${trade.profitLoss.toFixed(2)}`
+                            : `${trade.profitLoss.toFixed(2)}`}
                         </td>
                         <td className="px-3 py-4 text-sm text-gray-700 text-right">
-                          {person.balance.toFixed(2)}
+                          {trade.balance.toFixed(2)}
                         </td>
                       </tr>
                     ))
