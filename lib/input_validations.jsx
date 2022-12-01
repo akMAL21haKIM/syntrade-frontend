@@ -29,8 +29,6 @@ const isPasswordValid = (passwordToValidate) => {
     "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[-+_!@#$%^&*.,?]).+$"
   );
 
-  console.log("password length", passwordToValidate.length);
-
   // Check if password is empty or not
   if (!passwordToValidate) {
     console.log("Error: Password cannot be empty");
@@ -62,7 +60,6 @@ const isPasswordValid = (passwordToValidate) => {
 
 // Check whether password and confirm password matches or not
 const doesPasswordsMatch = (passwordToValidate, confirmPasswordToValidate) => {
-  // Check if password matches confirmPassword or not
   if (passwordToValidate !== confirmPasswordToValidate) {
     console.log("Error: Password and Confirm Password does not match");
     return false;
