@@ -52,30 +52,6 @@ export const syntheticModelOptions = [
       },
     ],
   },
-  // {
-  //   title: "Boom 300 Index",
-  //   icon: (
-  //     <BoomIcon
-  //       fill="none"
-  //       strokeWidth="1.5"
-  //       stroke="currentColor"
-  //       className="w-6 h-6"
-  //     />
-  //   ),
-  //   type: "boom_300",
-  // },
-  // {
-  //   title: "Boom 500 Index",
-  //   icon: (
-  //     <BoomIcon
-  //       fill="none"
-  //       strokeWidth="1.5"
-  //       stroke="currentColor"
-  //       className="w-6 h-6"
-  //     />
-  //   ),
-  //   type: "boom_500",
-  // },
   {
     title: "Crash 100 Index",
     icon: (
@@ -113,30 +89,6 @@ export const syntheticModelOptions = [
       },
     ],
   },
-  // {
-  //   title: "Crash 300 Index",
-  //   icon: (
-  //     <CrashIcon
-  //       fill="none"
-  //       strokeWidth="1.5"
-  //       stroke="currentColor"
-  //       className="w-6 h-6"
-  //     />
-  //   ),
-  //   type: "crash_300",
-  // },
-  // {
-  //   title: "Crash 500 Index",
-  //   icon: (
-  //     <CrashIcon
-  //       fill="none"
-  //       strokeWidth="1.5"
-  //       stroke="currentColor"
-  //       className="w-6 h-6"
-  //     />
-  //   ),
-  //   type: "crash_500",
-  // },
   {
     title: "Volatility 10 Index",
     icon: (
@@ -357,17 +309,6 @@ export const tradeTypeOptions = [
     blueText: "Rise",
     redText: "Fall",
   },
-  // {
-  //   title: "Multipliers",
-  //   icon: (
-  //     <MultipliersIcon
-  //       fill="none"
-  //       strokeWidth="1.5"
-  //       stroke="currentColor"
-  //       className="w-5 h-5"
-  //     />
-  //   ),
-  // },
   {
     title: "Even / Odd",
     simplified_title: "even_odd",
