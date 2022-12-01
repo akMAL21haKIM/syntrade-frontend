@@ -47,13 +47,11 @@ const ForgotPassword = () => {
       </Head>
       <div className="min-h-full">
         <div className="flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24 bg-[#ffffff]/80 h-screen">
-          <div className="flex flex-col rounded-lg space-y-4 items-center justify-start">
-            <ForgotPasswordIllustration className="w-80 h-80" />
-
-            <h1 className="text-black text-center text-4xl">
-              Forgot password?
+          <div className="flex flex-col space-y-8 items-center justify-start">
+            <h1 className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-indigo-300 font-sans text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-center">
+              Forgot password
             </h1>
-            <p className="text-gray-600 text-center text-lg">
+            <p className="text-gray-400 font-medium text-center text-lg">
               Don&apos;t worry. We&apos;ll send you reset instructions.
             </p>
 
@@ -65,7 +63,7 @@ const ForgotPassword = () => {
               <div className="mt-4">
                 <label
                   htmlFor="email"
-                  className="block text-sm font-medium text-gray-700"
+                  className="block text-sm font-semibold text-gray-700"
                 >
                   Email
                 </label>
@@ -75,9 +73,9 @@ const ForgotPassword = () => {
                     name="email"
                     type="email"
                     autoComplete="email"
-                    placeholder="Enter email"
+                    placeholder="yourname@domain.com"
                     required
-                    className="placeholder:normal-case lowercase block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                    className="placeholder:normal-case lowercase block w-full appearance-none rounded border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                     onChange={(e) => setEmail(e.target.value)}
                     value={email}
                   />
@@ -110,22 +108,14 @@ const ForgotPassword = () => {
               <div className="text-center justify-center">
                 <button
                   type="submit"
-                  className="flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 mb-2 text-md font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                  className="flex w-full justify-center rounded border border-transparent bg-indigo-600 py-2 px-4 mb-2 text-md font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                   onClick={handleForgotPassword}
                 >
                   Submit
                 </button>
-
-                <Link
-                  href="login"
-                  className="text-sm font-medium text-indigo-600 hover:text-indigo-500 text-center pt-4"
-                >
-                  Back to login page
-                </Link>
               </div>
             </form>
           </div>
-          <Footer></Footer>
         </div>
       </div>
     </>
