@@ -4,7 +4,6 @@ import { useMutation, gql } from "@apollo/client";
 import Head from "next/head";
 import Link from "next/link";
 import { isEmailValid, isPasswordValid } from "../lib/input_validations";
-import { LoginIllustration } from "../lib/illustrations";
 
 const Login = () => {
   const [openPassword, setOpenPassword] = useState(false);

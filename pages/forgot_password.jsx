@@ -3,7 +3,6 @@ import Footer from "../components/Footer";
 import Head from "next/head";
 import Link from "next/link";
 import { isEmailValid } from "../lib/input_validations";
-import { ForgotPasswordIllustration } from "../lib/illustrations";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
