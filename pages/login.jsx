@@ -119,7 +119,7 @@ const Login = () => {
       <div id="login-main" className="grid grid-cols-3 min-h-screen">
         <div
           id="login_left_page"
-          className="col-span-1 flex flex-1 flex-col justify-center bg-indigo-300 h-screen rounded-lg  mx-10 my-10"
+          className="col-span-1 flex flex-1 flex-col justify-center bg-indigo-300 h-[calc(100%-5rem)] rounded-lg mx-10 my-auto"
         >
           <div className="w-3/4">
             {/* Syntrade logo */}
