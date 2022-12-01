@@ -248,13 +248,13 @@ const SideMenu = ({ syntheticModel }) => {
           setSliderValue={setSliderValue}
         ></RangeSlider>
       </div>
-      <div className="relative mt-6 mx-6 bg-gray-50 rounded border-4 border-gray-100">
-        <div className="relative">
-          <span className="relative grid grid-cols-2 justify-between rounded">
-            <Tooltip
-              msg="Minimum stake of 1.00 and maximum payout of 30000"
-              stakePayoutError={stakePayoutError}
-            >
+      <Tooltip
+        msg="Minimum stake of 1.00 and maximum payout of 30000"
+        stakePayoutError={stakePayoutError}
+      >
+        <div className="relative mt-6 mx-6 bg-gray-50 rounded border-4 border-gray-100">
+          <div className="relative">
+            <span className="relative grid grid-cols-2 justify-between rounded">
               <button
                 type="button"
                 className={`rounded-tl w-full px-4 py-2 text-sm font-semibold focus:outline-none ${
@@ -272,62 +272,62 @@ const SideMenu = ({ syntheticModel }) => {
               >
                 Stake
               </button>
-            </Tooltip>
 
-            <button
-              type="button"
-              className={`rounded-tr w-full px-4 py-2 text-sm font-semibold focus:outline-none ${
-                selectedStakePayout != false
-                  ? "bg-indigo-600 text-white"
-                  : "bg-transparent text-gray-700 hover:bg-gray-100"
-              }`}
-              onClick={(e) => {
-                e.preventDefault();
-                if (selectedStakePayout == false) {
-                  setSelectedStakePayout(true);
-                }
-              }}
-            >
-              Payout
-            </button>
-          </span>
-        </div>
-        <div className="bg-white rounded">
-          <span className="grid grid-cols-4 justify-between">
-            <button
-              type="button"
-              className={`col-span-1 rounded-l px-4 py-4 text-sm font-semibold text-gray-700 hover:bg-gray-100 ${
-                disableDecrement ? "cursor-not-allowed" : "cursor-pointer"
-              }`}
-              onClick={(e) => decrement(e)}
-            >
-              –
-            </button>
-            <div className="col-span-2 grid grid-cols-3 justify-center align-center pr-4 focus:outline-none border-none">
-              <input
-                type="text"
-                className="font-medium text-gray-700 col-span-2 focus:outline-none border-none border-transparent focus:border-transparent focus:ring-0"
-                name="stake-payout-input"
-                value={stakePayout}
-                onChange={(e) => handleStakePayoutChange(e)}
-              ></input>
-              <p className="text-gray-600 font-medium my-auto col-span-1 focus:outline-none cursor-default select-none">
-                MYR
-              </p>
-            </div>
+              <button
+                type="button"
+                className={`rounded-tr w-full px-4 py-2 text-sm font-semibold focus:outline-none ${
+                  selectedStakePayout != false
+                    ? "bg-indigo-600 text-white"
+                    : "bg-transparent text-gray-700 hover:bg-gray-100"
+                }`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (selectedStakePayout == false) {
+                    setSelectedStakePayout(true);
+                  }
+                }}
+              >
+                Payout
+              </button>
+            </span>
+          </div>
+          <div className="bg-white rounded">
+            <span className="grid grid-cols-4 justify-between">
+              <button
+                type="button"
+                className={`col-span-1 rounded-l px-4 py-4 text-sm font-semibold text-gray-700 hover:bg-gray-100 ${
+                  disableDecrement ? "cursor-not-allowed" : "cursor-pointer"
+                }`}
+                onClick={(e) => decrement(e)}
+              >
+                –
+              </button>
+              <div className="col-span-2 grid grid-cols-3 justify-center align-center pr-4 focus:outline-none border-none">
+                <input
+                  type="text"
+                  className="font-medium text-gray-700 col-span-2 focus:outline-none border-none border-transparent focus:border-transparent focus:ring-0"
+                  name="stake-payout-input"
+                  value={stakePayout}
+                  onChange={(e) => handleStakePayoutChange(e)}
+                ></input>
+                <p className="text-gray-600 font-medium my-auto col-span-1 focus:outline-none cursor-default select-none">
+                  MYR
+                </p>
+              </div>
 
-            <button
-              type="button"
-              className={`col-span-1 rounded-r px-4 py-4 text-sm font-semibold text-gray-700 hover:bg-gray-100 ${
-                disableIncrement ? "cursor-not-allowed" : "cursor-pointer"
-              }`}
-              onClick={(e) => increment(e)}
-            >
-              +
-            </button>
-          </span>
+              <button
+                type="button"
+                className={`col-span-1 rounded-r px-4 py-4 text-sm font-semibold text-gray-700 hover:bg-gray-100 ${
+                  disableIncrement ? "cursor-not-allowed" : "cursor-pointer"
+                }`}
+                onClick={(e) => increment(e)}
+              >
+                +
+              </button>
+            </span>
+          </div>
         </div>
-      </div>
+      </Tooltip>
       <div
         className={`mt-6 mx-6 py-2 px-4 bg-white rounded border-4 border-gray-100 ${
           selectedTradeType.simplified_title == "matches_differs"
@@ -376,43 +376,47 @@ const SideMenu = ({ syntheticModel }) => {
               </p>
             )}
           </div>
-
-          <button
-            className={`px-4 py-4 rounded w-full grid grid-cols-2 focus:outline-none ${
-              loader
-                ? "bg-indigo-600 opacity-50 disabled:pointer-events-none"
-                : "hover:bg-indigo-700 bg-indigo-600"
-            }`}
+          <Tooltip
+            msg="Minimum stake of 1.00 and maximum payout of 30000"
+            stakePayoutError={stakePayoutError}
           >
-            <div
-              className={`bg-transparent ${
-                blueIconTransition
-                  ? "translate-x-28 ease-out cubic-bezier(0.4, 0, 1, 1) duration-200"
-                  : ""
+            <button
+              className={`px-4 py-4 rounded w-full grid grid-cols-2 focus:outline-none ${
+                loader
+                  ? "bg-indigo-600 opacity-50 disabled:pointer-events-none"
+                  : "hover:bg-indigo-700 bg-indigo-600"
               }`}
-              onClick={(e) => {
-                e.preventDefault();
-
-                if (blueIconTransition == false) {
-                  setBlueIconTransition(true);
-
-                  setTimeout(async () => {
-                    setBlueIconTransition(false);
-                  }, 700);
-                } else {
-                  setBlueIconTransition(false);
-                }
-
-                // TODO: Create new trade
-              }}
             >
-              {selectedTradeType.blueIcon}
-            </div>
+              <div
+                className={`bg-transparent ${
+                  blueIconTransition
+                    ? "translate-x-28 ease-out cubic-bezier(0.4, 0, 1, 1) duration-200"
+                    : ""
+                }`}
+                onClick={(e) => {
+                  e.preventDefault();
 
-            <p className="text-sm font-semibold text-white text-right focus:outline-none cursor-default select-none">
-              {selectedTradeType.blueText}
-            </p>
-          </button>
+                  if (blueIconTransition == false) {
+                    setBlueIconTransition(true);
+
+                    setTimeout(async () => {
+                      setBlueIconTransition(false);
+                    }, 700);
+                  } else {
+                    setBlueIconTransition(false);
+                  }
+
+                  // TODO: Create new trade
+                }}
+              >
+                {selectedTradeType.blueIcon}
+              </div>
+
+              <p className="text-sm font-semibold text-white text-right focus:outline-none cursor-default select-none">
+                {selectedTradeType.blueText}
+              </p>
+            </button>
+          </Tooltip>
         </div>
         <div>
           <div className="grid grid-cols-2 mt-4">
@@ -431,42 +435,47 @@ const SideMenu = ({ syntheticModel }) => {
               </p>
             )}
           </div>
-          <button
-            className={`px-4 py-4 rounded w-full grid grid-cols-2 focus:outline-none ${
-              loader
-                ? "bg-red-600 opacity-50 disabled:pointer-events-none"
-                : "hover:bg-red-700 bg-red-600"
-            }`}
+          <Tooltip
+            msg="Minimum stake of 1.00 and maximum payout of 30000"
+            stakePayoutError={stakePayoutError}
           >
-            <div
-              className={`bg-transparent ${
-                redIconTransition
-                  ? "translate-x-28 ease-out cubic-bezier(0.4, 0, 1, 1) duration-200"
-                  : ""
+            <button
+              className={`px-4 py-4 rounded w-full grid grid-cols-2 focus:outline-none ${
+                loader
+                  ? "bg-red-600 opacity-50 disabled:pointer-events-none"
+                  : "hover:bg-red-700 bg-red-600"
               }`}
-              onClick={(e) => {
-                e.preventDefault();
-
-                if (redIconTransition == false) {
-                  setRedIconTransition(true);
-
-                  setTimeout(async () => {
-                    setRedIconTransition(false);
-                  }, 700);
-                } else {
-                  setRedIconTransition(false);
-                }
-
-                // TODO: Create new trade
-              }}
             >
-              {selectedTradeType.redIcon}
-            </div>
+              <div
+                className={`bg-transparent ${
+                  redIconTransition
+                    ? "translate-x-28 ease-out cubic-bezier(0.4, 0, 1, 1) duration-200"
+                    : ""
+                }`}
+                onClick={(e) => {
+                  e.preventDefault();
 
-            <p className="text-sm font-semibold text-white text-right focus:outline-none cursor-default select-none">
-              {selectedTradeType.redText}
-            </p>
-          </button>
+                  if (redIconTransition == false) {
+                    setRedIconTransition(true);
+
+                    setTimeout(async () => {
+                      setRedIconTransition(false);
+                    }, 700);
+                  } else {
+                    setRedIconTransition(false);
+                  }
+
+                  // TODO: Create new trade
+                }}
+              >
+                {selectedTradeType.redIcon}
+              </div>
+
+              <p className="text-sm font-semibold text-white text-right focus:outline-none cursor-default select-none">
+                {selectedTradeType.redText}
+              </p>
+            </button>
+          </Tooltip>
         </div>
       </div>
     </aside>
