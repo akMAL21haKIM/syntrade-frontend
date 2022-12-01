@@ -38,12 +38,12 @@ export default function SyntheticModelDropdown({
                 </div>
                 <div className="flex-1 ">
                   {isClicked ? (
-                    <ChevronDownIcon
+                    <ChevronUpIcon
                       fill="currentColor"
                       className="w-6 h-6 right-0"
                     />
                   ) : (
-                    <ChevronUpIcon
+                    <ChevronDownIcon
                       fill="currentColor"
                       className="w-6 h-6 right-0"
                     />
