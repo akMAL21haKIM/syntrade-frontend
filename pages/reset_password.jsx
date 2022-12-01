@@ -2,7 +2,6 @@ import { React, useState } from "react";
 import Footer from "../components/Footer";
 import Head from "next/head";
 import Link from "next/link";
-import { ResetPasswordIllustration } from "../lib/illustrations";
 import { EyeIcon, EyeSlashIcon } from "../lib/icons";
 
 const ResetPassword = () => {
@@ -74,7 +73,6 @@ const ResetPassword = () => {
             id="form_panel"
             className="flex flex-col rounded-lg space-y-8 items-center justify-start"
           >
-            {/* <ResetPasswordIllustration /> */}
             <h1 className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-indigo-300 font-sans text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-center pt-8">
               Reset Password
             </h1>
