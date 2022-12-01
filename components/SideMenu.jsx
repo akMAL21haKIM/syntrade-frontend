@@ -9,6 +9,10 @@ import {
 import { classNames } from "../lib/utilities";
 import { useQuery, useMutation, gql } from "@apollo/client";
 import Tooltip from "./Tooltip";
+import Prices from "../graphql/prices";
+import UpdateBalance from "../graphql/updateBalance";
+import CurrentBalance from "../graphql/currentBalance";
+import CreateBuyTrade from "../graphql/createBuyTrade";
 
 const SideMenu = ({ syntheticModel }) => {
   const [loader, setLoader] = useState(false);
@@ -26,50 +30,6 @@ const SideMenu = ({ syntheticModel }) => {
   const [sliderValue, setSliderValue] = useState(5);
   const [stakePayoutError, setStakePayoutError] = useState(false);
   const [currentWalletBalance, setCurrentWalletBalance] = useState(10000.0);
-
-  const Prices = gql`
-    query Prices(
-      $selectedStakePayout: Boolean!
-      $synth: String!
-      $tradeType: String!
-      $parsedStakePayout: Float!
-      $parsedSliderValue: Int
-    ) {
-      prices(
-        type: $selectedStakePayout
-        syntheticModel: $synth
-        tradeType: $tradeType
-        stake: $parsedStakePayout
-        ticks: $parsedSliderValue
-      )
-    }
-  `;
-
-  const UpdateBalance = gql`
-    mutation UpdateBalance($userId: Int!, $negatedParsedStakePayout: Float!) {
-      updateBalance(user_id: $userId, stakePayout: $negatedParsedStakePayout)
-    }
-  `;
-
-  const CurrentBalance = gql`
-    query CurrentBalance($userId: Int!) {
-      currentBalance(user_id: $userId)
-    }
-  `;
-
-  const CreateBuyTrade = gql`
-    mutation CreateBuyTrade(
-      $userId: Int!
-      $syntheticTrade: String!
-      $parsedStakePayout: Float!
-    ) {
-      createBuyTrade(
-        user_id: $userId
-        synthetic_type: $syntheticTrade
-        trade_result: $parsedStakePayout
-      )
-    }
-  `;
 
   const synth = syntheticModel.type;
   const parsedStakePayout = parseFloat(stakePayout);
@@ -160,9 +120,6 @@ const SideMenu = ({ syntheticModel }) => {
     }
   };
 
-  // Min stake / payout = 1.00
-  // Max stake / payout = 30000.00
-  // Input can only be numbers and a single dot
   const handleStakePayoutChange = (e) => {
     // Remove non digit characters from input
     // TODO: Make sure input can only take one period
@@ -474,11 +431,11 @@ const SideMenu = ({ syntheticModel }) => {
                     setBlueIconTransition(false);
                   }
 
-                handleTrade(tradeType.split("_")[0]);
-              }}
-            >
-              {selectedTradeType.blueIcon}
-            </div>
+                  handleTrade(tradeType.split("_")[0]);
+                }}
+              >
+                {selectedTradeType.blueIcon}
+              </div>
 
               <p className="text-sm font-semibold text-white text-right focus:outline-none cursor-default select-none">
                 {selectedTradeType.blueText}
@@ -533,11 +490,11 @@ const SideMenu = ({ syntheticModel }) => {
                     setRedIconTransition(false);
                   }
 
-                handleTrade(tradeType.split("_")[1]);
-              }}
-            >
-              {selectedTradeType.redIcon}
-            </div>
+                  handleTrade(tradeType.split("_")[1]);
+                }}
+              >
+                {selectedTradeType.redIcon}
+              </div>
 
               <p className="text-sm font-semibold text-white text-right focus:outline-none cursor-default select-none">
                 {selectedTradeType.redText}
