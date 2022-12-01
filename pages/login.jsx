@@ -116,19 +116,32 @@ const Login = () => {
         <title>Log in | Syntrade</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <div id="login-main" className="grid grid-cols-2 divide-x-2 min-h-full">
-        {/* Picture */}
+      <div id="login-main" className="grid grid-cols-3 min-h-screen">
         <div
           id="login_left_page"
-          className="flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24 bg-[#A6A6E0]/70 h-screen"
+          className="col-span-1 flex flex-1 flex-col justify-center bg-indigo-300 h-screen rounded-lg  mx-10 my-10"
         >
-          <LoginIllustration />
+          <div className="w-3/4">
+            {/* Syntrade logo */}
+            <h2 className="text-left text-7xl pl-10 text-white font-bold my-4 cursor-default">
+              Take <span className="text-black">1 tick</span>
+            </h2>
+            <h2 className="text-left text-7xl pl-10 text-white font-bold cursor-default">
+              at a time
+            </h2>
+            <h2 className="text-left text-lg pl-10 text-white font-medium mt-20 cursor-default">
+              Some quit due to slow progress.
+            </h2>
+            <h2 className="text-left text-lg pl-10 text-white font-medium my-4 cursor-default">
+              Never grasping the fact that slow progress is progress.
+            </h2>
+          </div>
         </div>
 
         {/* Login form  */}
         <div
           id="login_right_page"
-          className="flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24 bg-white h-screen"
+          className="col-span-2 flex flex-1 flex-col justify-center  bg-white h-screen"
         >
           <div id="login_form_main" className="mx-auto w-full max-w-sm lg:w-96">
             <div id="login_form_title">
@@ -141,8 +154,6 @@ const Login = () => {
             </div>
 
             <div id="form_main" className="mt-8">
-              <div />
-
               <div id="form_container" className="mt-6">
                 <form
                   id="login_form"
