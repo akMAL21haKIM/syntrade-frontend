@@ -200,13 +200,13 @@ const SideMenu = ({ syntheticModel }) => {
                   <div className="flex justify-between">
                     <div className="flex-1 mr-2">
                       {isClickedTradeTypeBox ? (
-                        <ChevronLeftIcon
+                        <ChevronRightIcon
                           strokeWidth="1"
                           fill="currentColor"
                           className="w-4 h-4"
                         />
                       ) : (
-                        <ChevronRightIcon
+                        <ChevronLeftIcon
                           strokeWidth="1"
                           fill="currentColor"
                           className="w-4 h-4"
