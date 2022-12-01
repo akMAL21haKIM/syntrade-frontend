@@ -24,59 +24,6 @@ const ResetPassword = () => {
     setOpenConfirmPassword(!openConfirmPassword);
   };
 
-  // Check whether password is valid or not
-  const isPasswordValid = () => {
-    // Password must be between 8-12 characters
-    // Password must have at least:
-    // 1 capital letter, 1 lowercase letter, 1 digit and 1 special characters (~`!@#$%^&*()_-+={[}]|\:;"'<,>.?/)
-    var pattern = new RegExp(
-      "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[-+_!@#$%^&*.,?]).+$"
-    );
-
-    // Check if password is empty or not
-    if (!password) {
-      console.log("Error: Password cannot be empty");
-      setShowPasswordError(true);
-      return false;
-    }
-
-    // Check if length of password is between 8-12 characters or not
-    if (password.length < 8 || password.length > 12) {
-      console.log("Error: Password must be between 8-12 characters");
-      setShowPasswordError(true);
-      return false;
-    }
-
-    // Check if password contains any whitespace or not
-    if (/\s/.test(password)) {
-      console.log("Error: Password cannot contain spaces");
-      setShowPasswordError(true);
-      return false;
-    }
-
-    // Check if password have at least 1 uppercase letter, 1 lowercase letter, 1 digit and 1 special character
-    if (!pattern.test(password)) {
-      console.log(
-        "Error: Password must have at least 1 uppercase letter, 1 lowercase letter, 1 digit and 1 special character"
-      );
-      setShowPasswordError(true);
-      return false;
-    }
-
-    return true;
-  };
-
-  // Check whether password and confirm password matches or not
-  const doesPasswordsMatch = () => {
-    // Check if password matches confirmPassword or not
-    if (password !== confirmPassword) {
-      console.log("Error: Password and Confirm Password does not match");
-      setShowConfirmPasswordError(true);
-      return false;
-    }
-    return true;
-  };
-
   // TODO: Reset user password
   const handleResetPassword = (e) => {
     e.preventDefault();
@@ -86,10 +33,29 @@ const ResetPassword = () => {
     console.log(`password: ${password}`);
     console.log(`confirmPassword: ${confirmPassword}`);
 
-    const passwordValidity = isPasswordValid() && doesPasswordsMatch();
+    const passwordValidity = isPasswordValid(password);
+    const confirmPasswordValidity = doesPasswordsMatch(
+      password,
+      confirmPassword
+    );
+
+    // Show password error is password is invalid
+    if (!passwordValidity) {
+      setShowPasswordError(true);
+    } else {
+      setShowPasswordError(false);
+    }
+
+    // Show confirm password error if confirm password is invalid
+    if (!confirmPassword) {
+      setShowConfirmPasswordError(true);
+    } else {
+      setShowConfirmPasswordError(false);
+    }
 
     // Check if password and confirm password are valid
-    if (passwordValidity) {
+    if (passwordValidity && confirmPasswordValidity) {
+      // Use GraphQL reset password mutation to perform sign up
     }
   };
 
@@ -102,15 +68,17 @@ const ResetPassword = () => {
       <div id="main" className="min-h-full">
         <div
           id="background_panel"
-          className="flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24 bg-[#A6A6E0] h-screen"
+          className="flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24 bg-[#ffffff]/80 h-screen"
         >
           <div
             id="form_panel"
-            className="flex flex-col bg-[#ffffff]/80 h-5/6 rounded-lg space-y-4 shadow-xl items-center justify-start"
+            className="flex flex-col rounded-lg space-y-8 items-center justify-start"
           >
-            <ResetPasswordIllustration />
-            <h1 className="text-black text-center text-4xl">Password Reset</h1>
-            <p className="text-gray-600 text-center text-lg">
+            {/* <ResetPasswordIllustration /> */}
+            <h1 className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-indigo-300 font-sans text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-center pt-8">
+              Reset Password
+            </h1>
+            <p className="text-gray-400 text-center font-medium text-lg my-24">
               Must be at least 8 characters
             </p>
 
@@ -275,7 +243,7 @@ const ResetPassword = () => {
                 <button
                   id="submit"
                   type="submit"
-                  className="flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-md font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 mt-10"
+                  className="flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 mb-2 text-md font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 mt-10"
                   onClick={handleResetPassword}
                 >
                   Reset password
