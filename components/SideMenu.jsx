@@ -7,7 +7,7 @@ import {
   ChevronLeftIcon,
 } from "../lib/icons";
 import { classNames } from "../lib/utilities";
-import { useQuery, gql } from "@apollo/client";
+import { useQuery, useMutation, gql } from "@apollo/client";
 import Tooltip from "./Tooltip";
 
 const SideMenu = ({ syntheticModel }) => {
@@ -25,6 +25,7 @@ const SideMenu = ({ syntheticModel }) => {
   const [selectedNumberPrediction, setSelectedNumberPrediction] = useState(0);
   const [sliderValue, setSliderValue] = useState(5);
   const [stakePayoutError, setStakePayoutError] = useState(false);
+  const [currentWalletBalance, setCurrentWalletBalance] = useState(10000.0);
 
   const Prices = gql`
     query Prices(
@@ -44,12 +45,37 @@ const SideMenu = ({ syntheticModel }) => {
     }
   `;
 
-  console.log("syntheticModel: ", syntheticModel.type);
+  const UpdateBalance = gql`
+    mutation UpdateBalance($userId: Int!, $negatedParsedStakePayout: Float!) {
+      updateBalance(user_id: $userId, stakePayout: $negatedParsedStakePayout)
+    }
+  `;
+
+  const CurrentBalance = gql`
+    query CurrentBalance($userId: Int!) {
+      currentBalance(user_id: $userId)
+    }
+  `;
+
+  const CreateBuyTrade = gql`
+    mutation CreateBuyTrade(
+      $userId: Int!
+      $syntheticTrade: String!
+      $parsedStakePayout: Float!
+    ) {
+      createBuyTrade(
+        user_id: $userId
+        synthetic_type: $syntheticTrade
+        trade_result: $parsedStakePayout
+      )
+    }
+  `;
 
   const synth = syntheticModel.type;
   const parsedStakePayout = parseFloat(stakePayout);
   const tradeType = selectedTradeType.simplified_title;
   const parsedSliderValue = parseInt(sliderValue);
+  const negatedParsedStakePayout = parsedStakePayout * -1;
 
   const { data, loading, error } = useQuery(Prices, {
     variables: {
@@ -61,6 +87,31 @@ const SideMenu = ({ syntheticModel }) => {
       selectedNumberPrediction,
     },
   });
+
+  const userId = 1;
+
+  const [
+    updateBalance,
+    { updateBalanceData, updateBalanceLoading, updateBalanceError },
+  ] = useMutation(UpdateBalance);
+
+  const { currentBalanceData, currentBalanceLoading, currentBalanceError } =
+    useQuery(CurrentBalance, {
+      variables: {
+        userId,
+      },
+    });
+
+  const [
+    createBuyTrade,
+    { createBuyTradeData, createBuyTradeLoading, createBuyTradeError },
+  ] = useMutation(CreateBuyTrade);
+
+  useEffect(() => {
+    if (currentBalanceData) {
+      setCurrentWalletBalance(currentBalanceData);
+    }
+  }, createBuyTradeData);
 
   useEffect(() => {
     setLoader(true);
@@ -78,6 +129,7 @@ const SideMenu = ({ syntheticModel }) => {
     if (parseFloat(stakePayout) > 30000) {
       // Disable increment button
       setDisableIncrement(true);
+
       // Show tooltip error message
       setStakePayoutError(true);
     }
@@ -112,13 +164,10 @@ const SideMenu = ({ syntheticModel }) => {
   // Max stake / payout = 30000.00
   // Input can only be numbers and a single dot
   const handleStakePayoutChange = (e) => {
-    // e.preventDefault();
-
     // Remove non digit characters from input
     // TODO: Make sure input can only take one period
     // TODO: Make sure input can take only two numbers after period
     const sanitisedInput = e.target.value.replace(/\D/g, "");
-    console.log("sanitisedInput: ", sanitisedInput);
 
     // If stakePayout is less than 0, set it to 0
     if (sanitisedInput <= 0) {
@@ -131,29 +180,48 @@ const SideMenu = ({ syntheticModel }) => {
       setStakePayout(sanitisedInput);
       setStakePayoutError(false);
     }
-
-    console.log("stakePayout", stakePayout);
   };
 
-  // console.log(Object.values(data)[0]);
-  console.log(data);
-  // console.log(Object.values(data));
+  const handleTrade = async (singleTradeType) => {
+    const syntheticTrade = synth + "_" + singleTradeType;
+
+    // If user has enough balance in wallet
+    if (currentWalletBalance >= stakePayout) {
+      // Deduct stake from wallet
+      await updateBalance({
+        variables: { userId, negatedParsedStakePayout },
+      });
+      // Create trade
+      await createBuyTrade({
+        variables: {
+          userId,
+          syntheticTrade,
+          parsedStakePayout,
+        },
+      });
+      console.log("Created buy trade");
+    }
+    // Else if user doesn't hv enough balance in wallet, show tooltip error
+    else {
+      console.log("Error: Not enough balance in wallet");
+    }
+  };
 
   return (
     <aside
-      class="w-80 h-11/12 right-0 absolute bg-gray-50 pb-8"
+      className="w-80 h-11/12 right-0 absolute bg-gray-50 pb-8"
       aria-label="Sidebar"
     >
-      <div class="mt-8 mx-6 py-2 px-4 bg-white rounded border-4 border-gray-100 ">
-        <p class="flex select-none items-center p-1 text-base font-semibold tracking-wide text-gray-900 rounded-lg">
+      <div className="mt-8 mx-6 py-2 px-4 bg-white rounded border-4 border-gray-100 ">
+        <p className="flex select-none items-center p-1 text-base font-semibold tracking-wide text-gray-900 rounded-lg">
           <SolidDollarIcon
             className="w-6 h-6 fill-indigo-600"
             fill="currentColor"
           />
-          <span class="ml-3">10,000.00 MYR</span>
+          <span className="ml-3">10,000.00 MYR</span>
         </p>
       </div>
-      <div class="z-30 mt-6 mx-6 py-2 px-4 bg-white rounded border-4 border-gray-100 hover:border-gray-200 focus:outline-none">
+      <div className="z-30 mt-6 mx-6 py-2 px-4 bg-white rounded border-4 border-gray-100 hover:border-gray-200 focus:outline-none">
         <Listbox value={selectedTradeType} onChange={setSelectedTradeType}>
           {({ open }) => (
             <>
@@ -242,7 +310,7 @@ const SideMenu = ({ syntheticModel }) => {
           )}
         </Listbox>
       </div>
-      <div class="mt-6 mx-6 py-2 px-4 bg-white rounded border-4 border-gray-100 ">
+      <div className="mt-6 mx-6 py-2 px-4 bg-white rounded border-4 border-gray-100 ">
         <RangeSlider
           sliderValue={sliderValue}
           setSliderValue={setSliderValue}
@@ -403,7 +471,7 @@ const SideMenu = ({ syntheticModel }) => {
                   setBlueIconTransition(false);
                 }
 
-                // TODO: Create new trade
+                handleTrade(tradeType.split("_")[0]);
               }}
             >
               {selectedTradeType.blueIcon}
@@ -457,7 +525,7 @@ const SideMenu = ({ syntheticModel }) => {
                   setRedIconTransition(false);
                 }
 
-                // TODO: Create new trade
+                handleTrade(tradeType.split("_")[1]);
               }}
             >
               {selectedTradeType.redIcon}
