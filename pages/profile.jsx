@@ -23,15 +23,22 @@ const Profile = () => {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
 
-      <main>
+      <main id="profile_main">
         <NavBar></NavBar>
         {loader ? (
           <SkeletonLoaderProfilePage />
         ) : (
-          <div className="flex justify-center items-center w-full mt-12">
-            <div className="text-center">
-              <span className="inline-block h-24 w-24 overflow-hidden rounded-full bg-gray-100">
+          <div
+            id="profile_container"
+            className="flex justify-center items-center w-full mt-12"
+          >
+            <div id="profile_subcontainer" className="text-center">
+              <span
+                id="profile_avatar_space"
+                className="inline-block h-24 w-24 overflow-hidden rounded-full bg-gray-100"
+              >
                 <svg
+                  id="profile_avatar"
                   className="h-full w-full text-gray-300"
                   fill="currentColor"
                   viewBox="0 0 24 24"
@@ -43,14 +50,14 @@ const Profile = () => {
                 Joined on June 2022
               </p>
 
-              <div className="space-y-2 pt-8 w-full">
+              <div id="email_container" className="space-y-2 pt-8 w-full">
                 <label
                   htmlFor="email"
                   className="block text-sm font-semibold text-gray-700 text-left"
                 >
                   Your email
                 </label>
-                <div className="mt-1">
+                <div id="email_field" className="mt-1">
                   <input
                     id="email"
                     name="email"
@@ -65,8 +72,11 @@ const Profile = () => {
                 </div>
               </div>
 
-              <div className="mt-8 flex justify-center">
-                <div className="inline-flex rounded-md shadow">
+              <div id="buttons_container" className="mt-8 flex justify-center">
+                <div
+                  id="change_password_field"
+                  className="inline-flex rounded-md shadow"
+                >
                   <Link
                     href="/reset_password"
                     className="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-7 py-3 text-base font-medium text-white hover:bg-indigo-700"
@@ -74,7 +84,8 @@ const Profile = () => {
                     Change password
                   </Link>
                 </div>
-                <div className="ml-3 inline-flex">
+
+                <div id="delete_account_field" className="ml-3 inline-flex">
                   <Link
                     href="#"
                     className="inline-flex items-center justify-center rounded-md border border-transparent bg-red-500 px-7 py-3 text-base font-medium text-white hover:bg-red-600"

@@ -60,75 +60,96 @@ const Reports = () => {
         <title>Reports | Syntrade</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <main>
+      <main id="report_main">
         <NavBar />
 
-        <div className="w-8/12 mt-12 mb-4 mx-auto">
+        <div id="report_container" className="w-8/12 mt-12 mb-4 mx-auto">
           {/* <div className="flex justify-center items-center"> */}
-          <div className="px-4 sm:px-6 lg:px-8">
-            <div className="sm:flex sm:items-center">
-              <div className="sm:flex-auto">
+          <div id="report_subcontainer" className="px-4 sm:px-6 lg:px-8">
+            <div
+              id="report_title_container"
+              className="sm:flex sm:items-center"
+            >
+              <div id="report_title_container_small" className="sm:flex-auto">
                 <h1 className="text-xl font-semibold text-gray-900">Reports</h1>
                 <p className="mt-2 text-sm text-gray-700">
                   A list of all the trades in your account.
                 </p>
               </div>
             </div>
-            <div className="-mx-4 mt-8 overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:-mx-6 md:mx-0 md:rounded-lg">
-              <table className="min-w-full divide-y divide-gray-300">
-                <thead className="bg-gray-50">
+            <div
+              id="table_container"
+              className="-mx-4 mt-8 overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:-mx-6 md:mx-0 md:rounded-lg"
+            >
+              <table
+                id="report_table"
+                className="min-w-full divide-y divide-gray-300"
+              >
+                <thead id="table_header" className="bg-gray-50">
                   <tr>
                     <th
+                      id="ref_id_head"
                       scope="col"
                       className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
                     >
                       Ref. ID
                     </th>
                     <th
+                      id="type_head"
                       scope="col"
                       className="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell"
                     >
                       Type
                     </th>
                     <th
+                      id="currency_head"
                       scope="col"
                       className="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell"
                     >
                       Currency
                     </th>
                     <th
+                      id="transaction_time_head"
                       scope="col"
-                      className="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell md:table-cell"
+                      className="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 md:table-cell"
                     >
                       Transaction Time
                     </th>
                     <th
+                      id="transaction_head"
                       scope="col"
-                      className="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell"
+                      className="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 md:table-cell"
                     >
                       Transaction
                     </th>
                     <th
+                      id="profit_loss_head"
                       scope="col"
-                      className="hidden px-3 py-3.5 text-right text-sm font-semibold text-gray-900 lg:table-cell"
+                      className="hidden px-3 py-3.5 text-right text-sm font-semibold text-gray-900 md:table-cell"
                     >
                       Profit / Loss
                     </th>
                     <th
+                      id="balance_head"
                       scope="col"
-                      className="px-3 py-3.5 text-right text-sm font-semibold text-gray-900 lg:table-cell"
+                      className="px-3 py-3.5 text-right text-sm font-semibold text-gray-900 md:table-cell"
                     >
                       Balance
                     </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-200 bg-white">
+                <tbody
+                  id="table_body"
+                  className="divide-y divide-gray-200 bg-white"
+                >
                   {loader ? (
                     <SkeletonLoaderReportsPage />
                   ) : (
                     trades.map((trade) => (
-                      <tr key={trade.referenceId}>
-                        <td className="w-full max-w-0 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:w-auto sm:max-w-none sm:pl-6">
+                      <tr id="table_row" key={trade.referenceId}>
+                        <td 
+                          id="ref_id_col"
+                          className="w-full max-w-0 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:w-auto sm:max-w-none sm:pl-6">
                           {trade.referenceId}
                           <dl className="font-normal lg:hidden">
                             <dt className="sr-only">Type</dt>
@@ -157,7 +178,10 @@ const Reports = () => {
                             </dd>
                           </dl>
                         </td>
-                        <td className="hidden px-3 py-4 text-sm text-gray-500 lg:table-cell">
+                        <td
+                          id="trade_type_col"
+                          className="hidden px-3 py-4 text-sm text-gray-500 lg:table-cell"
+                        >
                           <span className="inline-flex items-center rounded  px-1 py-0.5 text-xs font-semibold text-gray-800">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
@@ -192,13 +216,19 @@ const Reports = () => {
                           </span>
                           {/* {trade.type.split("-")[1]} */}
                         </td>
-                        <td className="hidden px-3 py-4 text-sm text-gray-500 lg:table-cell">
+                        <td
+                          id="currency_col"
+                          className="hidden px-3 py-4 text-sm text-gray-500 lg:table-cell"
+                        >
                           <span className="inline-flex items-center rounded bg-gray-100 px-2 py-0.5 text-xs font-semibold text-gray-800">
                             {trade.currency.toUpperCase()}
                           </span>
                         </td>
 
-                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 hidden lg:table-cell md:table-cell">
+                        <td
+                          id="transaction_time_col"
+                          className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 hidden lg:table-cell md:table-cell"
+                        >
                           <div className="text-gray-900">
                             {trade.transactionTime.split(",")[0]}
                           </div>
@@ -207,7 +237,10 @@ const Reports = () => {
                           </div>
                         </td>
 
-                        <td className="hidden px-3 py-4 text-sm lg:table-cell md:table-cell">
+                        <td
+                          id="transaction_col"
+                          className="hidden px-3 py-4 text-sm lg:table-cell md:table-cell"
+                        >
                           <span
                             className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${
                               trade.transactionType.toLowerCase() == "buy"
@@ -219,6 +252,7 @@ const Reports = () => {
                           </span>
                         </td>
                         <td
+                          id="profit_loss_col"
                           className={`hidden px-3 py-4 text-sm lg:table-cell md:table-cell font-semibold text-right ${
                             trade.profitLoss < 0
                               ? "text-red-500"
@@ -229,7 +263,9 @@ const Reports = () => {
                             ? `+${trade.profitLoss.toFixed(2)}`
                             : `${trade.profitLoss.toFixed(2)}`}
                         </td>
-                        <td className="px-3 py-4 text-sm text-gray-700 text-right">
+                        <td 
+                          id="balance_col"
+                          className="px-3 py-4 text-sm text-gray-700 text-right">
                           {trade.balance.toFixed(2)}
                         </td>
                       </tr>
