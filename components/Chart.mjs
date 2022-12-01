@@ -17,8 +17,6 @@ const Chart = ({ syntheticModel, stream }) => {
         timeVisible: true,
         secondsVisible: true,
         barSpacing: 6,
-        // fixRightEdge: true,
-        // fixLeftEdge: true,
       },
       grid: {
         vertLines: {
