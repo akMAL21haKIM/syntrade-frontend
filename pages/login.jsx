@@ -116,14 +116,22 @@ const Login = () => {
         <title>Log in | Syntrade</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <div className="grid grid-cols-2 divide-x-2 min-h-full">
-        <div className="flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24 bg-[#A6A6E0]/70 h-screen">
+      <div id="login-main" className="grid grid-cols-2 divide-x-2 min-h-full">
+        {/* Picture */}
+        <div
+          id="login_left_page"
+          className="flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24 bg-[#A6A6E0]/70 h-screen"
+        >
           <LoginIllustration />
         </div>
 
-        <div className="flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24 bg-white h-screen">
-          <div className="mx-auto w-full max-w-sm lg:w-96">
-            <div>
+        {/* Login form  */}
+        <div
+          id="login_right_page"
+          className="flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24 bg-white h-screen"
+        >
+          <div id="login_form_main" className="mx-auto w-full max-w-sm lg:w-96">
+            <div id="login_form_title">
               <h2 className="mt-6 text-3xl text-center font-bold tracking-tight text-gray-900">
                 Log in to your account
               </h2>
@@ -132,19 +140,24 @@ const Login = () => {
               </p>
             </div>
 
-            <div className="mt-8">
-              <div></div>
+            <div id="form_main" className="mt-8">
+              <div />
 
-              <div className="mt-6">
-                <form action="#" method="POST" className="space-y-6">
-                  <div className="space-y-2">
+              <div id="form_container" className="mt-6">
+                <form
+                  id="login_form"
+                  action="#"
+                  method="POST"
+                  className="space-y-6"
+                >
+                  <div id="email_container" className="space-y-2">
                     <label
                       htmlFor="email"
                       className="block text-sm font-medium text-gray-700"
                     >
                       Email Address
                     </label>
-                    <div className="mt-1">
+                    <div id="email_field" className="mt-1">
                       <input
                         id="email"
                         name="email"
@@ -160,12 +173,13 @@ const Login = () => {
                       />
                     </div>
                     <div
+                      id="email_error"
                       style={{
                         display: showEmailError ? "block" : "none",
                       }}
                       className="mt-0"
                     >
-                      <div className="flex">
+                      <div id="email_image_error" className="flex">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           viewBox="0 0 20 20"
@@ -179,21 +193,24 @@ const Login = () => {
                           />
                         </svg>
 
-                        <div className="text-sm text-red-600 px-2 font-medium">
+                        <div
+                          id="invalid_email_msg"
+                          className="text-sm text-red-600 px-2 font-medium"
+                        >
                           Invalid email address
                         </div>
                       </div>
                     </div>
                   </div>
 
-                  <div className="space-y-2">
+                  <div id="password_container" className="space-y-2">
                     <label
                       htmlFor="password"
                       className="block text-sm font-medium text-gray-700 relative"
                     >
                       Password
                     </label>
-                    <div className="mt-1 relative">
+                    <div id="password_field" className="mt-1 relative">
                       <input
                         id="password"
                         name="password"
@@ -209,7 +226,10 @@ const Login = () => {
                         maxLength="12"
                         minLength="8"
                       />
-                      <div className="absolute inset-y-0 right-0 flex items-center pr-3">
+                      <div
+                        id="visibility"
+                        className="absolute inset-y-0 right-0 flex items-center pr-3"
+                      >
                         {openPassword === true ? (
                           <svg
                             onClick={togglePassword}
@@ -217,6 +237,7 @@ const Login = () => {
                             viewBox="0 0 24 24"
                             fill="currentColor"
                             className="w-4 h-4"
+                            id="eye_icon_closed"
                           >
                             <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
                             <path
@@ -232,6 +253,7 @@ const Login = () => {
                             viewBox="0 0 24 24"
                             fill="currentColor"
                             className="w-4 h-4"
+                            id="eye_icon_opened"
                           >
                             <path d="M3.53 2.47a.75.75 0 00-1.06 1.06l18 18a.75.75 0 101.06-1.06l-18-18zM22.676 12.553a11.249 11.249 0 01-2.631 4.31l-3.099-3.099a5.25 5.25 0 00-6.71-6.71L7.759 4.577a11.217 11.217 0 014.242-.827c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113z" />
                             <path d="M15.75 12c0 .18-.013.357-.037.53l-4.244-4.243A3.75 3.75 0 0115.75 12zM12.53 15.713l-4.243-4.244a3.75 3.75 0 004.243 4.243z" />
@@ -242,8 +264,9 @@ const Login = () => {
                     </div>
                   </div>
 
-                  <div>
+                  <div id="button-container">
                     <button
+                      id="submit"
                       type="submit"
                       className="flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-md font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                       onClick={handleLogin}
