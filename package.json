@@ -12,6 +12,7 @@
   "dependencies": {
     "@apollo/client": "^3.7.1",
     "@headlessui/react": "^1.7.3",
+    "dotenv": "^16.0.3",
     "eventsource": "^2.0.2",
     "graphql": "^16.6.0",
     "graphql-scalars": "^1.20.0",

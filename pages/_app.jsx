@@ -6,6 +6,8 @@ import {
   InMemoryCache,
   HttpLink,
 } from "@apollo/client";
+import * as dotenv from "dotenv";
+dotenv.config();
 
 const createApolloClient = () => {
   const link = new HttpLink({
