@@ -15,7 +15,6 @@ import { syntheticModelOptions } from "../lib/options";
 import SideMenu from "../components/SideMenu";
 import { SkeletonLoaderTradePage } from "../components/SkeletonLoaders";
 import "./trade.module.css";
-// import { Chart } from "./components/Chart";
 
 const Chart = dynamic(() => import("../components/Chart.mjs"), {
   ssr: false,
