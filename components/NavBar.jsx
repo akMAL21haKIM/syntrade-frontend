@@ -23,7 +23,7 @@ export default function NavBar() {
                 alt="Syntrade logo"
               />
             </Link>
-            <p className="px-6 py-2 text-xl font-bold">Syntrade</p>
+            <p className="px-6 my-auto text-xl font-bold">Syntrade</p>
           </div>
 
           {/* Check if user is logged in or not. 
