@@ -155,37 +155,35 @@ const SignUp = () => {
         <title>Sign Up | Syntrade</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <div id="signup_main" className="grid grid-cols-2 divide-x-2 min-h-full">
-        {/* Picture */}
+      <div id="signup_main" className="grid grid-cols-3 min-h-full">
         <div
           id="signup_left_page"
-          className="flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24 bg-[#A6A6E0] h-screen"
+          className="col-span-1 flex flex-1 flex-col justify-center bg-indigo-200 h-[calc(100%-5rem)] rounded-lg mx-10 my-auto"
         >
-          <div
-            id="signup_poster"
-            className="flex flex-col gap-10 bg-white h-5/6 w-11/12 rounded-xl mx-auto items-center justify-center"
-          >
-            <img
-              id="syntrade_logo"
-              className="h-1/4 w-1/4"
-              src={LogoIcon.src}
-              alt="Syntrade"
-            />
-            <h1 className="text-4xl font-semibold">
-              Take <span className="font-bold text-[#6366F1]">1 tick</span> at a
-              time
-            </h1>
-            <p className="text-lg text-center w-2/3">
-              Some quit due to slow progress.
-              <div /> Never grasping the fact that slow progress is progress.
-            </p>
+          <div className="w-3/4">
+            {/* Syntrade logo */}
+            <h2 className="text-left text-7xl pl-10 text-black font-bold my-4 cursor-default">
+              Take <span className="text-indigo-600">1 tick</span>
+            </h2>
+            <h2 className="text-left text-7xl pl-10 text-black font-bold cursor-default">
+              at a time
+            </h2>
+            <h2 className="text-left text-lg pl-10 text-gray-600 font-medium mt-20 cursor-default">
+              People are afraid to make mistakes.
+            </h2>
+            <h2 className="text-left text-lg pl-10 text-gray-600 font-medium mt-4 cursor-default">
+              From mistakes we gain a lot,
+            </h2>
+            <h2 className="text-left text-lg pl-10 text-gray-600 font-medium mb-4 cursor-default">
+              from success, not really.
+            </h2>
           </div>
         </div>
 
         {/* Sign up form */}
         <div
           id="signup_right_page"
-          className="flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24 bg-white h-screen"
+          className="col-span-2 flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24 bg-white h-screen"
         >
           <div
             id="signup_form_main"
