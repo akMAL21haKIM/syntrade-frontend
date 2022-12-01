@@ -396,7 +396,7 @@ const SideMenu = ({ syntheticModel }) => {
             </p>
             {loader ? (
               <div className="animate-pulse h-[1.25rem] flex bg-gray-300 rounded focus:outline-none cursor-default select-none"></div>
-            ) : data ? (
+            ) : pricesData ? (
               <p className="text-sm font-semibold text-gray-700 mb-1 text-right focus:outline-none cursor-default select-none">
                 {Object.values(pricesData)[0][0].toFixed(2)} MYR
               </p>
@@ -455,7 +455,7 @@ const SideMenu = ({ syntheticModel }) => {
             </p>
             {loader ? (
               <div className="animate-pulse h-[1.25rem] flex bg-gray-300 rounded focus:outline-none cursor-default select-none"></div>
-            ) : data ? (
+            ) : pricesData ? (
               <p className="text-sm font-semibold text-gray-700 mb-1 text-right focus:outline-none cursor-default select-none">
                 {Object.values(pricesData)[0][1].toFixed(2)} MYR
               </p>

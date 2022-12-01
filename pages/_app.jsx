@@ -6,12 +6,10 @@ import {
   InMemoryCache,
   HttpLink,
 } from "@apollo/client";
-import * as dotenv from "dotenv";
-dotenv.config();
 
 const createApolloClient = () => {
   const link = new HttpLink({
-    uri: process.env.DEV_BACKEND,
+    uri: "http://143.198.218.123:4000",
   });
 
   return new ApolloClient({

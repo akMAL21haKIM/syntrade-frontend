@@ -15,8 +15,6 @@ import { syntheticModelOptions } from "../lib/options";
 import SideMenu from "../components/SideMenu";
 import { SkeletonLoaderTradePage } from "../components/SkeletonLoaders";
 import "../styles/trade.module.css";
-import * as dotenv from "dotenv";
-dotenv.config();
 
 const Chart = dynamic(() => import("../components/Chart.mjs"), {
   ssr: false,
@@ -26,7 +24,7 @@ const EventSource = require("eventsource");
 
 var data = "";
 
-const sse = new EventSource(process.env.DEV_BACKEND);
+const sse = new EventSource("http://143.198.218.123:5000");
 sse.onmessage = async (e) => {
   try {
     data = JSON.parse(e.data);
