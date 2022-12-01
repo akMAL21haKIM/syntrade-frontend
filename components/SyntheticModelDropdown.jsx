@@ -1,8 +1,8 @@
 import { Fragment, useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
-import { ChevronUpIcon, ChevronDownIcon } from "../../lib/icons";
-import { syntheticModelOptions } from "../../lib/options";
-import { classNames } from "../../lib/utilities";
+import { ChevronUpIcon, ChevronDownIcon } from "../lib/icons";
+import { syntheticModelOptions } from "../lib/options";
+import { classNames } from "../lib/utilities";
 
 export default function SyntheticModelDropdown({
   setSyntheticModel,

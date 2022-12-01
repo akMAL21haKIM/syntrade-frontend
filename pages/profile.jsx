@@ -1,8 +1,9 @@
 import { React, useState, useEffect } from "react";
-import Footer from "./components/Footer";
+import Footer from "../components/Footer";
 import Head from "next/head";
-import NavBar from "./components/NavBar";
-import { SkeletonLoaderProfilePage } from "./components/SkeletonLoaders";
+import Link from "next/link";
+import NavBar from "../components/NavBar";
+import { SkeletonLoaderProfilePage } from "../components/SkeletonLoaders";
 
 const Profile = () => {
   const [loader, setLoader] = useState(false);
@@ -76,20 +77,21 @@ const Profile = () => {
                   id="change_password_field"
                   className="inline-flex rounded-md shadow"
                 >
-                  <a
+                  <Link
                     href="/reset_password"
                     className="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-7 py-3 text-base font-medium text-white hover:bg-indigo-700"
                   >
                     Change password
-                  </a>
+                  </Link>
                 </div>
+
                 <div id="delete_account_field" className="ml-3 inline-flex">
-                  <a
+                  <Link
                     href="#"
                     className="inline-flex items-center justify-center rounded-md border border-transparent bg-red-500 px-7 py-3 text-base font-medium text-white hover:bg-red-600"
                   >
                     Delete account
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>

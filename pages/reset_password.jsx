@@ -1,6 +1,7 @@
 import { React, useState } from "react";
-import Footer from "./components/Footer";
+import Footer from "../components/Footer";
 import Head from "next/head";
+import Link from "next/link";
 import { ResetPasswordIllustration } from "../lib/illustrations";
 
 const ResetPassword = () => {
@@ -309,12 +310,12 @@ const ResetPassword = () => {
                   Reset password
                 </button>
 
-                <a
+                <Link
                   href="login"
                   className="text-sm font-medium text-indigo-600 hover:text-indigo-500 text-center"
                 >
                   Back to login page
-                </a>
+                </Link>
               </div>
             </form>
           </div>

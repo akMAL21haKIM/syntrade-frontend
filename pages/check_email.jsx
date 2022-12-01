@@ -1,6 +1,7 @@
 import React from "react";
-import Footer from "./components/Footer";
+import Footer from "../components/Footer";
 import Head from "next/head";
+import Link from "next/link";
 
 const CheckEmail = () => {
   return (
@@ -26,21 +27,21 @@ const CheckEmail = () => {
               className="space-y-6 mx-auto w-full max-w-sm lg:w-96"
             >
               <div className="text-center justify-center">
-                <a
-                  href="login"
+                <Link
+                  href="/login"
                   className="font-medium text-indigo-600 hover:text-indigo-500 text-center"
                 >
                   Back to login
-                </a>
+                </Link>
 
                 <p className="mt-12 text-md text-center text-gray-600">
                   Didn&apos;t receive the link?&nbsp;
-                  <a
+                  <Link
                     href="login"
                     className="font-medium text-red-600 hover:text-red-500"
                   >
                     Resend
-                  </a>
+                  </Link>
                 </p>
               </div>
             </form>

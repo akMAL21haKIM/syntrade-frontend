@@ -1,8 +1,8 @@
-import Footer from "./components/Footer";
+import Footer from "../components/Footer";
 import Head from "next/head";
 import dynamic from "next/dynamic";
-import NavBar from "./components/NavBar";
-import SyntheticModelDropdown from "./components/SyntheticModelDropdown";
+import NavBar from "../components/NavBar";
+import SyntheticModelDropdown from "../components/SyntheticModelDropdown";
 import {
   React,
   useState,
@@ -12,11 +12,12 @@ import {
   useLayoutEffect,
 } from "react";
 import { syntheticModelOptions } from "../lib/options";
-import SideMenu from "./components/SideMenu";
-import { SkeletonLoaderTradePage } from "./components/SkeletonLoaders";
+import SideMenu from "../components/SideMenu";
+import { SkeletonLoaderTradePage } from "../components/SkeletonLoaders";
 import "./trade.module.css";
+// import { Chart } from "./components/Chart";
 
-const Chart = dynamic(() => import("./components/Chart"), {
+const Chart = dynamic(() => import("../components/Chart.mjs"), {
   ssr: false,
 });
 
