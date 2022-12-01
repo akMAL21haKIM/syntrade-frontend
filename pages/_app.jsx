@@ -9,7 +9,7 @@ import {
 
 const createApolloClient = () => {
   const link = new HttpLink({
-    uri: "http://0.0.0.0:4000",
+    uri: process.env.DEV_BACKEND,
   });
 
   return new ApolloClient({

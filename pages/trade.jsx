@@ -24,7 +24,7 @@ const EventSource = require("eventsource");
 
 var data = "";
 
-const sse = new EventSource(`http://0.0.0.0:5000`);
+const sse = new EventSource(process.env.DEV_BACKEND);
 sse.onmessage = async (e) => {
   try {
     data = JSON.parse(e.data);
