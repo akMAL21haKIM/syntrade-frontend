@@ -9,7 +9,6 @@ export default function Tooltip({ msg, children, stakePayoutError }) {
         className={`absolute w-[6rem] z-99 ${
           stakePayoutError ? "flex" : "hidden"
         }`}
-        style={{ left: "-7rem" }}
       >
         <span className="flex z-10 p-2 text-xs leading-none text-white bg-red-600 shadow-lg">
           {msg}
