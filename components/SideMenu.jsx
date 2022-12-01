@@ -36,8 +36,9 @@ const SideMenu = ({ syntheticModel }) => {
   const tradeType = selectedTradeType.simplified_title;
   const parsedSliderValue = parseInt(sliderValue);
   const negatedParsedStakePayout = parsedStakePayout * -1;
+  const userId = 1;
 
-  const { data, loading, error } = useQuery(Prices, {
+  const { pricesData, Pricesloading, Pricesrror } = useQuery(Prices, {
     variables: {
       selectedStakePayout,
       synth,
@@ -47,8 +48,6 @@ const SideMenu = ({ syntheticModel }) => {
       selectedNumberPrediction,
     },
   });
-
-  const userId = 1;
 
   const [
     updateBalance,
@@ -79,7 +78,13 @@ const SideMenu = ({ syntheticModel }) => {
     setTimeout(async () => {
       setLoader(false);
     }, 1000);
-  }, [selectedTradeType, stakePayout, selectedStakePayout, sliderValue, data]);
+  }, [
+    selectedTradeType,
+    stakePayout,
+    selectedStakePayout,
+    sliderValue,
+    pricesData,
+  ]);
 
   const increment = (e) => {
     e.preventDefault();
@@ -158,7 +163,7 @@ const SideMenu = ({ syntheticModel }) => {
       });
       console.log("Created buy trade");
     }
-    // Else if user doesn't hv enough balance in wallet, show tooltip error
+    // Else if user doesn't hv enough balance in wallet, show error in popup
     else {
       console.log("Error: Not enough balance in wallet");
     }
@@ -393,7 +398,7 @@ const SideMenu = ({ syntheticModel }) => {
               <div className="animate-pulse h-[1.25rem] flex bg-gray-300 rounded focus:outline-none cursor-default select-none"></div>
             ) : data ? (
               <p className="text-sm font-semibold text-gray-700 mb-1 text-right focus:outline-none cursor-default select-none">
-                {Object.values(data)[0][0].toFixed(2)} MYR
+                {Object.values(pricesData)[0][0].toFixed(2)} MYR
               </p>
             ) : (
               <p className="text-sm font-semibold text-gray-700 mb-1 text-right focus:outline-none cursor-default select-none">
@@ -452,7 +457,7 @@ const SideMenu = ({ syntheticModel }) => {
               <div className="animate-pulse h-[1.25rem] flex bg-gray-300 rounded focus:outline-none cursor-default select-none"></div>
             ) : data ? (
               <p className="text-sm font-semibold text-gray-700 mb-1 text-right focus:outline-none cursor-default select-none">
-                {Object.values(data)[0][1].toFixed(2)} MYR
+                {Object.values(pricesData)[0][1].toFixed(2)} MYR
               </p>
             ) : (
               <p className="text-sm font-semibold text-gray-700 mb-1 text-right focus:outline-none cursor-default select-none">
