@@ -1,12 +1,12 @@
-import { useQuery, useMutation, gql } from "@apollo/client";
+import { gql } from "@apollo/client";
 
-const CreateBuyTrade = gql`
-  mutation CreateBuyTrade(
+const CreateTrade = gql`
+  mutation CreateTrade(
     $userId: Int!
     $syntheticTrade: String!
     $parsedStakePayout: Float!
   ) {
-    createBuyTrade(
+    createTrade(
       user_id: $userId
       synthetic_type: $syntheticTrade
       trade_result: $parsedStakePayout
@@ -14,4 +14,4 @@ const CreateBuyTrade = gql`
   }
 `;
 
-export default CreateBuyTrade;
+export default CreateTrade;
