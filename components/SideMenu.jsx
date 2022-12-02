@@ -10,9 +10,8 @@ import { classNames } from "../lib/utilities";
 import { useQuery, useMutation, gql } from "@apollo/client";
 import Tooltip from "./Tooltip";
 import Prices from "../graphql/prices";
-import UpdateBalance from "../graphql/updateBalance";
 import CurrentBalance from "../graphql/currentBalance";
-import CreateBuyTrade from "../graphql/createBuyTrade";
+import CreateBuyTrade from "../graphql/createTrade";
 
 const SideMenu = ({ syntheticModel }) => {
   const [loader, setLoader] = useState(false);
@@ -48,11 +47,6 @@ const SideMenu = ({ syntheticModel }) => {
       selectedNumberPrediction,
     },
   });
-
-  const [
-    updateBalance,
-    { updateBalanceData, updateBalanceLoading, updateBalanceError },
-  ] = useMutation(UpdateBalance);
 
   const { currentBalanceData, currentBalanceLoading, currentBalanceError } =
     useQuery(CurrentBalance, {
@@ -149,12 +143,8 @@ const SideMenu = ({ syntheticModel }) => {
 
     // If user has enough balance in wallet
     if (currentWalletBalance >= stakePayout) {
-      // Deduct stake from wallet
-      await updateBalance({
-        variables: { userId, negatedParsedStakePayout },
-      });
       // Create trade
-      await createBuyTrade({
+      await createTrade({
         variables: {
           userId,
           syntheticTrade,
