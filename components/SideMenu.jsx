@@ -8,11 +8,12 @@ import {
 } from "../lib/icons";
 import { classNames } from "../lib/utilities";
 import { useQuery, useMutation, gql } from "@apollo/client";
-import Tooltip from "./Tooltip";
+import TooltipBox from "./TooltipBox";
 import Prices from "../graphql/prices";
 import UpdateBalance from "../graphql/updateBalance";
 import CurrentBalance from "../graphql/currentBalance";
 import CreateBuyTrade from "../graphql/createBuyTrade";
+import TooltipButton from "./TooltipButton";
 
 const SideMenu = ({ syntheticModel }) => {
   const [loader, setLoader] = useState(false);
@@ -278,7 +279,7 @@ const SideMenu = ({ syntheticModel }) => {
           setSliderValue={setSliderValue}
         ></RangeSlider>
       </div>
-      <Tooltip
+      <TooltipBox
         msg="Minimum stake of 1.00 and maximum payout of 30000"
         stakePayoutError={stakePayoutError}
       >
@@ -357,7 +358,7 @@ const SideMenu = ({ syntheticModel }) => {
             </span>
           </div>
         </div>
-      </Tooltip>
+      </TooltipBox>
       <div
         className={`mt-6 mx-6 py-2 px-4 bg-white rounded border-4 border-gray-100 ${
           selectedTradeType.simplified_title == "matches_differs"
@@ -406,7 +407,7 @@ const SideMenu = ({ syntheticModel }) => {
               </p>
             )}
           </div>
-          <Tooltip
+          <TooltipButton
             msg="Minimum stake of 1.00 and maximum payout of 30000"
             stakePayoutError={stakePayoutError}
           >
@@ -446,7 +447,7 @@ const SideMenu = ({ syntheticModel }) => {
                 {selectedTradeType.blueText}
               </p>
             </button>
-          </Tooltip>
+          </TooltipButton>
         </div>
         <div>
           <div className="grid grid-cols-2 mt-4">
@@ -465,7 +466,7 @@ const SideMenu = ({ syntheticModel }) => {
               </p>
             )}
           </div>
-          <Tooltip
+          <TooltipButton
             msg="Minimum stake of 1.00 and maximum payout of 30000"
             stakePayoutError={stakePayoutError}
           >
@@ -505,7 +506,7 @@ const SideMenu = ({ syntheticModel }) => {
                 {selectedTradeType.redText}
               </p>
             </button>
-          </Tooltip>
+          </TooltipButton>
         </div>
       </div>
     </aside>
