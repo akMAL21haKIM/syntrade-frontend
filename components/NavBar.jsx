@@ -1,6 +1,6 @@
 import { Fragment, useState } from "react";
 import { Popover, Transition, Menu } from "@headlessui/react";
-import LogoIcon from "../public/logo.svg";
+import LogoIcon from "../public/old_logo.svg";
 import { XMarkIcon, Bars3Icon, ReportsIcon, ProfileIcon } from "../lib/icons";
 import { classNames } from "../lib/utilities";
 import Link from "next/link";
@@ -63,8 +63,8 @@ export default function NavBar() {
                         <div className="flex items-center justify-between">
                           <div>
                             <img
-                              className="h-8 w-auto"
-                              src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                              className="h-10 w-auto"
+                              src={LogoIcon.src}
                               alt="Syntrade"
                             />
                           </div>
