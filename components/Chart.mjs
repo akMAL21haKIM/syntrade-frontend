@@ -33,7 +33,7 @@ const Chart = ({ syntheticModel, stream }) => {
         width: window.innerWidth - convertRemToPixels(24),
         height: window.innerHeight - convertRemToPixels(7),
       });
-      chart.timeScale().fitContent();
+      //  // chart.timeScale().fitContent();
     };
 
     const areaSeries = chart.addAreaSeries({
@@ -63,13 +63,14 @@ const Chart = ({ syntheticModel, stream }) => {
       }
     };
 
-    resize();
+    window.addEventListener("resize", resize);
 
-    window.addEventListener("resize", resize, false);
+    resize();
 
     return () => {
       stream.onmessage = null;
       chart.remove();
+      window.removeEventListener("resize", resize);
     };
   }, [syntheticModel]);
 
