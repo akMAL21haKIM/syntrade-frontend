@@ -463,8 +463,8 @@ const SideMenu = ({ syntheticModel }) => {
             <button
               className={`px-4 py-4 rounded w-full grid grid-cols-2 focus:outline-none ${
                 loader
-                  ? "bg-red-600 opacity-50 disabled:pointer-events-none"
-                  : "hover:bg-red-700 bg-red-600"
+                  ? "bg-rose-600 opacity-50 disabled:pointer-events-none"
+                  : "hover:bg-rose-700 bg-rose-600"
               }`}
             >
               <div

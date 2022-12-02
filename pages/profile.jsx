@@ -107,7 +107,7 @@ const Profile = () => {
 
                   <button
                     id="button_delete_account"
-                    className="ml-3 inline-flex rounded-md border border-transparent bg-red-500 px-7 py-3 hover:bg-red-600"
+                    className="ml-3 inline-flex rounded-md border border-transparent bg-rose-600 px-7 py-3 hover:bg-rose-700"
                     onClick={(e) => setOpenDeleteAccountModal(true)}
                   >
                     <p className="inline-flex items-center justify-center text-base font-medium text-white">
