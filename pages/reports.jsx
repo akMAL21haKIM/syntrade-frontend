@@ -24,7 +24,7 @@ const trades = [
     balance: 4000.9,
   },
   {
-    referenceId: "1",
+    referenceId: "3",
     type: "boom_500-rise",
     currency: "USD",
     transactionTime: "18 Nov 2022,6:24:02 AM",
@@ -60,7 +60,7 @@ const Reports = () => {
         <title>Reports | Syntrade</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <main id="report_main">
+      <main id="report_main" className="justify-between">
         <NavBar />
 
         <div id="report_container" className="w-8/12 mt-12 mb-4 mx-auto">
@@ -118,7 +118,7 @@ const Reports = () => {
                     <th
                       id="transaction_head"
                       scope="col"
-                      className="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 md:table-cell"
+                      className="hidden px-3 py-3.5 text-left text-sm font-semibold md:table-cell"
                     >
                       Transaction
                     </th>
@@ -147,9 +147,10 @@ const Reports = () => {
                   ) : (
                     trades.map((trade) => (
                       <tr id="table_row" key={trade.referenceId}>
-                        <td 
+                        <td
                           id="ref_id_col"
-                          className="w-full max-w-0 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:w-auto sm:max-w-none sm:pl-6">
+                          className="w-full max-w-0 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:w-auto sm:max-w-none sm:pl-6"
+                        >
                           {trade.referenceId}
                           <dl className="font-normal lg:hidden">
                             <dt className="sr-only">Type</dt>
@@ -169,11 +170,23 @@ const Reports = () => {
                               {trade.transactionTime}
                             </dd>
                             <dt className="sr-only sm:hidden">Trade Type</dt>
-                            <dd className="mt-1 truncate text-gray-500 sm:hidden">
+                            <dd
+                              className={`mt-1 truncate inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold sm:hidden ${
+                                trade.transactionType.toLowerCase() == "buy"
+                                  ? "bg-green-100 text-green-800"
+                                  : "bg-red-100 text-red-800"
+                              }`}
+                            >
                               {trade.transactionType}
                             </dd>
                             <dt className="sr-only sm:hidden">Profit / Loss</dt>
-                            <dd className="mt-1 truncate text-gray-500 sm:hidden">
+                            <dd
+                              className={`mt-1 truncate text-gray-500 sm:hidden font-semibold ${
+                                trade.profitLoss < 0
+                                  ? "text-red-500"
+                                  : "text-green-500"
+                              } `}
+                            >
                               {trade.profitLoss}
                             </dd>
                           </dl>
@@ -263,9 +276,10 @@ const Reports = () => {
                             ? `+${trade.profitLoss.toFixed(2)}`
                             : `${trade.profitLoss.toFixed(2)}`}
                         </td>
-                        <td 
+                        <td
                           id="balance_col"
-                          className="px-3 py-4 text-sm text-gray-700 text-right">
+                          className="px-3 py-4 text-sm text-gray-700 text-right"
+                        >
                           {trade.balance.toFixed(2)}
                         </td>
                       </tr>
@@ -277,8 +291,8 @@ const Reports = () => {
           </div>
           {/* </div> */}
         </div>
+        <Footer />
       </main>
-      <Footer />
     </>
   );
 };

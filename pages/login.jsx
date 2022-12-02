@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import LogoIcon from "../public/old_logo_name.svg";
 import Router from "next/router";
 import { useMutation, gql } from "@apollo/client";
 import Head from "next/head";
@@ -115,24 +116,23 @@ const Login = () => {
         <title>Log in | Syntrade</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <div id="login-main" className="grid grid-cols-3 min-h-screen">
+      <div id="login-main" className="grid grid-cols-5 min-h-screen">
         <div
           id="login_left_page"
-          className="col-span-1 flex flex-1 flex-col justify-center bg-indigo-300 h-[calc(100%-5rem)] rounded-lg mx-10 my-auto"
+          className="col-span-2 hidden xl:flex flex-1 flex-col justify-center bg-indigo-300 h-[calc(100%-5rem)] rounded-lg mx-10 my-auto"
         >
           <div className="w-3/4">
-            {/* Syntrade logo */}
+            <img src={LogoIcon.src} className="h-14 w-auto mx-10" />
             <h2 className="text-left text-7xl pl-10 text-white font-bold my-4 cursor-default">
-              Take <span className="text-black">1 tick</span>
+              Take <span className="text-black">1 tick</span> at a time
             </h2>
-            <h2 className="text-left text-7xl pl-10 text-white font-bold cursor-default">
-              at a time
-            </h2>
+
             <h2 className="text-left text-lg pl-10 text-white font-medium mt-20 cursor-default">
-              Some quit due to slow progress.
+              “Learning is not attained by chance, it must be sought for with
+              ardor and attended to with diligence.”
             </h2>
             <h2 className="text-left text-lg pl-10 text-white font-medium my-4 cursor-default">
-              Never grasping the fact that slow progress is progress.
+              - Abigail Adams
             </h2>
           </div>
         </div>
@@ -140,7 +140,7 @@ const Login = () => {
         {/* Login form  */}
         <div
           id="login_right_page"
-          className="col-span-2 flex flex-1 flex-col justify-center  bg-white h-screen"
+          className="xl:col-span-3 col-span-5 flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24 bg-white h-screen"
         >
           <div id="login_form_main" className="mx-auto w-full max-w-sm lg:w-96">
             <div id="login_form_title">
