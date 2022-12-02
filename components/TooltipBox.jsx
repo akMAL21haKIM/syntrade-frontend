@@ -7,10 +7,10 @@ export default function TooltipBox({ msg, children, stakePayoutError }) {
         }`}
         style={{ left: "-12rem", bottom: "2rem" }}
       >
-        <span className="flex z-10 p-2 text-xs leading-none text-white bg-red-600 shadow-lg">
+        <span className="flex z-10 p-2 text-xs text-white tracking-wide leading-5 bg-red-500 shadow-lg">
           {msg}
         </span>
-        <div className="absolute z-99 bottom-[1rem] w-3 h-3 ml-[12.5rem] rotate-45 bg-red-600"></div>
+        <div className="absolute z-99 bottom-[1rem] w-3 h-3 ml-[12.5rem] rotate-45 bg-red-500"></div>
       </div>
       {children}
     </div>

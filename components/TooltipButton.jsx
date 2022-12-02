@@ -7,10 +7,10 @@ export default function TooltipButton({ msg, children, stakePayoutError }) {
         }`}
         style={{ left: "-14.5rem" }}
       >
-        <span className="flex z-10 p-2 text-xs leading-none text-white bg-red-600 shadow-lg">
+        <span className="flex z-10 p-2 text-xs text-white tracking-wide leading-5 bg-red-500 shadow-lg">
           {msg}
         </span>
-        <div className="absolute bottom-[1rem] w-3 h-3 ml-[12.5rem] rotate-45 bg-red-600"></div>
+        <div className="absolute bottom-[1rem] w-3 h-3 ml-[12.5rem] rotate-45 bg-red-500"></div>
       </div>
       {children}
     </div>
