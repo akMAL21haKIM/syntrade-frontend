@@ -11,7 +11,7 @@ import { useQuery, useMutation, gql } from "@apollo/client";
 import TooltipBox from "./TooltipBox";
 import Prices from "../graphql/prices";
 import CurrentBalance from "../graphql/currentBalance";
-import CreateBuyTrade from "../graphql/createBuyTrade";
+import CreateTrade from "../graphql/createTrade";
 import TooltipButton from "./TooltipButton";
 
 const SideMenu = ({ syntheticModel }) => {
@@ -57,9 +57,9 @@ const SideMenu = ({ syntheticModel }) => {
     });
 
   const [
-    createBuyTrade,
+    createTrade,
     { createBuyTradeData, createBuyTradeLoading, createBuyTradeError },
-  ] = useMutation(CreateBuyTrade);
+  ] = useMutation(CreateTrade);
 
   useEffect(() => {
     if (currentBalanceData) {
