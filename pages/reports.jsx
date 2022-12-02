@@ -291,7 +291,7 @@ const Reports = () => {
           </div>
           {/* </div> */}
         </div>
-        <Footer />
+        {/* <Footer /> */}
       </main>
     </>
   );

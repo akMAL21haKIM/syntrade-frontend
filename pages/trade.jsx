@@ -77,7 +77,7 @@ const Trade = () => {
           </div>
         )}
       </main>
-      <Footer></Footer>
+      {/* <Footer></Footer> */}
     </>
   );
 };

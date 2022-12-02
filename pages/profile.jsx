@@ -121,7 +121,7 @@ const Profile = () => {
         )}
       </main>
 
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };
