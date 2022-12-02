@@ -173,7 +173,7 @@ const Login = () => {
                         name="email"
                         type="email"
                         autoComplete="email"
-                        placeholder="Enter email"
+                        placeholder="yourname@domain.com"
                         required
                         className={`placeholder:normal-case lowercase block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm ${
                           showEmailError ? "border-red-600" : ""
@@ -226,7 +226,7 @@ const Login = () => {
                         name="password"
                         type={openPassword === false ? "password" : "text"}
                         autoComplete="current-password"
-                        placeholder="Enter password"
+                        placeholder="●●●●●●●●"
                         required
                         className={`block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm ${
                           showPasswordError ? "border-red-600" : ""
