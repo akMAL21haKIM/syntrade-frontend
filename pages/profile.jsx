@@ -30,7 +30,7 @@ const Profile = () => {
         ) : (
           <div
             id="profile_container"
-            className="flex justify-center items-center w-full mt-12"
+            className="flex items-center justify-center my-24 w-full pr-5 pl-5"
           >
             <div id="profile_subcontainer" className="text-center">
               <span
