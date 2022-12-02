@@ -1,8 +1,8 @@
-import { useQuery, useMutation, gql } from "@apollo/client";
+import { gql } from "@apollo/client";
 
 const CurrentBalance = gql`
-  query CurrentBalance($userId: Int!) {
-    currentBalance(user_id: $userId)
+  query CurrentBalance($user_id: Int!) {
+    currentBalance(user_id: $user_id)
   }
 `;
 
