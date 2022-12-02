@@ -58,14 +58,14 @@ const SideMenu = ({ syntheticModel }) => {
 
   const [
     createTrade,
-    { createBuyTradeData, createBuyTradeLoading, createBuyTradeError },
+    { createTradeData, createTradeLoading, createTradeError },
   ] = useMutation(CreateTrade);
 
   useEffect(() => {
     if (currentBalanceData) {
       setCurrentWalletBalance(currentBalanceData);
     }
-  }, createBuyTradeData);
+  }, createTradeData);
 
   useEffect(() => {
     setLoader(true);
