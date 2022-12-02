@@ -1,5 +1,5 @@
 import { React, useState } from "react";
-import LogoIcon from "../public/old_logo.svg";
+import LogoIcon from "../public/old_logo_name.svg";
 import Link from "next/link";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import Router from "next/router";
@@ -155,27 +155,23 @@ const SignUp = () => {
         <title>Sign Up | Syntrade</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <div id="signup_main" className="grid grid-cols-3 min-h-full">
+      <div id="signup_main" className="grid grid-cols-5 min-h-full">
         <div
           id="signup_left_page"
-          className="col-span-1 flex flex-1 flex-col justify-center bg-indigo-200 h-[calc(100%-5rem)] rounded-lg mx-10 my-auto"
+          className="col-span-2 hidden xl:flex flex-1 flex-col justify-center bg-indigo-200 h-[calc(100%-5rem)] rounded-lg mx-10 my-auto"
         >
           <div className="w-3/4">
-            {/* Syntrade logo */}
+            <img src={LogoIcon.src} className="h-14 w-auto mx-10" />
             <h2 className="text-left text-7xl pl-10 text-black font-bold my-4 cursor-default">
-              Take <span className="text-indigo-600">1 tick</span>
+              Take <span className="text-indigo-600">1 tick</span> at a time
             </h2>
-            <h2 className="text-left text-7xl pl-10 text-black font-bold cursor-default">
-              at a time
-            </h2>
+
             <h2 className="text-left text-lg pl-10 text-gray-600 font-medium mt-20 cursor-default">
-              People are afraid to make mistakes.
+              “For the things we have to learn before we can do them, we learn
+              by doing them.”
             </h2>
             <h2 className="text-left text-lg pl-10 text-gray-600 font-medium mt-4 cursor-default">
-              From mistakes we gain a lot,
-            </h2>
-            <h2 className="text-left text-lg pl-10 text-gray-600 font-medium mb-4 cursor-default">
-              from success, not really.
+              - Aristotle
             </h2>
           </div>
         </div>
@@ -183,7 +179,7 @@ const SignUp = () => {
         {/* Sign up form */}
         <div
           id="signup_right_page"
-          className="col-span-2 flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24 bg-white h-screen"
+          className="xl:col-span-3 col-span-5 flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24 bg-white h-screen"
         >
           <div
             id="signup_form_main"
