@@ -160,10 +160,17 @@ const SideMenu = ({ syntheticModel, setOpenTradeSuccessModal }) => {
               fill="currentColor"
             />
 
-            <span className="ml-3">{currentWalletBalance} MYR</span>
+            <span className="ml-3 my-auto">{currentBalance.data["currentBalance"].toFixed(2)} MYR</span>
           </p>
         ) : (
-          "fuck"
+          <p className="flex select-none items-center p-1 text-base font-semibold tracking-wide text-gray-900 rounded-lg">
+            <SolidDollarIcon
+              className="w-7 h-7 fill-indigo-600"
+              fill="currentColor"
+            />
+
+            <span className="animate-pulse ml-3 w-full h-4 bg-gray-300 rounded-lg border-4 border-gray-300 focus:outline-none cursor-default select-none"></span>
+          </p>
         )}
       </div>
       <div className="z-30 mt-6 mx-6 py-2 px-4 bg-white rounded border-4 border-gray-100 hover:border-gray-200 focus:outline-none">
