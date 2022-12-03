@@ -18,7 +18,7 @@ const RangeSlider = ({ ticks, setTicks }) => {
         className="range-base w-full accent-indigo-600 focus:outline-none cursor-default select-none"
         step="1"
         list="ticks"
-        onChange={(e) => setTicks(e.target.value)}
+        onChange={(e) => setTicks(parseInt(e.target.value))}
       />
       <datalist id="ticks">
         <option value="1" className="text-gray-700">
