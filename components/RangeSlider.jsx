@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function RangeSlider({ sliderValue, setSliderValue }) {
+const RangeSlider = ({ sliderValue, setSliderValue }) => {
   function updateSliderValue(value) {
     setSliderValue(value);
   }
@@ -60,4 +60,6 @@ export default function RangeSlider({ sliderValue, setSliderValue }) {
       </datalist>
     </div>
   );
-}
+};
+
+export default RangeSlider;

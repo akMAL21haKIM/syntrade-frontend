@@ -2,12 +2,12 @@ import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon, ExclamationTriangleIcon } from "../lib/icons";
 
-export default function Modal({
+const Modal = ({
   openModal,
   setOpenModal,
   modalTitle,
   modalDescription,
-}) {
+}) => {
   return (
     <Transition.Root show={openModal} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={setOpenModal}>
@@ -96,3 +96,5 @@ export default function Modal({
     </Transition.Root>
   );
 }
+
+export default Modal;

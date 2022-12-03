@@ -1,4 +1,4 @@
-export function BoomIcon({ ...props }) {
+export const BoomIcon = ({ ...props }) => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
       <path
@@ -8,9 +8,9 @@ export function BoomIcon({ ...props }) {
       />
     </svg>
   );
-}
+};
 
-export function CrashIcon({ ...props }) {
+export const CrashIcon = ({ ...props }) => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
       <path
@@ -20,9 +20,9 @@ export function CrashIcon({ ...props }) {
       />
     </svg>
   );
-}
+};
 
-export function VolatilityIcon({ ...props }) {
+export const VolatilityIcon = ({ ...props }) => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
       <path
@@ -32,9 +32,9 @@ export function VolatilityIcon({ ...props }) {
       />
     </svg>
   );
-}
+};
 
-export function ChevronUpIcon({ ...props }) {
+export const ChevronUpIcon = ({ ...props }) => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
       <path
@@ -44,9 +44,9 @@ export function ChevronUpIcon({ ...props }) {
       />
     </svg>
   );
-}
+};
 
-export function ChevronDownIcon({ ...props }) {
+export const ChevronDownIcon = ({ ...props }) => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
       <path
@@ -56,9 +56,9 @@ export function ChevronDownIcon({ ...props }) {
       />
     </svg>
   );
-}
+};
 
-export function ChevronRightIcon({ ...props }) {
+export const ChevronRightIcon = ({ ...props }) => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" {...props}>
       <path
@@ -68,9 +68,9 @@ export function ChevronRightIcon({ ...props }) {
       />
     </svg>
   );
-}
+};
 
-export function ChevronLeftIcon({ ...props }) {
+export const ChevronLeftIcon = ({ ...props }) => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" {...props}>
       <path
@@ -80,9 +80,9 @@ export function ChevronLeftIcon({ ...props }) {
       />
     </svg>
   );
-}
+};
 
-export function RiseFallIcon({ ...props }) {
+export const RiseFallIcon = ({ ...props }) => {
   return (
     <>
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" {...props}>
@@ -101,9 +101,9 @@ export function RiseFallIcon({ ...props }) {
       </svg>
     </>
   );
-}
+};
 
-export function MultipliersIcon({ ...props }) {
+export const MultipliersIcon = ({ ...props }) => {
   return (
     <>
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
@@ -122,9 +122,9 @@ export function MultipliersIcon({ ...props }) {
       </svg>
     </>
   );
-}
+};
 
-export function EvenOddIcon({ ...props }) {
+export const EvenOddIcon = ({ ...props }) => {
   return (
     <>
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
@@ -143,9 +143,9 @@ export function EvenOddIcon({ ...props }) {
       </svg>
     </>
   );
-}
+};
 
-export function MatchesDiffersIcon({ ...props }) {
+export const MatchesDiffersIcon = ({ ...props }) => {
   return (
     <>
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
@@ -164,9 +164,9 @@ export function MatchesDiffersIcon({ ...props }) {
       </svg>
     </>
   );
-}
+};
 
-export function ExclamationTriangleIcon({ ...props }) {
+export const ExclamationTriangleIcon = ({ ...props }) => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
       <path
@@ -176,9 +176,9 @@ export function ExclamationTriangleIcon({ ...props }) {
       />
     </svg>
   );
-}
+};
 
-export function XMarkIcon({ ...props }) {
+export const XMarkIcon = ({ ...props }) => {
   return (
     <>
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
@@ -190,9 +190,9 @@ export function XMarkIcon({ ...props }) {
       </svg>
     </>
   );
-}
+};
 
-export function Bars3Icon({ ...props }) {
+export const Bars3Icon = ({ ...props }) => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
       <path
@@ -202,9 +202,9 @@ export function Bars3Icon({ ...props }) {
       />
     </svg>
   );
-}
+};
 
-export function ReportsIcon({ ...props }) {
+export const ReportsIcon = ({ ...props }) => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
       <path
@@ -215,17 +215,17 @@ export function ReportsIcon({ ...props }) {
       <path d="M14.25 5.25a5.23 5.23 0 00-1.279-3.434 9.768 9.768 0 016.963 6.963A5.23 5.23 0 0016.5 7.5h-1.875a.375.375 0 01-.375-.375V5.25z" />
     </svg>
   );
-}
+};
 
-export function WalletIcon({ ...props }) {
+export const WalletIcon = ({ ...props }) => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
       <path d="M2.273 5.625A4.483 4.483 0 015.25 4.5h13.5c1.141 0 2.183.425 2.977 1.125A3 3 0 0018.75 3H5.25a3 3 0 00-2.977 2.625zM2.273 8.625A4.483 4.483 0 015.25 7.5h13.5c1.141 0 2.183.425 2.977 1.125A3 3 0 0018.75 6H5.25a3 3 0 00-2.977 2.625zM5.25 9a3 3 0 00-3 3v6a3 3 0 003 3h13.5a3 3 0 003-3v-6a3 3 0 00-3-3H15a.75.75 0 00-.75.75 2.25 2.25 0 01-4.5 0A.75.75 0 009 9H5.25z" />
     </svg>
   );
-}
+};
 
-export function ProfileIcon({ ...props }) {
+export const ProfileIcon = ({ ...props }) => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
       <path
@@ -235,9 +235,9 @@ export function ProfileIcon({ ...props }) {
       />
     </svg>
   );
-}
+};
 
-export function SolidDollarIcon({ ...props }) {
+export const SolidDollarIcon = ({ ...props }) => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
       <path d="M10.464 8.746c.227-.18.497-.311.786-.394v2.795a2.252 2.252 0 01-.786-.393c-.394-.313-.546-.681-.546-1.004 0-.323.152-.691.546-1.004zM12.75 15.662v-2.824c.347.085.664.228.921.421.427.32.579.686.579.991 0 .305-.152.671-.579.991a2.534 2.534 0 01-.921.42z" />
@@ -248,9 +248,9 @@ export function SolidDollarIcon({ ...props }) {
       />
     </svg>
   );
-}
+};
 
-export function OutlineDollarIcon({ ...props }) {
+export const OutlineDollarIcon = ({ ...props }) => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
       <path
@@ -260,9 +260,9 @@ export function OutlineDollarIcon({ ...props }) {
       />
     </svg>
   );
-}
+};
 
-export function RiseIcon({ ...props }) {
+export const RiseIcon = ({ ...props }) => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" {...props}>
       <path
@@ -272,9 +272,9 @@ export function RiseIcon({ ...props }) {
       />
     </svg>
   );
-}
+};
 
-export function FallIcon({ ...props }) {
+export const FallIcon = ({ ...props }) => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" {...props}>
       <path
@@ -284,9 +284,9 @@ export function FallIcon({ ...props }) {
       />
     </svg>
   );
-}
+};
 
-export function EvenIcon({ ...props }) {
+export const EvenIcon = ({ ...props }) => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
       <path
@@ -296,9 +296,9 @@ export function EvenIcon({ ...props }) {
       />
     </svg>
   );
-}
+};
 
-export function OddIcon({ ...props }) {
+export const OddIcon = ({ ...props }) => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
       <path
@@ -308,9 +308,9 @@ export function OddIcon({ ...props }) {
       />
     </svg>
   );
-}
+};
 
-export function MatchesIcon({ ...props }) {
+export const MatchesIcon = ({ ...props }) => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
       <path
@@ -320,9 +320,9 @@ export function MatchesIcon({ ...props }) {
       />
     </svg>
   );
-}
+};
 
-export function DiffersIcon({ ...props }) {
+export const DiffersIcon = ({ ...props }) => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
       <path
@@ -332,9 +332,9 @@ export function DiffersIcon({ ...props }) {
       />
     </svg>
   );
-}
+};
 
-export function EyeIcon({ ...props }) {
+export const EyeIcon = ({ ...props }) => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
       <path d="M3.53 2.47a.75.75 0 00-1.06 1.06l18 18a.75.75 0 101.06-1.06l-18-18zM22.676 12.553a11.249 11.249 0 01-2.631 4.31l-3.099-3.099a5.25 5.25 0 00-6.71-6.71L7.759 4.577a11.217 11.217 0 014.242-.827c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113z" />
@@ -342,9 +342,9 @@ export function EyeIcon({ ...props }) {
       <path d="M6.75 12c0-.619.107-1.213.304-1.764l-3.1-3.1a11.25 11.25 0 00-2.63 4.31c-.12.362-.12.752 0 1.114 1.489 4.467 5.704 7.69 10.675 7.69 1.5 0 2.933-.294 4.242-.827l-2.477-2.477A5.25 5.25 0 016.75 12z" />
     </svg>
   );
-}
+};
 
-export function EyeSlashIcon({ ...props }) {
+export const EyeSlashIcon = ({ ...props }) => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
       <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
@@ -355,4 +355,4 @@ export function EyeSlashIcon({ ...props }) {
       />
     </svg>
   );
-}
+};

@@ -1,4 +1,4 @@
-export default function TooltipBox({ msg, children, stakePayoutError }) {
+const TooltipBox = ({ msg, children, stakePayoutError }) => {
   return (
     <div className="relative flex justify-left items-center bottom-[1rem] align-left group w-full">
       <div
@@ -15,4 +15,6 @@ export default function TooltipBox({ msg, children, stakePayoutError }) {
       {children}
     </div>
   );
-}
+};
+
+export default TooltipBox;

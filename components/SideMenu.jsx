@@ -1,11 +1,7 @@
 import { React, Fragment, useState, useEffect } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import RangeSlider from "./RangeSlider";
-import {
-  SolidDollarIcon,
-  ChevronRightIcon,
-  ChevronLeftIcon,
-} from "../lib/icons";
+import { SolidDollarIcon } from "../lib/icons";
 import { classNames } from "../lib/utilities";
 import { useQuery, useMutation, gql } from "@apollo/client";
 import TooltipBox from "./TooltipBox";
@@ -13,6 +9,7 @@ import Prices from "../graphql/prices";
 import CurrentBalance from "../graphql/currentBalance";
 import CreateTrade from "../graphql/createTrade";
 import TooltipButton from "./TooltipButton";
+import TradeTypeDropdown from "./TradeTypeDropdown";
 
 const SideMenu = ({ syntheticModel }) => {
   const [loader, setLoader] = useState(false);
@@ -20,6 +17,11 @@ const SideMenu = ({ syntheticModel }) => {
     syntheticModel.trade_type[0]
   );
   const [isClickedTradeTypeBox, setIsClickedTradeTypeBox] = useState(false);
+  const [stake, setStake] = useState(10);
+  const [payout, setPayout] = useState(10);
+  const [wagerType, setWagerType] = useState("stake");
+  const [wagerAmount, setWagerAmount] = useState(10);
+  const [tradeType, setTradeType] = useState(syntheticModel.trade_type[0]);
   const [stakePayout, setStakePayout] = useState(10);
   const [selectedStakePayout, setSelectedStakePayout] = useState(false);
   const [disableIncrement, setDisableIncrement] = useState(false);
@@ -33,7 +35,7 @@ const SideMenu = ({ syntheticModel }) => {
 
   const synth = syntheticModel.type;
   const parsedStakePayout = parseFloat(stakePayout);
-  const tradeType = selectedTradeType.simplified_title;
+  // const tradeType = selectedTradeType.simplified_title;
   const parsedSliderValue = parseInt(sliderValue);
   const negatedParsedStakePayout = parsedStakePayout * -1;
   const userId = 1;
@@ -73,13 +75,7 @@ const SideMenu = ({ syntheticModel }) => {
     setTimeout(async () => {
       setLoader(false);
     }, 1000);
-  }, [
-    selectedTradeType,
-    stakePayout,
-    selectedStakePayout,
-    sliderValue,
-    pricesData,
-  ]);
+  }, [tradeType, stakePayout, selectedStakePayout, sliderValue, pricesData]);
 
   const increment = (e) => {
     e.preventDefault();
@@ -175,93 +171,11 @@ const SideMenu = ({ syntheticModel }) => {
         </p>
       </div>
       <div className="z-30 mt-6 mx-6 py-2 px-4 bg-white rounded border-4 border-gray-100 hover:border-gray-200 focus:outline-none">
-        <Listbox value={selectedTradeType} onChange={setSelectedTradeType}>
-          {({ open }) => (
-            <>
-              <Listbox.Label className="sr-only">
-                {" "}
-                Change type of trade{" "}
-              </Listbox.Label>
-              <div className="relative text-left">
-                <Listbox.Button
-                  onClick={(e) => {
-                    if (isClickedTradeTypeBox) {
-                      setIsClickedTradeTypeBox(false);
-                    } else {
-                      setIsClickedTradeTypeBox(true);
-                    }
-                  }}
-                  className="select-none items-center rounded-md bg-white py-2 text-xs font-medium text-gray-700 focus:outline-none"
-                >
-                  <div className="flex justify-between">
-                    <div className="flex-1 mr-2">
-                      {isClickedTradeTypeBox ? (
-                        <ChevronRightIcon
-                          strokeWidth="1"
-                          fill="currentColor"
-                          className="w-4 h-4"
-                        />
-                      ) : (
-                        <ChevronLeftIcon
-                          strokeWidth="1"
-                          fill="currentColor"
-                          className="w-4 h-4"
-                        />
-                      )}
-                    </div>
-                    <div className="grid grid-flow-col">
-                      {selectedTradeType.icon}
-
-                      <p className="font-bold text-sm ml-2">
-                        {selectedTradeType.title}
-                      </p>
-                    </div>
-                  </div>
-                </Listbox.Button>
-
-                <Transition
-                  show={open}
-                  as={Fragment}
-                  leave="transition ease-in duration-100"
-                  leaveFrom="opacity-100"
-                  leaveTo="opacity-0"
-                >
-                  <Listbox.Options className="absolute -left-[235px] -top-[20px] z-10 mt-2 w-[13rem] rounded-md bg-white border-gray-100 border-4 focus:outline-none">
-                    <p className="font-semibold p-4 text-sm select-none cursor-default">
-                      Trade Types
-                    </p>
-                    {syntheticModel.trade_type.map((tradeTypeOption) => (
-                      <Listbox.Option
-                        key={tradeTypeOption.title}
-                        className={({ active, selected }) =>
-                          classNames(
-                            selected
-                              ? "bg-gray-100 text-gray-900"
-                              : "text-gray-700 hover:bg-gray-50",
-                            "cursor-default select-none p-4 text-sm"
-                          )
-                        }
-                        value={tradeTypeOption}
-                      >
-                        {({ selected, active }) => (
-                          <div className="flex flex-col">
-                            <div className="flex justify-start">
-                              {tradeTypeOption.icon}
-
-                              <p className="font-medium ml-5">
-                                {tradeTypeOption.title}
-                              </p>
-                            </div>
-                          </div>
-                        )}
-                      </Listbox.Option>
-                    ))}
-                  </Listbox.Options>
-                </Transition>
-              </div>
-            </>
-          )}
-        </Listbox>
+        <TradeTypeDropdown
+          tradeType={tradeType}
+          setTradeType={setTradeType}
+          syntheticModel={syntheticModel}
+        />
       </div>
       <div className="mt-6 mx-6 py-2 px-4 bg-white rounded border-4 border-gray-100 ">
         <RangeSlider
@@ -351,9 +265,7 @@ const SideMenu = ({ syntheticModel }) => {
       </TooltipBox>
       <div
         className={`mt-6 mx-6 py-2 px-4 bg-white rounded border-4 border-gray-100 ${
-          selectedTradeType.simplified_title == "matches_differs"
-            ? "block"
-            : "hidden"
+          tradeType.simplified_title == "matches_differs" ? "block" : "hidden"
         }`}
       >
         <div className="select-none cursor-default">
@@ -430,11 +342,11 @@ const SideMenu = ({ syntheticModel }) => {
                   handleTrade(tradeType.split("_")[0]);
                 }}
               >
-                {selectedTradeType.blueIcon}
+                {tradeType.blueIcon}
               </div>
 
               <p className="text-sm font-semibold text-white text-right focus:outline-none cursor-default select-none">
-                {selectedTradeType.blueText}
+                {tradeType.blueText}
               </p>
             </button>
           </TooltipButton>
@@ -457,7 +369,7 @@ const SideMenu = ({ syntheticModel }) => {
             )}
           </div>
           <TooltipButton
-            msg="Minimum stake of 1.00 and maximum payout of 30000"
+            msg="Minimum stake of 1.00 and maximum payout of 30000.00. Current payout is 345679.00"
             stakePayoutError={stakePayoutError}
           >
             <button
@@ -489,11 +401,11 @@ const SideMenu = ({ syntheticModel }) => {
                   handleTrade(tradeType.split("_")[1]);
                 }}
               >
-                {selectedTradeType.redIcon}
+                {tradeType.redIcon}
               </div>
 
               <p className="text-sm font-semibold text-white text-right focus:outline-none cursor-default select-none">
-                {selectedTradeType.redText}
+                {tradeType.redText}
               </p>
             </button>
           </TooltipButton>
@@ -503,4 +415,4 @@ const SideMenu = ({ syntheticModel }) => {
   );
 };
 
-module.exports = SideMenu;
+export default SideMenu;

@@ -3,14 +3,7 @@ import Head from "next/head";
 import dynamic from "next/dynamic";
 import NavBar from "../components/NavBar";
 import SyntheticModelDropdown from "../components/SyntheticModelDropdown";
-import {
-  React,
-  useState,
-  useEffect,
-  createPortal,
-  createRef,
-  useLayoutEffect,
-} from "react";
+import { React, useState, useEffect } from "react";
 import { syntheticModelOptions } from "../lib/options";
 import SideMenu from "../components/SideMenu";
 import { SkeletonLoaderTradePage } from "../components/SkeletonLoaders";

@@ -1,6 +1,4 @@
-import { convertRemToPixels } from "../lib/utilities";
-
-export function SkeletonLoaderTradePage() {
+export const SkeletonLoaderTradePage = () => {
   return (
     <div className="grid grid-cols-2">
       <div className="ml-[2rem] mt-8">
@@ -21,7 +19,7 @@ export function SkeletonLoaderTradePage() {
   );
 }
 
-export function SkeletonLoaderReportsPage() {
+export const SkeletonLoaderReportsPage = () => {
   return Array(5)
     .fill()
     .map((item, index) => (
@@ -52,7 +50,7 @@ export function SkeletonLoaderReportsPage() {
     ));
 }
 
-export function SkeletonLoaderProfilePage() {
+export const SkeletonLoaderProfilePage = () => {
   return (
     <div className="flex justify-center items-center w-full mt-12">
       <div className="text-center">
@@ -76,9 +74,3 @@ export function SkeletonLoaderProfilePage() {
     </div>
   );
 }
-
-module.exports = {
-  SkeletonLoaderTradePage,
-  SkeletonLoaderReportsPage,
-  SkeletonLoaderProfilePage,
-};

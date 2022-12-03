@@ -7,7 +7,7 @@ import Link from "next/link";
 
 let isUserLoggedIn = true;
 
-export default function NavBar() {
+const NavBar = () => {
   const [isMenuClicked, setIsMenuClicked] = useState(false);
 
   return (
@@ -326,4 +326,6 @@ export default function NavBar() {
       </div>
     </Popover>
   );
-}
+};
+
+export default NavBar;

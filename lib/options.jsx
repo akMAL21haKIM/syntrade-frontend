@@ -3,7 +3,6 @@ import {
   CrashIcon,
   VolatilityIcon,
   RiseFallIcon,
-  MultipliersIcon,
   EvenOddIcon,
   MatchesDiffersIcon,
   RiseIcon,

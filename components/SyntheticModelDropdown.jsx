@@ -4,10 +4,7 @@ import { ChevronUpIcon, ChevronDownIcon } from "../lib/icons";
 import { syntheticModelOptions } from "../lib/options";
 import { classNames } from "../lib/utilities";
 
-export default function SyntheticModelDropdown({
-  setSyntheticModel,
-  syntheticModel,
-}) {
+const SyntheticModelDropdown = ({ setSyntheticModel, syntheticModel }) => {
   const [isClicked, setIsClicked] = useState(false);
 
   return (
@@ -146,4 +143,6 @@ export default function SyntheticModelDropdown({
       )}
     </Listbox>
   );
-}
+};
+
+export default SyntheticModelDropdown;

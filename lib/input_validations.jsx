@@ -1,5 +1,5 @@
 // Check whether email is valid or not
-const isEmailValid = (emailToValidate) => {
+export const isEmailValid = (emailToValidate) => {
   // Check if email is empty or not
   if (!emailToValidate) {
     console.log("Error: Email cannot be empty");
@@ -21,7 +21,7 @@ const isEmailValid = (emailToValidate) => {
 };
 
 // Check whether password is valid or not
-const isPasswordValid = (passwordToValidate) => {
+export const isPasswordValid = (passwordToValidate) => {
   // Password must be between 8-12 characters
   // Password must have at least:
   // 1 capital letter, 1 lowercase letter, 1 digit and 1 special characters (~`!@#$%^&*()_-+={[}]|\:;"'<,>.?/)
@@ -59,12 +59,13 @@ const isPasswordValid = (passwordToValidate) => {
 };
 
 // Check whether password and confirm password matches or not
-const doesPasswordsMatch = (passwordToValidate, confirmPasswordToValidate) => {
+export const doesPasswordsMatch = (
+  passwordToValidate,
+  confirmPasswordToValidate
+) => {
   if (passwordToValidate !== confirmPasswordToValidate) {
     console.log("Error: Password and Confirm Password does not match");
     return false;
   }
   return true;
 };
-
-module.exports = { isEmailValid, isPasswordValid, doesPasswordsMatch };
