@@ -7,7 +7,7 @@ const CreateTrade = gql`
     $optionType: String!
     $wagerAmount: Float!
     $ticks: Int!
-    $lastDigit_Prediction: Int
+    $lastDigitPrediction: Int
   ) {
     createTrade(
       userId: $userId
