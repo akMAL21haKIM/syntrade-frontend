@@ -1,53 +1,38 @@
-import { React, Fragment, useState, useEffect } from "react";
-import { Listbox, Transition } from "@headlessui/react";
+import { React, useState, useEffect } from "react";
 import RangeSlider from "./RangeSlider";
 import { SolidDollarIcon } from "../lib/icons";
-import { classNames } from "../lib/utilities";
-import { useQuery, useMutation, gql } from "@apollo/client";
-import TooltipBox from "./TooltipBox";
+import { useQuery, useMutation } from "@apollo/client";
+import { TooltipBox, TooltipButton } from "./Tooltips";
 import Prices from "../graphql/prices";
 import CurrentBalance from "../graphql/currentBalance";
 import CreateTrade from "../graphql/createTrade";
-import TooltipButton from "./TooltipButton";
 import TradeTypeDropdown from "./TradeTypeDropdown";
 
 const SideMenu = ({ syntheticModel }) => {
   const [loader, setLoader] = useState(false);
-  const [selectedTradeType, setSelectedTradeType] = useState(
-    syntheticModel.trade_type[0]
-  );
-  const [isClickedTradeTypeBox, setIsClickedTradeTypeBox] = useState(false);
-  const [stake, setStake] = useState(10);
-  const [payout, setPayout] = useState(10);
   const [wagerType, setWagerType] = useState("stake");
   const [wagerAmount, setWagerAmount] = useState(10);
   const [tradeType, setTradeType] = useState(syntheticModel.trade_type[0]);
-  const [stakePayout, setStakePayout] = useState(10);
-  const [selectedStakePayout, setSelectedStakePayout] = useState(false);
   const [disableIncrement, setDisableIncrement] = useState(false);
   const [disableDecrement, setDisableDecrement] = useState(false);
   const [blueIconTransition, setBlueIconTransition] = useState(false);
   const [redIconTransition, setRedIconTransition] = useState(false);
-  const [selectedNumberPrediction, setSelectedNumberPrediction] = useState(0);
-  const [sliderValue, setSliderValue] = useState(5);
-  const [stakePayoutError, setStakePayoutError] = useState(false);
+  const [lastDigitPrediction, setLastDigitPrediction] = useState(0);
+  const [ticks, setTicks] = useState(5);
+  const [wagerAmountError, setWagerAmountError] = useState(false);
   const [currentWalletBalance, setCurrentWalletBalance] = useState(10000.0);
 
-  const synth = syntheticModel.type;
-  const parsedStakePayout = parseFloat(stakePayout);
-  // const tradeType = selectedTradeType.simplified_title;
-  const parsedSliderValue = parseInt(sliderValue);
-  const negatedParsedStakePayout = parsedStakePayout * -1;
+  const syntheticModelType = syntheticModel.type;
+  const parsedStakePayout = parseFloat(wagerAmount);
   const userId = 1;
 
-  const { pricesData, Pricesloading, Pricesrror } = useQuery(Prices, {
+  const { pricesData, pricesLoading, pricesError } = useQuery(Prices, {
     variables: {
-      selectedStakePayout,
-      synth,
+      wagerType,
+      syntheticModelType,
       tradeType,
-      parsedStakePayout,
-      parsedSliderValue,
-      selectedNumberPrediction,
+      wagerAmount,
+      ticks,
     },
   });
 
@@ -73,65 +58,70 @@ const SideMenu = ({ syntheticModel }) => {
     setLoader(true);
 
     setTimeout(async () => {
-      setLoader(false);
+      console.log("pricesData: ", pricesData);
+      if (!wagerAmountError && pricesData != null) {
+        setLoader(false);
+      }
     }, 1000);
-  }, [tradeType, stakePayout, selectedStakePayout, sliderValue, pricesData]);
+  }, [tradeType, wagerAmount, wagerType, wagerAmountError, ticks, pricesData]);
 
-  const increment = (e) => {
+  // Increment wager amount
+  const incrementWagerAmount = (e) => {
     e.preventDefault();
 
     setDisableDecrement(false);
 
-    if (parseFloat(stakePayout) > 30000) {
+    if (parseFloat(wagerAmount) > 30000) {
       // Disable increment button
       setDisableIncrement(true);
 
       // Show tooltip error message
-      setStakePayoutError(true);
+      setWagerAmountError(true);
     }
 
-    setStakePayout(stakePayout + 1);
-    setStakePayoutError(false);
+    setWagerAmount(wagerAmount + 1);
+    setWagerAmountError(false);
   };
 
-  const decrement = (e) => {
+  // Decrement wager amount
+  const decrementWagerAmount = (e) => {
     e.preventDefault();
 
     setDisableIncrement(false);
 
-    // If stakePayout is less than 0, set it to 0
-    if (stakePayout <= 0) {
-      setStakePayout(0);
+    // If wagerAmount is less than 0, set it to 0
+    if (wagerAmount <= 0) {
+      setWagerAmount(0);
 
       // Disable decrement button
       setDisableDecrement(true);
 
       // Show tooltip error message
-      setStakePayoutError(true);
+      setWagerAmountError(true);
     } else {
       // Enable decrement button
       setDisableDecrement(false);
-      setStakePayout(stakePayout - 1);
-      setStakePayoutError(false);
+      setWagerAmount(wagerAmount - 1);
+      setWagerAmountError(false);
     }
   };
 
-  const handleStakePayoutChange = (e) => {
+  const handleWagerAmountChange = (e) => {
     // Remove non digit characters from input
     // TODO: Make sure input can only take one period
     // TODO: Make sure input can take only two numbers after period
     const sanitisedInput = e.target.value.replace(/\D/g, "");
 
-    // If stakePayout is less than 0, set it to 0
+    // If wagerAmount is less than 0, set it to 0
     if (sanitisedInput <= 0) {
-      setStakePayout(0);
-      setStakePayoutError(true);
+      setWagerAmount(0);
+      setWagerAmountError(true);
     } else if (sanitisedInput > 30000) {
-      setStakePayout(sanitisedInput);
-      setStakePayoutError(true);
+      setWagerAmount(sanitisedInput);
+      setWagerAmountError(true);
     } else {
-      setStakePayout(sanitisedInput);
-      setStakePayoutError(false);
+      setWagerAmount(sanitisedInput);
+      setWagerAmountError(false);
     }
   };
 
@@ -139,7 +129,7 @@ const SideMenu = ({ syntheticModel }) => {
     const syntheticTrade = synth + "_" + singleTradeType;
 
     // If user has enough balance in wallet
-    if (currentWalletBalance >= stakePayout) {
+    if (currentWalletBalance >= wagerAmount) {
       // Create trade
       await createTrade({
         variables: {
@@ -178,14 +168,11 @@ const SideMenu = ({ syntheticModel }) => {
         />
       </div>
       <div className="mt-6 mx-6 py-2 px-4 bg-white rounded border-4 border-gray-100 ">
-        <RangeSlider
-          sliderValue={sliderValue}
-          setSliderValue={setSliderValue}
-        ></RangeSlider>
+        <RangeSlider ticks={ticks} setTicks={setTicks}></RangeSlider>
       </div>
       <TooltipBox
         msg="Minimum stake of 1.00 and maximum payout of 30000"
-        stakePayoutError={stakePayoutError}
+        wagerAmountError={wagerAmountError}
       >
         <div className="relative mt-6 mx-6 bg-gray-50 rounded border-4 border-gray-100">
           <div className="relative">
@@ -193,15 +180,17 @@ const SideMenu = ({ syntheticModel }) => {
               <button
                 type="button"
                 className={`rounded-tl w-full px-4 py-2 text-sm font-semibold focus:outline-none ${
-                  selectedStakePayout != true
+                  wagerType == "stake"
                     ? "bg-indigo-600 text-white"
                     : "bg-transparent text-gray-700 hover:bg-gray-100"
                 }`}
                 onClick={(e) => {
                   e.preventDefault();
 
-                  if (selectedStakePayout == true) {
-                    setSelectedStakePayout(false);
+                  if (wagerType == "stake") {
+                    setWagerType("payout");
+                  } else {
+                    setWagerType("stake");
                   }
                 }}
               >
@@ -211,14 +200,16 @@ const SideMenu = ({ syntheticModel }) => {
               <button
                 type="button"
                 className={`rounded-tr w-full px-4 py-2 text-sm font-semibold focus:outline-none ${
-                  selectedStakePayout != false
+                  wagerType == "payout"
                     ? "bg-indigo-600 text-white"
                     : "bg-transparent text-gray-700 hover:bg-gray-100"
                 }`}
                 onClick={(e) => {
                   e.preventDefault();
-                  if (selectedStakePayout == false) {
-                    setSelectedStakePayout(true);
+                  if (wagerType == "payout") {
+                    setWagerType("stake");
+                  } else {
+                    setWagerType("payout");
                   }
                 }}
               >
@@ -233,7 +224,7 @@ const SideMenu = ({ syntheticModel }) => {
                 className={`col-span-1 rounded-l px-4 py-4 text-sm font-semibold text-gray-700 hover:bg-gray-100 ${
                   disableDecrement ? "cursor-not-allowed" : "cursor-pointer"
                 }`}
-                onClick={(e) => decrement(e)}
+                onClick={(e) => decrementWagerAmount(e)}
               >
                 –
               </button>
@@ -242,8 +233,8 @@ const SideMenu = ({ syntheticModel }) => {
                   type="text"
                   className="font-medium text-gray-700 col-span-2 focus:outline-none border-none border-transparent focus:border-transparent focus:ring-0"
                   name="stake-payout-input"
-                  value={stakePayout}
-                  onChange={(e) => handleStakePayoutChange(e)}
+                  value={wagerAmount}
+                  onChange={(e) => handleWagerAmountChange(e)}
                 ></input>
                 <p className="text-gray-600 font-medium my-auto col-span-1 focus:outline-none cursor-default select-none">
                   MYR
@@ -255,7 +246,7 @@ const SideMenu = ({ syntheticModel }) => {
                 className={`col-span-1 rounded-r px-4 py-4 text-sm font-semibold text-gray-700 hover:bg-gray-100 ${
                   disableIncrement ? "cursor-not-allowed" : "cursor-pointer"
                 }`}
-                onClick={(e) => increment(e)}
+                onClick={(e) => incrementWagerAmount(e)}
               >
                 +
               </button>
@@ -279,11 +270,11 @@ const SideMenu = ({ syntheticModel }) => {
               <div
                 key={index}
                 className={`text-sm py-2 px-4 text-center border-2 font-semibold justify-self-center rounded ${
-                  selectedNumberPrediction == index
+                  lastDigitPrediction == index
                     ? "bg-indigo-600 text-white border-transparent"
                     : "bg-gray-50 border-gray-100 text-gray-700 hover:bg-gray-100"
                 }`}
-                onClick={(e) => setSelectedNumberPrediction(index)}
+                onClick={(e) => setLastDigitPrediction(index)}
               >
                 {item}
               </div>
@@ -295,7 +286,7 @@ const SideMenu = ({ syntheticModel }) => {
         <div>
           <div className="grid grid-cols-2">
             <p className="text-sm font-light text-gray-500 mb-1 focus:outline-none cursor-default select-none">
-              {selectedStakePayout ? "Stake" : "Payout"}
+              {wagerType == "stake" ? "Stake" : "Payout"}
             </p>
             {loader ? (
               <div className="animate-pulse h-[1.25rem] flex bg-gray-300 rounded focus:outline-none cursor-default select-none"></div>
@@ -311,7 +302,7 @@ const SideMenu = ({ syntheticModel }) => {
           </div>
           <TooltipButton
             msg="Minimum stake of 1.00 and maximum payout of 30000"
-            stakePayoutError={stakePayoutError}
+            wagerAmountError={wagerAmountError}
           >
             <button
               className={`px-4 py-4 rounded w-full grid grid-cols-2 focus:outline-none ${
@@ -354,7 +345,7 @@ const SideMenu = ({ syntheticModel }) => {
         <div>
           <div className="grid grid-cols-2 mt-4">
             <p className="text-sm font-light text-gray-500 mb-1 focus:outline-none cursor-default select-none">
-              {selectedStakePayout ? "Stake" : "Payout"}
+              {wagerType == "stake" ? "Stake" : "Payout"}
             </p>
             {loader ? (
               <div className="animate-pulse h-[1.25rem] flex bg-gray-300 rounded focus:outline-none cursor-default select-none"></div>
@@ -370,7 +361,7 @@ const SideMenu = ({ syntheticModel }) => {
           </div>
           <TooltipButton
             msg="Minimum stake of 1.00 and maximum payout of 30000.00. Current payout is 345679.00"
-            stakePayoutError={stakePayoutError}
+            wagerAmountError={wagerAmountError}
           >
             <button
               className={`px-4 py-4 rounded w-full grid grid-cols-2 focus:outline-none ${

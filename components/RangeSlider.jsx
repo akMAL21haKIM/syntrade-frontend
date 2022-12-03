@@ -1,10 +1,4 @@
-import React from "react";
-
-const RangeSlider = ({ sliderValue, setSliderValue }) => {
-  function updateSliderValue(value) {
-    setSliderValue(value);
-  }
-
+const RangeSlider = ({ ticks, setTicks }) => {
   return (
     <div className="select-none cursor-default">
       <div className="grid grid-flow-col justify-between">
@@ -12,7 +6,7 @@ const RangeSlider = ({ sliderValue, setSliderValue }) => {
           Ticks
         </p>
         <p className="text-sm mb-1 mt-0 font-semibold text-gray-700 cursor-default select-none">
-          {sliderValue}
+          {ticks}
         </p>
       </div>
 
@@ -20,11 +14,11 @@ const RangeSlider = ({ sliderValue, setSliderValue }) => {
         type="range"
         min="1"
         max="10"
-        value={sliderValue}
+        value={ticks}
         className="range-base w-full accent-indigo-600 focus:outline-none cursor-default select-none"
         step="1"
         list="ticks"
-        onChange={(e) => updateSliderValue(e.target.value)}
+        onChange={(e) => setTicks(e.target.value)}
       />
       <datalist id="ticks">
         <option value="1" className="text-gray-700">

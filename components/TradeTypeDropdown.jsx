@@ -5,8 +5,6 @@ import { classNames } from "../lib/utilities";
 
 const TradeTypeDropdown = ({ tradeType, setTradeType, syntheticModel }) => {
   const [isClicked, setIsClicked] = useState(false);
-  console.log("tradeType: ", tradeType);
-  console.log("syntheticModel: ", syntheticModel);
 
   return (
     <Listbox value={tradeType} onChange={setTradeType}>

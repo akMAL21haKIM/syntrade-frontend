@@ -17,7 +17,7 @@ const EventSource = require("eventsource");
 
 var data = "";
 
-const sse = new EventSource("http://143.198.218.123:5000");
+const sse = new EventSource("http://0.0.0.0:5000");
 sse.onmessage = async (e) => {
   try {
     data = JSON.parse(e.data);
