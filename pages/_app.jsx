@@ -21,8 +21,8 @@ const createApolloClient = () => {
       // authorization: localStorage.getItem("token") || "",
     },
     onError: ({ networkError, graphQLErrors }) => {
-      console.log("graphQLErrors", graphQLErrors);
-      console.log("networkError", networkError);
+      console.log("graphQLErrors: ", graphQLErrors);
+      console.log("networkError: ", networkError);
     },
   });
 };

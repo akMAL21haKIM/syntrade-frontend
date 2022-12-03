@@ -2,18 +2,18 @@ import { gql } from "@apollo/client";
 
 const Prices = gql`
   query Prices(
-    $selectedStakePayout: Boolean!
-    $synth: String!
-    $tradeType: String!
-    $parsedStakePayout: Float!
-    $parsedSliderValue: Int
+    $wagerType: String!
+    $syntheticModelType: String!
+    $simplifiedTradeType: String!
+    $parsedWagerAmount: Float!
+    $ticks: Int
   ) {
     prices(
-      type: $selectedStakePayout
-      syntheticModel: $synth
-      tradeType: $tradeType
-      stake: $parsedStakePayout
-      ticks: $parsedSliderValue
+      wagerType: $wagerType
+      syntheticModel: $syntheticModelType
+      tradeType: $simplifiedTradeType
+      wagerAmount: $parsedWagerAmount
+      ticks: $ticks
     )
   }
 `;

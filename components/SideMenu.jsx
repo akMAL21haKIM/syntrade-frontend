@@ -1,7 +1,7 @@
 import { React, useState, useEffect } from "react";
 import RangeSlider from "./RangeSlider";
 import { SolidDollarIcon } from "../lib/icons";
-import { useQuery, useMutation } from "@apollo/client";
+import { useQuery, useMutation, gql } from "@apollo/client";
 import { TooltipBox, TooltipButton } from "./Tooltips";
 import Prices from "../graphql/prices";
 import CurrentBalance from "../graphql/currentBalance";
@@ -11,7 +11,7 @@ import TradeTypeDropdown from "./TradeTypeDropdown";
 const SideMenu = ({ syntheticModel }) => {
   const [loader, setLoader] = useState(false);
   const [wagerType, setWagerType] = useState("stake");
-  const [wagerAmount, setWagerAmount] = useState(10);
+  const [wagerAmount, setWagerAmount] = useState(10.0);
   const [tradeType, setTradeType] = useState(syntheticModel.trade_type[0]);
   const [disableIncrement, setDisableIncrement] = useState(false);
   const [disableDecrement, setDisableDecrement] = useState(false);
@@ -23,47 +23,66 @@ const SideMenu = ({ syntheticModel }) => {
   const [currentWalletBalance, setCurrentWalletBalance] = useState(10000.0);
 
   const syntheticModelType = syntheticModel.type;
-  const parsedStakePayout = parseFloat(wagerAmount);
+  const simplifiedTradeType = tradeType.simplified_title;
+  const parsedWagerAmount = parseFloat(wagerAmount);
   const userId = 1;
 
-  const { pricesData, pricesLoading, pricesError } = useQuery(Prices, {
+  // console.log("wagerType: ", wagerType);
+  // console.log("syntheticModelType: ", syntheticModelType);
+  // console.log("simplifiedTradeType: ", simplifiedTradeType);
+  // console.log("parsedWagerAmount: ", parsedWagerAmount);
+  console.log("ticks: ", ticks);
+
+  // console.log("typeof wagerType: ", typeof wagerType);
+  // console.log("typeof syntheticModelType: ", typeof syntheticModelType);
+  // console.log("typeof simplifiedTradeType: ", typeof simplifiedTradeType);
+  // console.log("typeof parsedWagerAmount: ", typeof parsedWagerAmount);
+  console.log("typeof ticks: ", typeof ticks);
+
+  const { data, loading, error } = useQuery(Prices, {
     variables: {
       wagerType,
       syntheticModelType,
-      tradeType,
-      wagerAmount,
+      simplifiedTradeType,
+      parsedWagerAmount,
       ticks,
     },
   });
 
-  const { currentBalanceData, currentBalanceLoading, currentBalanceError } =
-    useQuery(CurrentBalance, {
-      variables: {
-        userId,
-      },
-    });
+  console.log("data: ", data);
+  console.log("pricesLoading: ", loading);
+  console.log("pricesError: ", error);
 
-  const [
-    createTrade,
-    { createTradeData, createTradeLoading, createTradeError },
-  ] = useMutation(CreateTrade);
+  // const { currentBalanceData, currentBalanceLoading, currentBalanceError } =
+  //   useQuery(CurrentBalance, {
+  //     variables: {
+  //       userId,
+  //     },
+  //   });
 
-  useEffect(() => {
-    if (currentBalanceData) {
-      setCurrentWalletBalance(currentBalanceData);
-    }
-  }, createTradeData);
+  // const [
+  //   createTrade,
+  //   { createTradeData, createTradeLoading, createTradeError },
+  // ] = useMutation(CreateTrade);
+
+  // useEffect(() => {
+  //   if (currentBalanceData) {
+  //     setCurrentWalletBalance(currentBalanceData);
+  //   }
+  // }, createTradeData);
 
   useEffect(() => {
     setLoader(true);
 
     setTimeout(async () => {
-      console.log("pricesData: ", pricesData);
-      if (!wagerAmountError && pricesData != null) {
+      // if (!wagerAmountError && pricesData != null) {
+      //   setLoader(false);
+      // }
+      if (!wagerAmountError && data != null) {
         setLoader(false);
       }
     }, 1000);
-  }, [tradeType, wagerAmount, wagerType, wagerAmountError, ticks, pricesData]);
+  }, [tradeType, wagerAmount, wagerType, wagerAmountError, ticks, data]);
 
   // Increment wager amount
   const incrementWagerAmount = (e) => {
@@ -71,7 +90,7 @@ const SideMenu = ({ syntheticModel }) => {
 
     setDisableDecrement(false);
 
-    if (parseFloat(wagerAmount) > 30000) {
+    if (parseFloat(wagerAmount) > 30000.0) {
       // Disable increment button
       setDisableIncrement(true);
 
@@ -79,7 +98,7 @@ const SideMenu = ({ syntheticModel }) => {
       setWagerAmountError(true);
     }
 
-    setWagerAmount(wagerAmount + 1);
+    setWagerAmount(wagerAmount + 1.0);
     setWagerAmountError(false);
   };
 
@@ -90,8 +109,8 @@ const SideMenu = ({ syntheticModel }) => {
     setDisableIncrement(false);
 
     // If wagerAmount is less than 0, set it to 0
-    if (wagerAmount <= 0) {
-      setWagerAmount(0);
+    if (wagerAmount <= 0.0) {
+      setWagerAmount(0.0);
 
       // Disable decrement button
       setDisableDecrement(true);
@@ -101,7 +120,7 @@ const SideMenu = ({ syntheticModel }) => {
     } else {
       // Enable decrement button
       setDisableDecrement(false);
-      setWagerAmount(wagerAmount - 1);
+      setWagerAmount(wagerAmount - 1.0);
       setWagerAmountError(false);
     }
   };
@@ -114,9 +133,9 @@ const SideMenu = ({ syntheticModel }) => {
 
     // If wagerAmount is less than 0, set it to 0
     if (sanitisedInput <= 0) {
-      setWagerAmount(0);
+      setWagerAmount(0.0);
       setWagerAmountError(true);
-    } else if (sanitisedInput > 30000) {
+    } else if (sanitisedInput > 30000.0) {
       setWagerAmount(sanitisedInput);
       setWagerAmountError(true);
     } else {
@@ -131,13 +150,13 @@ const SideMenu = ({ syntheticModel }) => {
     // If user has enough balance in wallet
     if (currentWalletBalance >= wagerAmount) {
       // Create trade
-      await createTrade({
-        variables: {
-          userId,
-          syntheticTrade,
-          parsedStakePayout,
-        },
-      });
+      // await createTrade({
+      //   variables: {
+      //     userId,
+      //     syntheticTrade,
+      //     parsedStakePayout,
+      //   },
+      // });
       console.log("Created buy trade");
     }
     // Else if user doesn't hv enough balance in wallet, show error in popup
@@ -290,9 +309,9 @@ const SideMenu = ({ syntheticModel }) => {
             </p>
             {loader ? (
               <div className="animate-pulse h-[1.25rem] flex bg-gray-300 rounded focus:outline-none cursor-default select-none"></div>
-            ) : pricesData ? (
+            ) : data ? (
               <p className="text-sm font-semibold text-gray-700 mb-1 text-right focus:outline-none cursor-default select-none">
-                {Object.values(pricesData)[0][0].toFixed(2)} MYR
+                {Object.values(data)[0][0].toFixed(2)} MYR
               </p>
             ) : (
               <p className="text-sm font-semibold text-gray-700 mb-1 text-right focus:outline-none cursor-default select-none">
@@ -349,9 +368,9 @@ const SideMenu = ({ syntheticModel }) => {
             </p>
             {loader ? (
               <div className="animate-pulse h-[1.25rem] flex bg-gray-300 rounded focus:outline-none cursor-default select-none"></div>
-            ) : pricesData ? (
+            ) : data ? (
               <p className="text-sm font-semibold text-gray-700 mb-1 text-right focus:outline-none cursor-default select-none">
-                {Object.values(pricesData)[0][1].toFixed(2)} MYR
+                {Object.values(data)[0][1].toFixed(2)} MYR
               </p>
             ) : (
               <p className="text-sm font-semibold text-gray-700 mb-1 text-right focus:outline-none cursor-default select-none">
