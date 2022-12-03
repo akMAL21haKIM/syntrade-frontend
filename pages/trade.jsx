@@ -8,6 +8,7 @@ import { syntheticModelOptions } from "../lib/options";
 import SideMenu from "../components/SideMenu";
 import { SkeletonLoaderTradePage } from "../components/SkeletonLoaders";
 import "../styles/trade.module.css";
+import SingleActionModal from "../components/SingleActionModal";
 
 const Chart = dynamic(() => import("../components/Chart.mjs"), {
   ssr: false,
@@ -36,6 +37,7 @@ const Trade = () => {
     syntheticModelOptions[0]
   );
   const [loader, setLoader] = useState(false);
+  const [openTradeSuccessModal, setOpenTradeSuccessModal] = useState(false);
 
   useEffect(() => {
     setLoader(true);
@@ -57,6 +59,13 @@ const Trade = () => {
           <SkeletonLoaderTradePage />
         ) : (
           <div>
+            <SingleActionModal
+              id="modal-trade-success"
+              openModal={openTradeSuccessModal}
+              setOpenModal={setOpenTradeSuccessModal}
+              modalTitle="Trade successful"
+              modalDescription="You just performed a trade!"
+            />
             <SyntheticModelDropdown
               syntheticModel={syntheticModel}
               setSyntheticModel={setSyntheticModel}
@@ -66,7 +75,7 @@ const Trade = () => {
               stream={sse}
               syntheticModel={syntheticModel.type}
             />
-            <SideMenu syntheticModel={syntheticModel}></SideMenu>
+            <SideMenu syntheticModel={syntheticModel} setOpenTradeSuccessModal={setOpenTradeSuccessModal}></SideMenu>
           </div>
         )}
       </main>

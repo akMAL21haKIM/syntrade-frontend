@@ -8,7 +8,7 @@ import CurrentBalance from "../graphql/currentBalance";
 import CreateTrade from "../graphql/createTrade";
 import TradeTypeDropdown from "./TradeTypeDropdown";
 
-const SideMenu = ({ syntheticModel }) => {
+const SideMenu = ({ syntheticModel, setOpenTradeSuccessModal }) => {
   const [loader, setLoader] = useState(false);
   const [wagerType, setWagerType] = useState("stake");
   const [wagerAmount, setWagerAmount] = useState(10.0);
@@ -27,19 +27,7 @@ const SideMenu = ({ syntheticModel }) => {
   const parsedWagerAmount = parseFloat(wagerAmount);
   const userId = 1;
 
-  // console.log("wagerType: ", wagerType);
-  // console.log("syntheticModelType: ", syntheticModelType);
-  // console.log("simplifiedTradeType: ", simplifiedTradeType);
-  // console.log("parsedWagerAmount: ", parsedWagerAmount);
-  console.log("ticks: ", ticks);
-
-  // console.log("typeof wagerType: ", typeof wagerType);
-  // console.log("typeof syntheticModelType: ", typeof syntheticModelType);
-  // console.log("typeof simplifiedTradeType: ", typeof simplifiedTradeType);
-  // console.log("typeof parsedWagerAmount: ", typeof parsedWagerAmount);
-  console.log("typeof ticks: ", typeof ticks);
-
-  const { data, loading, error } = useQuery(Prices, {
+  const prices = useQuery(Prices, {
     variables: {
       wagerType,
       syntheticModelType,
@@ -49,40 +37,29 @@ const SideMenu = ({ syntheticModel }) => {
     },
   });
 
-  console.log("data: ", data);
-  console.log("pricesLoading: ", loading);
-  console.log("pricesError: ", error);
+  const currentBalance = useQuery(CurrentBalance, {
+    variables: {
+      userId,
+    },
+  });
 
-  // const { currentBalanceData, currentBalanceLoading, currentBalanceError } =
-  //   useQuery(CurrentBalance, {
-  //     variables: {
-  //       userId,
-  //     },
-  //   });
+  const [createTrade, { t: data, p: loading, r: error }] = useMutation(CreateTrade);
 
-  // const [
-  //   createTrade,
-  //   { createTradeData, createTradeLoading, createTradeError },
-  // ] = useMutation(CreateTrade);
-
-  // useEffect(() => {
-  //   if (currentBalanceData) {
-  //     setCurrentWalletBalance(currentBalanceData);
-  //   }
-  // }, createTradeData);
+  useEffect(() => {
+    if (currentBalance.data) {
+      setCurrentWalletBalance(currentBalance.data["currentBalance"].toFixed(2));
+    }
+  }, [blueIconTransition, redIconTransition]);
 
   useEffect(() => {
     setLoader(true);
 
     setTimeout(async () => {
-      // if (!wagerAmountError && pricesData != null) {
-      //   setLoader(false);
-      // }
-      if (!wagerAmountError && data != null) {
+      if (!wagerAmountError && prices.data != null) {
         setLoader(false);
       }
     }, 1000);
-  }, [tradeType, wagerAmount, wagerType, wagerAmountError, ticks, data]);
+  }, [tradeType, wagerAmount, wagerType, wagerAmountError, ticks, prices.data]);
 
   // Increment wager amount
   const incrementWagerAmount = (e) => {
@@ -144,20 +121,25 @@ const SideMenu = ({ syntheticModel }) => {
     }
   };
 
-  const handleTrade = async (singleTradeType) => {
-    const syntheticTrade = synth + "_" + singleTradeType;
+  const handleTrade = async (singleTradeType, optionType) => {
+    const syntheticTrade = syntheticModelType + "_" + singleTradeType;
 
     // If user has enough balance in wallet
     if (currentWalletBalance >= wagerAmount) {
       // Create trade
-      // await createTrade({
-      //   variables: {
-      //     userId,
-      //     syntheticTrade,
-      //     parsedStakePayout,
-      //   },
-      // });
-      console.log("Created buy trade");
+      await createTrade({
+        variables: {
+          userId: userId,
+          syntheticType: syntheticTrade,
+          optionType: optionType,
+          wagerAmount: wagerAmount,
+          ticks: ticks,
+          lastDigitPrediction: lastDigitPrediction,
+        },
+      });
+
+      // Do popup
+      setOpenTradeSuccessModal(true);
     }
     // Else if user doesn't hv enough balance in wallet, show error in popup
     else {
@@ -171,13 +153,18 @@ const SideMenu = ({ syntheticModel }) => {
       aria-label="Sidebar"
     >
       <div className="mt-8 mx-6 py-2 px-4 bg-white rounded border-4 border-gray-100 ">
-        <p className="flex select-none items-center p-1 text-base font-semibold tracking-wide text-gray-900 rounded-lg">
-          <SolidDollarIcon
-            className="w-6 h-6 fill-indigo-600"
-            fill="currentColor"
-          />
-          <span className="ml-3">10,000.00 MYR</span>
-        </p>
+        {currentBalance.data ? (
+          <p className="flex select-none items-center p-1 text-base font-semibold tracking-wide text-gray-900 rounded-lg">
+            <SolidDollarIcon
+              className="w-6 h-6 fill-indigo-600"
+              fill="currentColor"
+            />
+
+            <span className="ml-3">{currentWalletBalance} MYR</span>
+          </p>
+        ) : (
+          "fuck"
+        )}
       </div>
       <div className="z-30 mt-6 mx-6 py-2 px-4 bg-white rounded border-4 border-gray-100 hover:border-gray-200 focus:outline-none">
         <TradeTypeDropdown
@@ -309,14 +296,12 @@ const SideMenu = ({ syntheticModel }) => {
             </p>
             {loader ? (
               <div className="animate-pulse h-[1.25rem] flex bg-gray-300 rounded focus:outline-none cursor-default select-none"></div>
-            ) : data ? (
+            ) : prices.data ? (
               <p className="text-sm font-semibold text-gray-700 mb-1 text-right focus:outline-none cursor-default select-none">
-                {Object.values(data)[0][0].toFixed(2)} MYR
+                {Object.values(prices.data)[0][0].toFixed(2)} MYR
               </p>
             ) : (
-              <p className="text-sm font-semibold text-gray-700 mb-1 text-right focus:outline-none cursor-default select-none">
-                {"No data"} MYR
-              </p>
+              <div className="animate-pulse h-[1.25rem] flex bg-gray-300 rounded focus:outline-none cursor-default select-none"></div>
             )}
           </div>
           <TooltipButton
@@ -333,7 +318,7 @@ const SideMenu = ({ syntheticModel }) => {
               <div
                 className={`bg-transparent ${
                   blueIconTransition
-                    ? "translate-x-28 ease-out cubic-bezier(0.4, 0, 1, 1) duration-200"
+                    ? "translate-x-28 ease-out cubic-bezier(0.4, 0, 1, 1) duration-500"
                     : ""
                 }`}
                 onClick={(e) => {
@@ -344,12 +329,12 @@ const SideMenu = ({ syntheticModel }) => {
 
                     setTimeout(async () => {
                       setBlueIconTransition(false);
-                    }, 700);
+                    }, 1000);
                   } else {
                     setBlueIconTransition(false);
                   }
 
-                  handleTrade(tradeType.split("_")[0]);
+                  handleTrade(tradeType.simplified_title.split("_")[0], "call");
                 }}
               >
                 {tradeType.blueIcon}
@@ -368,14 +353,12 @@ const SideMenu = ({ syntheticModel }) => {
             </p>
             {loader ? (
               <div className="animate-pulse h-[1.25rem] flex bg-gray-300 rounded focus:outline-none cursor-default select-none"></div>
-            ) : data ? (
+            ) : prices.data ? (
               <p className="text-sm font-semibold text-gray-700 mb-1 text-right focus:outline-none cursor-default select-none">
-                {Object.values(data)[0][1].toFixed(2)} MYR
+                {Object.values(prices.data)[0][1].toFixed(2)} MYR
               </p>
             ) : (
-              <p className="text-sm font-semibold text-gray-700 mb-1 text-right focus:outline-none cursor-default select-none">
-                {"No data"} MYR
-              </p>
+              <div className="animate-pulse h-[1.25rem] flex bg-gray-300 rounded focus:outline-none cursor-default select-none"></div>
             )}
           </div>
           <TooltipButton
@@ -392,7 +375,7 @@ const SideMenu = ({ syntheticModel }) => {
               <div
                 className={`bg-transparent ${
                   redIconTransition
-                    ? "translate-x-28 ease-out cubic-bezier(0.4, 0, 1, 1) duration-200"
+                    ? "translate-x-28 ease-out cubic-bezier(0.4, 0, 1, 1) duration-500"
                     : ""
                 }`}
                 onClick={(e) => {
@@ -403,12 +386,12 @@ const SideMenu = ({ syntheticModel }) => {
 
                     setTimeout(async () => {
                       setRedIconTransition(false);
-                    }, 700);
+                    }, 1000);
                   } else {
                     setRedIconTransition(false);
                   }
 
-                  handleTrade(tradeType.split("_")[1]);
+                  handleTrade(tradeType.simplified_title.split("_")[1], "put");
                 }}
               >
                 {tradeType.redIcon}
