@@ -6,6 +6,14 @@ import {
   InMemoryCache,
   HttpLink,
 } from "@apollo/client";
+import Cookies from "js-cookie";
+import { SessionProvider } from "next-auth/react";
+
+let isUserLoggedIn = false;
+
+if (Cookies.get("signedin")) {
+  isUserLoggedIn = true;
+}
 
 const createApolloClient = () => {
   const link = new HttpLink({

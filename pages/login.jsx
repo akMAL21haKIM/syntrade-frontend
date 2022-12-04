@@ -12,34 +12,18 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [showEmailError, setShowEmailError] = useState(false);
   const [showPasswordError, setShowPasswordError] = useState(false);
+  const url = "http://localhost:4000/login";
 
-  const loginMutation = gql`
-    mutation LoginMutation($email: EmailAddress!, $password: String!) {
-      login(email: $email, password: $password) {
-        email
-        password
-      }
-    }
-  `;
-
-  const [login] = useMutation(loginMutation, {
-    variables: {
+  const options = {
+    method: "post",
+    headers: {
+      "Content-type": "application/json; charset=UTF-8",
+    },
+    body: JSON.stringify({
       email: email,
       password: password,
-    },
-    onError: (err) => {
-      if (err.message.toLowerCase() == "incorrect password") {
-        // handle invalid login details here
-      } else {
-        console.log(err);
-      }
-    },
-    onCompleted: ({ data }) => {
-      console.log("data");
-      console.log(data);
-      Router.push("/");
-    },
-  });
+    }),
+  };
 
   // Show or hide password
   const togglePassword = () => {
@@ -106,7 +90,29 @@ const Login = () => {
     // If password is incorrect, display modal to user saying
     // incorrect password entered
     if (emailValidity && passwordValidity) {
-      login();
+      fetch(url, options)
+        .then((response) => {
+          if (!response.ok) {
+            if (response.status === 404) {
+              alert("Email not found, please retry");
+              console.log("Email not found, please retry");
+            }
+            if (response.status === 401) {
+              alert("Email and password do not match, please retry");
+              console.log("Email and password do not match, please retry");
+            }
+          }
+
+          return response;
+        })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.success) {
+            console.log("data: ");
+            document.cookie = "signedin=true";
+            Router.push("/");
+          }
+        });
     }
   };
 

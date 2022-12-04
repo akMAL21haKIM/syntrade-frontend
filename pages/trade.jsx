@@ -38,6 +38,7 @@ const Trade = () => {
   );
   const [loader, setLoader] = useState(false);
   const [openTradeSuccessModal, setOpenTradeSuccessModal] = useState(false);
+  const [notify, setNotify] = useState(false);
 
   useEffect(() => {
     setLoader(true);
@@ -54,7 +55,7 @@ const Trade = () => {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <main>
-        <NavBar></NavBar>
+        <NavBar notify={notify} setNotify={setNotify}></NavBar>
         {loader ? (
           <SkeletonLoaderTradePage />
         ) : (
@@ -75,7 +76,12 @@ const Trade = () => {
               stream={sse}
               syntheticModel={syntheticModel.type}
             />
-            <SideMenu syntheticModel={syntheticModel} setOpenTradeSuccessModal={setOpenTradeSuccessModal}></SideMenu>
+            <SideMenu
+              syntheticModel={syntheticModel}
+              setOpenTradeSuccessModal={setOpenTradeSuccessModal}
+              notify={notify}
+              setNotify={setNotify}
+            ></SideMenu>
           </div>
         )}
       </main>

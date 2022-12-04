@@ -8,7 +8,7 @@ import CurrentBalance from "../graphql/currentBalance";
 import CreateTrade from "../graphql/createTrade";
 import TradeTypeDropdown from "./TradeTypeDropdown";
 
-const SideMenu = ({ syntheticModel, setOpenTradeSuccessModal }) => {
+const SideMenu = ({ syntheticModel, setOpenTradeSuccessModal, notify }) => {
   const [loader, setLoader] = useState(false);
   const [wagerType, setWagerType] = useState("stake");
   const [wagerAmount, setWagerAmount] = useState(10.0);
@@ -43,13 +43,18 @@ const SideMenu = ({ syntheticModel, setOpenTradeSuccessModal }) => {
     },
   });
 
-  const [createTrade, { t: data, p: loading, r: error }] = useMutation(CreateTrade);
+  const [createTrade, { data, loading, error }] = useMutation(CreateTrade);
 
   useEffect(() => {
+    console.log("cb1: ", currentBalance.data);
+    console.log("cba1: ", currentWalletBalance);
+    currentBalance.refetch();
+    console.log("cb: ", currentBalance.data);
+    console.log("cba: ", currentWalletBalance);
     if (currentBalance.data) {
       setCurrentWalletBalance(currentBalance.data["currentBalance"].toFixed(2));
     }
-  }, [blueIconTransition, redIconTransition]);
+  }, [blueIconTransition, redIconTransition, notify]);
 
   useEffect(() => {
     setLoader(true);
@@ -160,7 +165,7 @@ const SideMenu = ({ syntheticModel, setOpenTradeSuccessModal }) => {
               fill="currentColor"
             />
 
-            <span className="ml-3 my-auto">{currentBalance.data["currentBalance"].toFixed(2)} MYR</span>
+            <span className="ml-3 my-auto">{currentWalletBalance} MYR</span>
           </p>
         ) : (
           <p className="flex select-none items-center p-1 text-base font-semibold tracking-wide text-gray-900 rounded-lg">

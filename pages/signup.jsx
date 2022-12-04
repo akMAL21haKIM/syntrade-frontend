@@ -10,6 +10,7 @@ import {
   isEmailValid,
   isPasswordValid,
 } from "../lib/input_validations";
+import Signup from "../graphql/signup";
 
 const SignUp = () => {
   const [openPassword, setOpenPassword] = useState(false);
@@ -23,31 +24,7 @@ const SignUp = () => {
   const [showConfirmPasswordError, setShowConfirmPasswordError] =
     useState(false);
 
-  const signupMutation = gql`
-    mutation SignupMutation($email: EmailAddress!, $password: String!) {
-      signup(email: $email, password: $password) {
-        email
-        password
-      }
-    }
-  `;
-
-  const [signup] = useMutation(signupMutation, {
-    variables: {
-      email: email,
-      password: password,
-    },
-    onError: (err) => {
-      if (err.message.toLowerCase() == "incorrect password") {
-        // handle invalid login details here
-      }
-    },
-    onCompleted: ({ data }) => {
-      console.log("data");
-      console.log(data);
-      Router.push("/login");
-    },
-  });
+  const [signup, data, loading, error] = useMutation(Signup);
 
   // Show or hide password
   const togglePassword = () => {
@@ -101,7 +78,7 @@ const SignUp = () => {
   };
 
   // TODO: Sign up for a new user account
-  const handleSignup = (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
     setShowEmailError(false);
     setShowPasswordError(false);
@@ -145,7 +122,20 @@ const SignUp = () => {
       // If email already exists in database, display modal to user saying
       // an account has already been created with the email address
       // Navigate to trade page
-      signup();
+      await signup({
+        variables: {
+          email: email,
+          password: password,
+        },
+        onError: (err) => {
+          console.log(err);
+        },
+        onCompleted: ({ data }) => {
+          console.log("data");
+          console.log(data);
+          Router.push("/login");
+        },
+      });
     }
   };
 
