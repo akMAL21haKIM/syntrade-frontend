@@ -218,6 +218,7 @@ const Reports = () => {
                                   : "text-green-500"
                               } `}
                             >
+                              {trade.profitLoss > 0 ? "+" : ""}
                               {trade.profitLoss}
                             </dd>
                           </dl>
