@@ -1,7 +1,5 @@
 import { React, useState, useEffect } from "react";
-import Footer from "../components/Footer";
 import Head from "next/head";
-import NavBar from "../components/NavBar";
 import { SkeletonLoaderReportsPage } from "../components/SkeletonLoaders";
 
 const trades = [
@@ -61,8 +59,6 @@ const Reports = () => {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <main id="report_main" className="justify-between">
-        <NavBar />
-
         <div id="report_container" className="w-8/12 mt-12 mb-4 mx-auto">
           {/* <div className="flex justify-center items-center"> */}
           <div id="report_subcontainer" className="px-4 sm:px-6 lg:px-8">
@@ -289,9 +285,7 @@ const Reports = () => {
               </table>
             </div>
           </div>
-          {/* </div> */}
         </div>
-        {/* <Footer /> */}
       </main>
     </>
   );

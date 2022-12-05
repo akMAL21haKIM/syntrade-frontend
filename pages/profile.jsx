@@ -1,8 +1,5 @@
 import { React, useState, useEffect } from "react";
-import Footer from "../components/Footer";
 import Head from "next/head";
-import Link from "next/link";
-import NavBar from "../components/NavBar";
 import { SkeletonLoaderProfilePage } from "../components/SkeletonLoaders";
 import Modal from "../components/Modal";
 
@@ -27,7 +24,6 @@ const Profile = () => {
       </Head>
 
       <main id="profile_main">
-        <NavBar></NavBar>
         {loader ? (
           <SkeletonLoaderProfilePage />
         ) : (
@@ -120,8 +116,6 @@ const Profile = () => {
           </>
         )}
       </main>
-
-      {/* <Footer /> */}
     </>
   );
 };

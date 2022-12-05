@@ -7,11 +7,10 @@ import Link from "next/link";
 import ResetBalance from "../graphql/resetBalance";
 import { useMutation } from "@apollo/client";
 import SingleActionModal from "./SingleActionModal";
-import Notification from "./Notification";
 import AuthContext from "../components/auth/AuthContext";
-import { AuthState } from "./auth/AuthProvider";
+import Cookies from "js-cookie";
 
-const NavBar = ({ notify, setNotify }) => {
+const NavBar = () => {
   const [isMenuClicked, setIsMenuClicked] = useState(false);
   const [openResetBalanceSuccessModal, setOpenResetBalanceSuccessModal] =
     useState(false);
@@ -78,10 +77,10 @@ const NavBar = ({ notify, setNotify }) => {
             </div>
 
             {/* Check if user is logged in or not.
-        If user is logged in, show profile icon.
-        Else, show log in and sign up buttons. */}
+                If user is logged in, show profile icon.
+                Else, show log in and sign up buttons. */}
 
-            {isUserLoggedIn || isUserLoggedIn !== null ? (
+            {Cookies.get("auth-token") ? (
               <>
                 {/* Mobile menu */}
                 <div className="-my-2 -mr-2 md:hidden">
@@ -141,11 +140,11 @@ const NavBar = ({ notify, setNotify }) => {
                               </p>
                             </Link>
 
-                            <Link href="/profile">
+                            {/* <Link href="/profile">
                               <p className="mt-1 px-3 py-3 text-base font-medium text-gray-700 hover:bg-gray-100 hover:rounded">
                                 Profile
                               </p>
-                            </Link>
+                            </Link> */}
 
                             <Link href="/reports">
                               <p className="mt-1 px-3 py-3 text-base font-medium text-gray-700 hover:bg-gray-100 hover:rounded">
@@ -224,7 +223,7 @@ const NavBar = ({ notify, setNotify }) => {
                             </Link>
                           )}
                         </Menu.Item>
-                        <Menu.Item>
+                        {/* <Menu.Item>
                           {({ active }) => (
                             <Link
                               href="/profile"
@@ -236,7 +235,7 @@ const NavBar = ({ notify, setNotify }) => {
                               Profile
                             </Link>
                           )}
-                        </Menu.Item>
+                        </Menu.Item> */}
                         <Menu.Item>
                           {({ active }) => (
                             <Link
@@ -377,7 +376,6 @@ const NavBar = ({ notify, setNotify }) => {
           </div>
         </div>
       </Popover>
-      {/* <Notification notify={notify} setNotify={setNotify} /> */}
     </>
   );
 };

@@ -1,4 +1,3 @@
-import Footer from "../components/Footer";
 import Head from "next/head";
 import dynamic from "next/dynamic";
 import NavBar from "../components/NavBar";
@@ -9,6 +8,9 @@ import SideMenu from "../components/SideMenu";
 import { SkeletonLoaderTradePage } from "../components/SkeletonLoaders";
 import "../styles/trade.module.css";
 import SingleActionModal from "../components/SingleActionModal";
+import BottomMenu from "../components/BottomMenu";
+// import { useStores } from "../stores";
+// import { observer } from "mobx-react-lite";
 
 const Chart = dynamic(() => import("../components/Chart.mjs"), {
   ssr: false,
@@ -22,23 +24,17 @@ const sse = new EventSource("http://0.0.0.0:5000");
 sse.onmessage = async (e) => {
   try {
     data = JSON.parse(e.data);
-    // console.log(data);
-  } catch (error) {
-    // console.log("Error: ", error);
-  }
+  } catch (error) {}
 };
 
-sse.onerror = (e) => {
-  // console.log("Error:", e.message);
-};
+sse.onerror = (e) => {};
 
 const Trade = () => {
   const [syntheticModel, setSyntheticModel] = useState(
     syntheticModelOptions[0]
   );
-  const [loader, setLoader] = useState(false);
   const [openTradeSuccessModal, setOpenTradeSuccessModal] = useState(false);
-  const [notify, setNotify] = useState(false);
+  const [loader, setLoader] = useState(false);
 
   useEffect(() => {
     setLoader(true);
@@ -55,37 +51,35 @@ const Trade = () => {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <main>
-        <NavBar notify={notify} setNotify={setNotify}></NavBar>
         {loader ? (
           <SkeletonLoaderTradePage />
         ) : (
-          <div>
-            <SingleActionModal
-              id="modal-trade-success"
-              openModal={openTradeSuccessModal}
-              setOpenModal={setOpenTradeSuccessModal}
-              modalTitle="Trade successful"
-              modalDescription="You just performed a trade!"
-            />
-            <SyntheticModelDropdown
-              syntheticModel={syntheticModel}
-              setSyntheticModel={setSyntheticModel}
-            ></SyntheticModelDropdown>
-            <Chart
-              pricingData={data}
-              stream={sse}
-              syntheticModel={syntheticModel.type}
-            />
-            <SideMenu
-              syntheticModel={syntheticModel}
-              setOpenTradeSuccessModal={setOpenTradeSuccessModal}
-              notify={notify}
-              setNotify={setNotify}
-            ></SideMenu>
-          </div>
+          <>
+            <div id="trade-page" className="h-screen">
+              <SingleActionModal
+                id="modal-trade-success"
+                openModal={openTradeSuccessModal}
+                setOpenModal={setOpenTradeSuccessModal}
+                modalTitle="Trade successful"
+                modalDescription="You just performed a trade!"
+              />
+              <SyntheticModelDropdown
+                syntheticModel={syntheticModel}
+                setSyntheticModel={setSyntheticModel}
+              ></SyntheticModelDropdown>
+              <Chart stream={sse} syntheticModel={syntheticModel.type} />
+              {/* <BottomMenu
+                syntheticModel={syntheticModel}
+                setOpenTradeSuccessModal={setOpenTradeSuccessModal}
+              ></BottomMenu> */}
+              <SideMenu
+                syntheticModel={syntheticModel}
+                setOpenTradeSuccessModal={setOpenTradeSuccessModal}
+              ></SideMenu>
+            </div>
+          </>
         )}
       </main>
-      {/* <Footer></Footer> */}
     </>
   );
 };
