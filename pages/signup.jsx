@@ -181,6 +181,7 @@ const SignUp = () => {
                 Already have an account?{" "}
                 <Link
                   href="/login"
+                  id="login-link"
                   className="font-medium text-indigo-600 hover:text-indigo-500"
                 >
                   Log in
