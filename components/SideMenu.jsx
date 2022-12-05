@@ -8,6 +8,7 @@ import CurrentBalance from "../graphql/currentBalance";
 import CreateTrade from "../graphql/createTrade";
 import TradeTypeDropdown from "./TradeTypeDropdown";
 import AuthContext from "../components/auth/AuthContext";
+import { AuthState } from "./auth/AuthProvider";
 
 const SideMenu = ({ syntheticModel, setOpenTradeSuccessModal, notify }) => {
   const [loader, setLoader] = useState(false);
@@ -30,7 +31,14 @@ const SideMenu = ({ syntheticModel, setOpenTradeSuccessModal, notify }) => {
   const parsedWagerAmount = parseFloat(wagerAmount);
   const userId = 1;
 
-  const isUserLoggedIn = useContext(AuthContext).user;
+  // const isUserLoggedIn = useContext(AuthContext).user;
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+
+  const { user } = AuthState();
+
+  useEffect(() => {
+    setIsUserLoggedIn(user);
+  }, [user]);
 
   const prices = useQuery(Prices, {
     variables: {
@@ -195,7 +203,7 @@ const SideMenu = ({ syntheticModel, setOpenTradeSuccessModal, notify }) => {
           syntheticModel={syntheticModel}
         />
       </div>
-      <div className="mt-6 mx-6 py-2 px-4 bg-white rounded border-4 border-gray-100 ">
+      <div className="m-6 py-2 px-4 bg-white rounded border-4 border-gray-100">
         <RangeSlider ticks={ticks} setTicks={setTicks}></RangeSlider>
       </div>
       <TooltipBox
