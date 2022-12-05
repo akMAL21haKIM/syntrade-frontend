@@ -24,6 +24,7 @@ const Login = () => {
       email: email,
       password: password,
     }),
+    credentials: "include",
   };
 
   // Show or hide password

@@ -1,4 +1,4 @@
-import { Fragment, useState, useContext } from "react";
+import { Fragment, useState, useContext, useEffect } from "react";
 import { Popover, Transition, Menu } from "@headlessui/react";
 import LogoIcon from "../public/old_logo.svg";
 import { XMarkIcon, Bars3Icon, ReportsIcon, ProfileIcon } from "../lib/icons";
@@ -9,6 +9,7 @@ import { useMutation } from "@apollo/client";
 import SingleActionModal from "./SingleActionModal";
 import Notification from "./Notification";
 import AuthContext from "../components/auth/AuthContext";
+import Cookies from "js-cookie";
 
 const NavBar = ({ notify, setNotify }) => {
   const [isMenuClicked, setIsMenuClicked] = useState(false);
@@ -38,8 +39,9 @@ const NavBar = ({ notify, setNotify }) => {
 
   const handleLogout = async () => {
     // Log out
-    document.cookie =
-      "signedin=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    // document.cookie =
+    //   "signedin=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    Cookies.remove("auth-token");
   };
 
   return (
@@ -71,7 +73,7 @@ const NavBar = ({ notify, setNotify }) => {
         If user is logged in, show profile icon.
         Else, show log in and sign up buttons. */}
 
-            {isUserLoggedIn || isUserLoggedIn !== null ? (
+            {Cookies.get("auth-token") ? (
               <>
                 {/* Mobile menu */}
                 <div className="-my-2 -mr-2 md:hidden">

@@ -18,9 +18,9 @@ const createApolloClient = () => {
     cache: new InMemoryCache(),
     // Enable sending cookies over cross-origin requests
     credentials: "include",
-    headers: {
-      // authorization: localStorage.getItem("token") || "",
-    },
+    // headers: {
+    //   // authorization: localStorage.getItem("token") || "",
+    // },
     onError: ({ networkError, graphQLErrors }) => {
       console.log("graphQLErrors: ", graphQLErrors);
       console.log("networkError: ", networkError);
