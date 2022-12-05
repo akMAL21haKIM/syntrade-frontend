@@ -9,38 +9,29 @@ import { useMutation } from "@apollo/client";
 import SingleActionModal from "./SingleActionModal";
 import AuthContext from "../components/auth/AuthContext";
 import Cookies from "js-cookie";
+import { useStores } from "../stores";
+import { observer } from "mobx-react-lite";
+import { useRouter } from "next/router";
 
 const NavBar = () => {
+  const { user_store } = useStores();
   const [isMenuClicked, setIsMenuClicked] = useState(false);
   const [openResetBalanceSuccessModal, setOpenResetBalanceSuccessModal] =
     useState(false);
-  const isUserLoggedIn = useContext(AuthContext).user;
-
-  console.log("isUserLoggedIn: ", isUserLoggedIn);
-
-  // const [resetBalance, { data, loading, error }] = useMutation(ResetBalance);
-
-  const userId = 1;
+  const [openSignOutSuccessModal, setOpenSignOutSuccessModal] = useState(false);
 
   const handleResetWalletBalance = async () => {
     // Reset user's wallet balance to 10,000 MYR
-    // await resetBalance({
-    //   variables: {
-    //     userId: userId,
-    //   },
-    // });
-    // useMutation(ResetBalance, { variables: { userId: userId } });
-    setNotify(true);
 
     // Add popup modal saying that reset is successful
     setOpenResetBalanceSuccessModal(true);
   };
 
-  const handleLogout = async () => {
-    // Log out
-    // document.cookie =
-    //   "signedin=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+  const handleSignOut = async () => {
     Cookies.remove("auth-token");
+
+    // Add popup modal saying that signout is successful
+    setOpenSignOutSuccessModal(true);
   };
 
   return (
@@ -51,6 +42,14 @@ const NavBar = () => {
         setOpenModal={setOpenResetBalanceSuccessModal}
         modalTitle="Reset balance successful"
         modalDescription="You just reset your wallet balance to 10,000.00 MYR!"
+      />
+
+      <SingleActionModal
+        id="modal-sign-out-success"
+        openModal={openSignOutSuccessModal}
+        setOpenModal={setOpenSignOutSuccessModal}
+        modalTitle="Sign out successful"
+        modalDescription="You are now signed out of Syntrade :("
       />
 
       <Popover className="relative bg-white border-gray-100 border-b-2">
@@ -72,7 +71,7 @@ const NavBar = () => {
                 If user is logged in, show profile icon.
                 Else, show log in and sign up buttons. */}
 
-            {Cookies.get("auth-token") ? (
+            {user_store.user ? (
               <>
                 {/* Mobile menu */}
                 <div className="-my-2 -mr-2 md:hidden">
@@ -153,7 +152,7 @@ const NavBar = () => {
                               </p>
                             </Link>
 
-                            <Link href="#" onClick={() => handleLogout()}>
+                            <Link href="#" onClick={() => handleSignOut()}>
                               <p className="mt-1 px-3 py-3 text-base font-medium text-gray-700 hover:bg-gray-100 hover:rounded">
                                 Sign out
                               </p>
@@ -248,6 +247,7 @@ const NavBar = () => {
                           {({ active }) => (
                             <Link
                               href="#"
+                              onClick={() => handleResetWalletBalance()}
                               className={classNames(
                                 active ? "bg-gray-100" : "",
                                 "block px-4 py-2 text-sm text-gray-700"
@@ -261,7 +261,7 @@ const NavBar = () => {
                           {({ active }) => (
                             <Link
                               href="#"
-                              onClick={() => handleLogout()}
+                              onClick={() => handleSignOut()}
                               className={classNames(
                                 active ? "bg-gray-100" : "",
                                 "block px-4 py-2 text-sm text-gray-700"
