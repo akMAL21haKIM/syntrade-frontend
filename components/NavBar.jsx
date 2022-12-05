@@ -58,13 +58,13 @@ const NavBar = () => {
         modalDescription="You just reset your wallet balance to 10,000.00 MYR!"
       />
 
-      <SingleActionModal
+      {/* <SingleActionModal
         id="modal-sign-out-success"
         openModal={openSignOutSuccessModal}
         setOpenModal={setOpenSignOutSuccessModal}
         modalTitle="Sign out successful"
         modalDescription="You are now signed out of Syntrade :("
-      />
+      /> */}
 
       <Popover className="relative bg-white border-gray-100 border-b-2">
         <div className="w-full px-4 sm:px-6">
