@@ -2,7 +2,6 @@ import { gql } from "@apollo/client";
 
 const CreateTrade = gql`
   mutation CreateTrade(
-    $userId: Int!
     $syntheticType: String!
     $optionType: String!
     $wagerAmount: Float!
@@ -10,7 +9,6 @@ const CreateTrade = gql`
     $lastDigitPrediction: Int
   ) {
     createTrade(
-      userId: $userId
       syntheticType: $syntheticType
       optionType: $optionType
       wagerAmount: $wagerAmount
