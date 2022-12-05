@@ -6,6 +6,7 @@ import { useMutation, gql } from "@apollo/client";
 import Head from "next/head";
 import Link from "next/link";
 import { isEmailValid, isPasswordValid } from "../lib/input_validations";
+import Cookies from "js-cookie";
 
 const Login = () => {
   const [openPassword, setOpenPassword] = useState(false);
@@ -97,8 +98,11 @@ const Login = () => {
         })
         .then((response) => response.json())
         .then((data) => {
+          console.log("am i lappdumb?", data);
           if (data.success) {
+            console.log("i am lappdumb", data);
             document.cookie = "signedin=true; max-age=86400; path=/";
+            Cookies.set("signedin", "signedin=true; max-age=86400; path=/");
             Router.push("/");
           }
         });
