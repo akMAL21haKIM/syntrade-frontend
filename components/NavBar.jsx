@@ -7,18 +7,32 @@ import Link from "next/link";
 import ResetBalance from "../graphql/resetBalance";
 import { useMutation } from "@apollo/client";
 import SingleActionModal from "./SingleActionModal";
+import Notification from "./Notification";
 import AuthContext from "../components/auth/AuthContext";
-import Cookies from "js-cookie";
+import { AuthState } from "./auth/AuthProvider";
 import { useStores } from "../stores";
 import { observer } from "mobx-react-lite";
 import { useRouter } from "next/router";
 
 const NavBar = () => {
-  const { user_store } = useStores();
   const [isMenuClicked, setIsMenuClicked] = useState(false);
   const [openResetBalanceSuccessModal, setOpenResetBalanceSuccessModal] =
     useState(false);
-  const [openSignOutSuccessModal, setOpenSignOutSuccessModal] = useState(false);
+
+  // const isUserLoggedIn = useContext(AuthContext).user;
+
+  const { user } = AuthState();
+
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+
+  useEffect(() => {
+    console.log("is user logged in?", user);
+    setIsUserLoggedIn(user);
+  }, [user]);
+
+  // const [resetBalance, { data, loading, error }] = useMutation(ResetBalance);
+
+  const userId = 1;
 
   const handleResetWalletBalance = async () => {
     // Reset user's wallet balance to 10,000 MYR
@@ -27,11 +41,11 @@ const NavBar = () => {
     setOpenResetBalanceSuccessModal(true);
   };
 
-  const handleSignOut = async () => {
-    Cookies.remove("auth-token");
-
-    // Add popup modal saying that signout is successful
-    setOpenSignOutSuccessModal(true);
+  const handleLogout = () => {
+    // Log out
+    document.cookie =
+      "signedin=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    setIsUserLoggedIn(null);
   };
 
   return (
@@ -68,10 +82,10 @@ const NavBar = () => {
             </div>
 
             {/* Check if user is logged in or not.
-                If user is logged in, show profile icon.
-                Else, show log in and sign up buttons. */}
+        If user is logged in, show profile icon.
+        Else, show log in and sign up buttons. */}
 
-            {user_store.user ? (
+            {isUserLoggedIn || isUserLoggedIn !== null ? (
               <>
                 {/* Mobile menu */}
                 <div className="-my-2 -mr-2 md:hidden">
@@ -143,16 +157,13 @@ const NavBar = () => {
                               </p>
                             </Link>
 
-                            <Link
-                              href="#"
-                              onClick={() => handleResetWalletBalance()}
-                            >
+                            <Link href="#" onClick={handleResetWalletBalance}>
                               <p className="mt-1 px-3 py-3 text-base font-medium text-gray-700 hover:bg-gray-100 hover:rounded">
                                 Reset balance
                               </p>
                             </Link>
 
-                            <Link href="#" onClick={() => handleSignOut()}>
+                            <Link href="#" onClick={handleLogout}>
                               <p className="mt-1 px-3 py-3 text-base font-medium text-gray-700 hover:bg-gray-100 hover:rounded">
                                 Sign out
                               </p>
@@ -261,7 +272,7 @@ const NavBar = () => {
                           {({ active }) => (
                             <Link
                               href="#"
-                              onClick={() => handleSignOut()}
+                              onClick={handleLogout}
                               className={classNames(
                                 active ? "bg-gray-100" : "",
                                 "block px-4 py-2 text-sm text-gray-700"
