@@ -6,14 +6,7 @@ import {
   InMemoryCache,
   HttpLink,
 } from "@apollo/client";
-import Cookies from "js-cookie";
-import { SessionProvider } from "next-auth/react";
-
-let isUserLoggedIn = false;
-
-if (Cookies.get("signedin")) {
-  isUserLoggedIn = true;
-}
+import { AuthProvider } from "../components/auth/AuthProvider";
 
 const createApolloClient = () => {
   const link = new HttpLink({
@@ -37,19 +30,21 @@ const createApolloClient = () => {
 
 const MyApp = ({ Component, pageProps }) => {
   return (
-    <ApolloProvider client={createApolloClient()}>
-      <GoogleReCaptchaProvider
-        reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTHA_SITE_KEY}
-        scriptProps={{
-          async: false,
-          defer: true,
-          appendTo: "body",
-          nonce: undefined,
-        }}
-      >
-        <Component {...pageProps} />
-      </GoogleReCaptchaProvider>
-    </ApolloProvider>
+    <AuthProvider>
+      <ApolloProvider client={createApolloClient()}>
+        <GoogleReCaptchaProvider
+          reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTHA_SITE_KEY}
+          scriptProps={{
+            async: false,
+            defer: true,
+            appendTo: "body",
+            nonce: undefined,
+          }}
+        >
+          <Component {...pageProps} />
+        </GoogleReCaptchaProvider>
+      </ApolloProvider>
+    </AuthProvider>
   );
 };
 
