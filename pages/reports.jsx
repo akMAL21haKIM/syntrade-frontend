@@ -1,5 +1,4 @@
 import { React, useState, useEffect } from "react";
-import Footer from "../components/Footer";
 import Head from "next/head";
 import NavBar from "../components/NavBar";
 import { SkeletonLoaderReportsPage } from "../components/SkeletonLoaders";
@@ -291,7 +290,6 @@ const Reports = () => {
           </div>
           {/* </div> */}
         </div>
-        {/* <Footer /> */}
       </main>
     </>
   );
