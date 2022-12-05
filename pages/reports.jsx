@@ -151,7 +151,38 @@ const Reports = () => {
                           <dl className="font-normal lg:hidden">
                             <dt className="sr-only">Type</dt>
                             <dd className="mt-1 truncate text-gray-700">
-                              {trade.type}
+                              <span className="inline-flex items-center rounded  px-1 py-0.5 text-xs font-semibold text-gray-800">
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  fill="none"
+                                  viewBox="0 0 24 24"
+                                  strokeWidth="1.5"
+                                  stroke="currentColor"
+                                  className="w-6 h-6"
+                                >
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941"
+                                  />
+                                </svg>
+                              </span>
+                              <span className="ml-1 inline-flex items-center rounded px-1 py-0.5 text-xs font-semibold text-gray-800">
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  fill="none"
+                                  viewBox="0 0 24 24"
+                                  strokeWidth="1.5"
+                                  stroke="currentColor"
+                                  className="w-6 h-6"
+                                >
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="M12 19.5v-15m0 0l-6.75 6.75M12 4.5l6.75 6.75"
+                                  />
+                                </svg>
+                              </span>
                             </dd>
                             <dt className="sr-only sm:hidden">Currency</dt>
                             <dd className="mt-1 truncate text-gray-500">
@@ -183,6 +214,7 @@ const Reports = () => {
                                   : "text-green-500"
                               } `}
                             >
+                              {trade.profitLoss > 0 ? "+" : ""}
                               {trade.profitLoss}
                             </dd>
                           </dl>
