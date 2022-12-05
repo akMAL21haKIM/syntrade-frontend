@@ -8,8 +8,9 @@ import SideMenu from "../components/SideMenu";
 import { SkeletonLoaderTradePage } from "../components/SkeletonLoaders";
 import "../styles/trade.module.css";
 import SingleActionModal from "../components/SingleActionModal";
-import { SolidDollarIcon } from "../lib/icons";
-import TradeTypeDropdown from "../components/TradeTypeDropdown";
+import BottomMenu from "../components/BottomMenu";
+// import { useStores } from "../stores";
+// import { observer } from "mobx-react-lite";
 
 const Chart = dynamic(() => import("../components/Chart.mjs"), {
   ssr: false,
@@ -23,23 +24,17 @@ const sse = new EventSource("http://0.0.0.0:5000");
 sse.onmessage = async (e) => {
   try {
     data = JSON.parse(e.data);
-    // console.log(data);
-  } catch (error) {
-    // console.log("Error: ", error);
-  }
+  } catch (error) {}
 };
 
-sse.onerror = (e) => {
-  // console.log("Error:", e.message);
-};
+sse.onerror = (e) => {};
 
 const Trade = () => {
   const [syntheticModel, setSyntheticModel] = useState(
     syntheticModelOptions[0]
   );
-  const [loader, setLoader] = useState(false);
   const [openTradeSuccessModal, setOpenTradeSuccessModal] = useState(false);
-  const [notify, setNotify] = useState(false);
+  const [loader, setLoader] = useState(false);
 
   useEffect(() => {
     setLoader(true);
@@ -56,8 +51,6 @@ const Trade = () => {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <main>
-        {/* <div className="hidden 2xl:block xl:block lg:block md:block sm:hidden"> */}
-        <NavBar notify={notify} setNotify={setNotify}></NavBar>
         {loader ? (
           <SkeletonLoaderTradePage />
         ) : (
@@ -74,35 +67,14 @@ const Trade = () => {
                 syntheticModel={syntheticModel}
                 setSyntheticModel={setSyntheticModel}
               ></SyntheticModelDropdown>
-              <Chart
-                pricingData={data}
-                stream={sse}
-                syntheticModel={syntheticModel.type}
-              />
-              <div className="bg-gray-50 pb-8 hidden 2xl:hidden xl:hidden lg:hidden md:hidden sm:block absolute inset-x-0 bottom-0">
-                <div className="mt-8 mx-6 py-2 px-4 bg-white rounded border-4 border-gray-100">
-                  <p className="flex select-none items-center p-1 text-base font-semibold tracking-wide text-gray-900 rounded-lg">
-                    <SolidDollarIcon
-                      className="w-6 h-6 fill-indigo-600"
-                      fill="currentColor"
-                    />
-
-                    <span className="ml-3 my-auto">10,000.00 MYR</span>
-                  </p>
-                </div>
-                <div className="z-30 mt-6 mx-6 py-2 px-4 bg-white rounded border-4 border-gray-100 hover:border-gray-200 focus:outline-none">
-                  <TradeTypeDropdown
-                    tradeType={tradeType}
-                    setTradeType={setTradeType}
-                    syntheticModel={syntheticModel}
-                  />
-                </div>
-              </div>
+              <Chart stream={sse} syntheticModel={syntheticModel.type} />
+              {/* <BottomMenu
+                syntheticModel={syntheticModel}
+                setOpenTradeSuccessModal={setOpenTradeSuccessModal}
+              ></BottomMenu> */}
               <SideMenu
                 syntheticModel={syntheticModel}
                 setOpenTradeSuccessModal={setOpenTradeSuccessModal}
-                notify={notify}
-                setNotify={setNotify}
               ></SideMenu>
             </div>
           </>

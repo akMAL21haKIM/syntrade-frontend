@@ -53,8 +53,6 @@ const MyApp = ({ Component, pageProps }) => {
               <Component {...pageProps} />
             </>
           )}
-
-          <Component {...pageProps} />
         </GoogleReCaptchaProvider>
       </ApolloProvider>
     </AuthProvider>
