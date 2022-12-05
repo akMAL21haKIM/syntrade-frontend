@@ -1,4 +1,4 @@
-import { Fragment, useState, useContext } from "react";
+import { Fragment, useState, useContext, useEffect } from "react";
 import { Popover, Transition, Menu } from "@headlessui/react";
 import LogoIcon from "../public/old_logo.svg";
 import { XMarkIcon, Bars3Icon, ReportsIcon, ProfileIcon } from "../lib/icons";
@@ -9,14 +9,23 @@ import { useMutation } from "@apollo/client";
 import SingleActionModal from "./SingleActionModal";
 import Notification from "./Notification";
 import AuthContext from "../components/auth/AuthContext";
+import { AuthState } from "./auth/AuthProvider";
 
 const NavBar = ({ notify, setNotify }) => {
   const [isMenuClicked, setIsMenuClicked] = useState(false);
   const [openResetBalanceSuccessModal, setOpenResetBalanceSuccessModal] =
     useState(false);
-  const isUserLoggedIn = useContext(AuthContext).user;
 
-  console.log("isUserLoggedIn: ", isUserLoggedIn);
+  // const isUserLoggedIn = useContext(AuthContext).user;
+
+  const { user } = AuthState();
+
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+
+  useEffect(() => {
+    console.log("is user logged in?", user);
+    setIsUserLoggedIn(user);
+  }, [user]);
 
   // const [resetBalance, { data, loading, error }] = useMutation(ResetBalance);
 
@@ -35,10 +44,11 @@ const NavBar = ({ notify, setNotify }) => {
     setOpenResetBalanceSuccessModal(true);
   };
 
-  const handleLogout = async () => {
+  const handleLogout = () => {
     // Log out
     document.cookie =
       "signedin=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    setIsUserLoggedIn(null);
   };
 
   return (
@@ -142,16 +152,13 @@ const NavBar = ({ notify, setNotify }) => {
                               </p>
                             </Link>
 
-                            <Link
-                              href="#"
-                              onClick={() => handleResetWalletBalance()}
-                            >
+                            <Link href="#" onClick={handleResetWalletBalance}>
                               <p className="mt-1 px-3 py-3 text-base font-medium text-gray-700 hover:bg-gray-100 hover:rounded">
                                 Reset balance
                               </p>
                             </Link>
 
-                            <Link href="#" onClick={() => handleLogout()}>
+                            <Link href="#" onClick={handleLogout}>
                               <p className="mt-1 px-3 py-3 text-base font-medium text-gray-700 hover:bg-gray-100 hover:rounded">
                                 Sign out
                               </p>
@@ -260,7 +267,7 @@ const NavBar = ({ notify, setNotify }) => {
                           {({ active }) => (
                             <Link
                               href="#"
-                              onClick={() => handleLogout()}
+                              onClick={handleLogout}
                               className={classNames(
                                 active ? "bg-gray-100" : "",
                                 "block px-4 py-2 text-sm text-gray-700"
