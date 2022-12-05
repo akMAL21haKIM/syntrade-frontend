@@ -1,5 +1,6 @@
 import { React, useState } from "react";
-import LogoIcon from "../public/old_logo_name.svg";
+import LogoIconWithName from "../public/old_logo_name.svg";
+import LogoIcon from "../public/old_logo.svg";
 import Link from "next/link";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import Router from "next/router";
@@ -54,8 +55,6 @@ const SignUp = () => {
     // Set password from input
     setPassword(e.target.value);
 
-    console.log("password", password);
-
     // Show password error if password is invalid
     if (!isPasswordValid(password)) {
       setShowPasswordError(true);
@@ -77,16 +76,12 @@ const SignUp = () => {
     }
   };
 
-  // TODO: Sign up for a new user account
+  // Sign up for a new user account
   const handleSignup = async (e) => {
     e.preventDefault();
     setShowEmailError(false);
     setShowPasswordError(false);
     setShowConfirmPasswordError(false);
-
-    console.log(`email: ${email}`);
-    console.log(`password: ${password}`);
-    console.log(`confirmPassword: ${confirmPassword}`);
 
     const emailValidity = isEmailValid(email);
     const passwordValidity = isPasswordValid(password);
@@ -131,8 +126,6 @@ const SignUp = () => {
           console.log(err);
         },
         onCompleted: ({ data }) => {
-          console.log("data");
-          console.log(data);
           Router.push("/login");
         },
       });
@@ -151,7 +144,7 @@ const SignUp = () => {
           className="col-span-2 hidden xl:flex flex-1 flex-col justify-center bg-indigo-200 h-[calc(100%-5rem)] rounded-lg mx-10 my-auto"
         >
           <div className="w-3/4">
-            <img src={LogoIcon.src} className="h-14 w-auto mx-10" />
+            <img src={LogoIconWithName.src} className="h-14 w-auto mx-10" />
             <h2 className="text-left text-7xl pl-10 text-black font-bold my-4 cursor-default">
               Take <span className="text-indigo-600">1 tick</span> at a time
             </h2>
@@ -169,13 +162,18 @@ const SignUp = () => {
         {/* Sign up form */}
         <div
           id="signup_right_page"
-          className="xl:col-span-3 col-span-5 flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24 bg-white h-screen"
+          className="xl:col-span-3 col-span-5 flex flex-1 flex-col justify-center py-12 px-4 sm:py-6 sm:px-6 lg:flex-none lg:px-20 xl:px-24 bg-white h-screen"
         >
           <div
             id="signup_form_main"
             className="mx-auto w-full max-w-sm lg:w-96"
           >
             <div id="signup_form_title">
+              <img
+                className="h-18 w-auto sm:h-20 mx-auto my-4 2xl:hidden xl:hidden lg:flex md:flex sm:flex"
+                src={LogoIcon.src}
+                alt="Syntrade logo"
+              />
               <h2 className="mt-6 text-3xl text-center font-bold tracking-tight text-gray-900">
                 Create a new account
               </h2>

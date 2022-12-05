@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import LogoIcon from "../public/old_logo_name.svg";
+import LogoIconWithName from "../public/old_logo_name.svg";
+import LogoIcon from "../public/old_logo.svg";
 import Router from "next/router";
 import { useMutation, gql } from "@apollo/client";
 import Head from "next/head";
@@ -35,8 +36,6 @@ const Login = () => {
     // Set email from input
     setEmail(e);
 
-    console.log("e", e);
-
     // Show email error if email is invalid
     if (!isEmailValid(email)) {
       setShowEmailError(true);
@@ -58,7 +57,7 @@ const Login = () => {
     }
   };
 
-  // TODO: Login user
+  // Login user
   const handleLogin = (e) => {
     e.preventDefault();
     setShowEmailError(false);
@@ -94,11 +93,9 @@ const Login = () => {
         .then((response) => {
           if (!response.ok) {
             if (response.status === 404) {
-              alert("Email not found, please retry");
               console.log("Email not found, please retry");
             }
             if (response.status === 401) {
-              alert("Email and password do not match, please retry");
               console.log("Email and password do not match, please retry");
             }
           }
@@ -108,8 +105,7 @@ const Login = () => {
         .then((response) => response.json())
         .then((data) => {
           if (data.success) {
-            console.log("data: ");
-            document.cookie = "signedin=true";
+            document.cookie = "signedin=true; max-age=86400; path=/";
             Router.push("/");
           }
         });
@@ -128,7 +124,7 @@ const Login = () => {
           className="col-span-2 hidden xl:flex flex-1 flex-col justify-center bg-indigo-300 h-[calc(100%-5rem)] rounded-lg mx-10 my-auto"
         >
           <div className="w-3/4">
-            <img src={LogoIcon.src} className="h-14 w-auto mx-10" />
+            <img src={LogoIconWithName.src} className="h-14 w-auto mx-10" />
             <h2 className="text-left text-7xl pl-10 text-white font-bold my-4 cursor-default">
               Take <span className="text-black">1 tick</span> at a time
             </h2>
@@ -150,6 +146,11 @@ const Login = () => {
         >
           <div id="login_form_main" className="mx-auto w-full max-w-sm lg:w-96">
             <div id="login_form_title">
+              <img
+                className="h-18 w-auto my-4 sm:h-20 mx-auto 2xl:hidden xl:hidden lg:flex md:flex sm:flex"
+                src={LogoIcon.src}
+                alt="Syntrade logo"
+              />
               <h2 className="mt-6 text-3xl text-center font-bold tracking-tight text-gray-900">
                 Log in to your account
               </h2>
