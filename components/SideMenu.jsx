@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from "react";
+import { React, useState, useEffect, useContext } from "react";
 import RangeSlider from "./RangeSlider";
 import { SolidDollarIcon } from "../lib/icons";
 import { useQuery, useMutation, gql } from "@apollo/client";
@@ -7,6 +7,7 @@ import Prices from "../graphql/prices";
 import CurrentBalance from "../graphql/currentBalance";
 import CreateTrade from "../graphql/createTrade";
 import TradeTypeDropdown from "./TradeTypeDropdown";
+import AuthContext from "../components/auth/AuthContext";
 
 const SideMenu = ({ syntheticModel, setOpenTradeSuccessModal, notify }) => {
   const [loader, setLoader] = useState(false);
@@ -20,12 +21,16 @@ const SideMenu = ({ syntheticModel, setOpenTradeSuccessModal, notify }) => {
   const [lastDigitPrediction, setLastDigitPrediction] = useState(0);
   const [ticks, setTicks] = useState(5);
   const [wagerAmountError, setWagerAmountError] = useState(false);
-  const [currentWalletBalance, setCurrentWalletBalance] = useState(10000.0);
+  const [currentWalletBalance, setCurrentWalletBalance] = useState(
+    (10000.0).toFixed(2)
+  );
 
   const syntheticModelType = syntheticModel.type;
   const simplifiedTradeType = tradeType.simplified_title;
   const parsedWagerAmount = parseFloat(wagerAmount);
   const userId = 1;
+
+  const isUserLoggedIn = useContext(AuthContext).user;
 
   const prices = useQuery(Prices, {
     variables: {
@@ -46,12 +51,14 @@ const SideMenu = ({ syntheticModel, setOpenTradeSuccessModal, notify }) => {
   const [createTrade, { data, loading, error }] = useMutation(CreateTrade);
 
   useEffect(() => {
-    console.log("cb1: ", currentBalance.data);
-    console.log("cba1: ", currentWalletBalance);
     currentBalance.refetch();
-    console.log("cb: ", currentBalance.data);
-    console.log("cba: ", currentWalletBalance);
-    if (currentBalance.data) {
+
+    console.log("currentBalance.data", currentBalance.data);
+
+    if (
+      currentBalance.data &&
+      (currentBalance.data !== undefined || currentBalance.data !== null)
+    ) {
       setCurrentWalletBalance(currentBalance.data["currentBalance"].toFixed(2));
     }
   }, [blueIconTransition, redIconTransition, notify]);
@@ -129,32 +136,35 @@ const SideMenu = ({ syntheticModel, setOpenTradeSuccessModal, notify }) => {
   const handleTrade = async (singleTradeType, optionType) => {
     const syntheticTrade = syntheticModelType + "_" + singleTradeType;
 
-    // If user has enough balance in wallet
-    if (currentWalletBalance >= wagerAmount) {
-      // Create trade
-      await createTrade({
-        variables: {
-          userId: userId,
-          syntheticType: syntheticTrade,
-          optionType: optionType,
-          wagerAmount: wagerAmount,
-          ticks: ticks,
-          lastDigitPrediction: lastDigitPrediction,
-        },
-      });
-
-      // Do popup
+    if (!isUserLoggedIn) {
       setOpenTradeSuccessModal(true);
-    }
-    // Else if user doesn't hv enough balance in wallet, show error in popup
-    else {
-      console.log("Error: Not enough balance in wallet");
+    } else {
+      // If user has enough balance in wallet
+      if (currentWalletBalance >= wagerAmount) {
+        // Create trade
+        await createTrade({
+          variables: {
+            syntheticType: syntheticTrade,
+            optionType: optionType,
+            wagerAmount: wagerAmount,
+            ticks: ticks,
+            lastDigitPrediction: lastDigitPrediction,
+          },
+        });
+
+        // Do popup
+        setOpenTradeSuccessModal(true);
+      }
+      // Else if user doesn't hv enough balance in wallet, show error in popup
+      else {
+        console.log("Error: Not enough balance in wallet");
+      }
     }
   };
 
   return (
     <aside
-      className="w-80 h-11/12 right-0 absolute bg-gray-50 pb-8"
+      className="w-80 h-full right-0 absolute bg-gray-50 pb-8"
       aria-label="Sidebar"
     >
       <div className="mt-8 mx-6 py-2 px-4 bg-white rounded border-4 border-gray-100 ">
@@ -174,7 +184,7 @@ const SideMenu = ({ syntheticModel, setOpenTradeSuccessModal, notify }) => {
               fill="currentColor"
             />
 
-            <span className="animate-pulse ml-3 w-full h-4 bg-gray-300 rounded-lg border-4 border-gray-300 focus:outline-none cursor-default select-none"></span>
+            <span className="animate-pulse ml-3 w-full h-4 bg-gray-300 rounded border-4 border-gray-300 focus:outline-none cursor-default select-none"></span>
           </p>
         )}
       </div>
@@ -330,7 +340,7 @@ const SideMenu = ({ syntheticModel, setOpenTradeSuccessModal, notify }) => {
               <div
                 className={`bg-transparent ${
                   blueIconTransition
-                    ? "translate-x-28 ease-out cubic-bezier(0.4, 0, 1, 1) duration-500"
+                    ? "translate-x-28 ease-out cubic-bezier(0.4, 0, 1, 1) duration-500 disabled:pointer-events-none"
                     : ""
                 }`}
                 onClick={(e) => {
@@ -387,7 +397,7 @@ const SideMenu = ({ syntheticModel, setOpenTradeSuccessModal, notify }) => {
               <div
                 className={`bg-transparent ${
                   redIconTransition
-                    ? "translate-x-28 ease-out cubic-bezier(0.4, 0, 1, 1) duration-500"
+                    ? "translate-x-28 ease-out cubic-bezier(0.4, 0, 1, 1) duration-500 disabled:pointer-events-none"
                     : ""
                 }`}
                 onClick={(e) => {

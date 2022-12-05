@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useState, useContext } from "react";
 import { Popover, Transition, Menu } from "@headlessui/react";
 import LogoIcon from "../public/old_logo.svg";
 import { XMarkIcon, Bars3Icon, ReportsIcon, ProfileIcon } from "../lib/icons";
@@ -8,22 +8,19 @@ import ResetBalance from "../graphql/resetBalance";
 import { useMutation } from "@apollo/client";
 import SingleActionModal from "./SingleActionModal";
 import Notification from "./Notification";
-import Cookies from "js-cookie";
+import AuthContext from "../components/auth/AuthContext";
 
 const NavBar = ({ notify, setNotify }) => {
   const [isMenuClicked, setIsMenuClicked] = useState(false);
   const [openResetBalanceSuccessModal, setOpenResetBalanceSuccessModal] =
     useState(false);
+  const isUserLoggedIn = useContext(AuthContext).user;
+
+  console.log("isUserLoggedIn: ", isUserLoggedIn);
 
   // const [resetBalance, { data, loading, error }] = useMutation(ResetBalance);
 
   const userId = 1;
-
-  let isUserLoggedIn = false;
-
-  if (Cookies.get("signedin")) {
-    isUserLoggedIn = true;
-  }
 
   const handleResetWalletBalance = async () => {
     // Reset user's wallet balance to 10,000 MYR
@@ -36,22 +33,24 @@ const NavBar = ({ notify, setNotify }) => {
     setNotify(true);
 
     // Add popup modal saying that reset is successful
-    // setOpenResetBalanceSuccessModal(true);
+    setOpenResetBalanceSuccessModal(true);
   };
 
   const handleLogout = async () => {
     // Log out
+    document.cookie =
+      "signedin=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
   };
 
   return (
     <>
-      {/* <SingleActionModal
+      <SingleActionModal
         id="modal-reset-wallet-success"
         openModal={openResetBalanceSuccessModal}
         setOpenModal={setOpenResetBalanceSuccessModal}
         modalTitle="Reset balance successful"
         modalDescription="You just reset your wallet balance to 10,000.00 MYR!"
-      /> */}
+      />
 
       <Popover className="relative bg-white border-gray-100 border-b-2">
         <div className="w-full px-4 sm:px-6">
@@ -72,7 +71,7 @@ const NavBar = ({ notify, setNotify }) => {
         If user is logged in, show profile icon.
         Else, show log in and sign up buttons. */}
 
-            {isUserLoggedIn ? (
+            {isUserLoggedIn || isUserLoggedIn !== null ? (
               <>
                 {/* Mobile menu */}
                 <div className="-my-2 -mr-2 md:hidden">
@@ -153,7 +152,7 @@ const NavBar = ({ notify, setNotify }) => {
                               </p>
                             </Link>
 
-                            <Link href="#">
+                            <Link href="#" onClick={handleLogout()}>
                               <p className="mt-1 px-3 py-3 text-base font-medium text-gray-700 hover:bg-gray-100 hover:rounded">
                                 Sign out
                               </p>
@@ -261,6 +260,7 @@ const NavBar = ({ notify, setNotify }) => {
                           {({ active }) => (
                             <Link
                               href="#"
+                              onClick={handleLogout()}
                               className={classNames(
                                 active ? "bg-gray-100" : "",
                                 "block px-4 py-2 text-sm text-gray-700"
@@ -370,7 +370,7 @@ const NavBar = ({ notify, setNotify }) => {
           </div>
         </div>
       </Popover>
-      <Notification notify={notify} setNotify={setNotify} />
+      {/* <Notification notify={notify} setNotify={setNotify} /> */}
     </>
   );
 };
