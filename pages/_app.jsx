@@ -7,6 +7,8 @@ import {
   HttpLink,
 } from "@apollo/client";
 import { AuthProvider } from "../components/auth/AuthProvider";
+import NavBar from "../components/NavBar";
+import { useRouter } from "next/router";
 
 const createApolloClient = () => {
   const link = new HttpLink({
@@ -29,6 +31,8 @@ const createApolloClient = () => {
 };
 
 const MyApp = ({ Component, pageProps }) => {
+  const router = useRouter();
+
   return (
     <AuthProvider>
       <ApolloProvider client={createApolloClient()}>
@@ -41,6 +45,15 @@ const MyApp = ({ Component, pageProps }) => {
             nonce: undefined,
           }}
         >
+          {router.pathname === "/signup" || router.pathname === "/login" ? (
+            <Component {...pageProps} />
+          ) : (
+            <>
+              <NavBar></NavBar>
+              <Component {...pageProps} />
+            </>
+          )}
+
           <Component {...pageProps} />
         </GoogleReCaptchaProvider>
       </ApolloProvider>
