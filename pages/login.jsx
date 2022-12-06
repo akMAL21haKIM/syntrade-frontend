@@ -6,6 +6,7 @@ import { useMutation, gql } from "@apollo/client";
 import Head from "next/head";
 import Link from "next/link";
 import { isEmailValid, isPasswordValid } from "../lib/input_validations";
+import Cookies from "js-cookie";
 
 const Login = () => {
   const [openPassword, setOpenPassword] = useState(false);
@@ -24,6 +25,7 @@ const Login = () => {
       email: email,
       password: password,
     }),
+    credentials: "include",
   };
 
   // Show or hide password
@@ -63,9 +65,6 @@ const Login = () => {
     setShowEmailError(false);
     setShowPasswordError(false);
 
-    console.log(`email: ${email}`);
-    console.log(`password: ${password}`);
-
     const emailValidity = isEmailValid(email);
     const passwordValidity = isPasswordValid(password);
 
@@ -83,11 +82,6 @@ const Login = () => {
       setShowPasswordError(false);
     }
 
-    // Use GraphQL login mutation to perform login
-    // If email does not exist in database, display modal to user saying
-    // there is no user account associated with the email address
-    // If password is incorrect, display modal to user saying
-    // incorrect password entered
     if (emailValidity && passwordValidity) {
       fetch(url, options)
         .then((response) => {
@@ -104,8 +98,11 @@ const Login = () => {
         })
         .then((response) => response.json())
         .then((data) => {
+          console.log("am i lappdumb?", data);
           if (data.success) {
+            console.log("i am lappdumb", data);
             document.cookie = "signedin=true; max-age=86400; path=/";
+            Cookies.set("signedin", "signedin=true; max-age=86400; path=/");
             Router.push("/");
           }
         });
@@ -294,7 +291,7 @@ const Login = () => {
                     <p className="mt-2 text-sm text-center text-gray-600">
                       Don&apos;t have an account?&nbsp;
                       <Link
-                        href="signup"
+                        href="signup" id="link-signup"
                         className="font-medium text-indigo-600 hover:text-indigo-500"
                       >
                         Sign up

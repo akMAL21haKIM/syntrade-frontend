@@ -113,10 +113,6 @@ const SignUp = () => {
 
     // Check if email, password and confirm password are valid
     if (emailValidity && passwordValidity && confirmPasswordValidity) {
-      // Use GraphQL signup mutation to perform sign up
-      // If email already exists in database, display modal to user saying
-      // an account has already been created with the email address
-      // Navigate to trade page
       await signup({
         variables: {
           email: email,
@@ -181,6 +177,7 @@ const SignUp = () => {
                 Already have an account?{" "}
                 <Link
                   href="/login"
+                  id="link-login"
                   className="font-medium text-indigo-600 hover:text-indigo-500"
                 >
                   Log in
