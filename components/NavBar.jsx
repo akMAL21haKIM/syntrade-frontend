@@ -1,44 +1,32 @@
 import { Fragment, useState, useContext, useEffect } from "react";
 import { Popover, Transition, Menu } from "@headlessui/react";
 import LogoIcon from "../public/old_logo.svg";
-import { XMarkIcon, Bars3Icon, ReportsIcon, ProfileIcon } from "../lib/icons";
+import { XMarkIcon, Bars3Icon } from "../lib/icons";
 import { classNames } from "../lib/utilities";
 import Link from "next/link";
 import ResetBalance from "../graphql/resetBalance";
 import { useMutation } from "@apollo/client";
 import SingleActionModal from "./SingleActionModal";
-import Notification from "./Notification";
-import AuthContext from "../components/auth/AuthContext";
 import { AuthState } from "./auth/AuthProvider";
 
-const NavBar = ({ notify, setNotify }) => {
+const NavBar = () => {
   const [isMenuClicked, setIsMenuClicked] = useState(false);
   const [openResetBalanceSuccessModal, setOpenResetBalanceSuccessModal] =
     useState(false);
-
-  // const isUserLoggedIn = useContext(AuthContext).user;
+  const [openSignOutSuccessModal, setOpenSignOutSuccessModal] = useState(false);
 
   const { user } = AuthState();
 
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
 
   useEffect(() => {
-    console.log("is user logged in?", user);
     setIsUserLoggedIn(user);
   }, [user]);
 
   // const [resetBalance, { data, loading, error }] = useMutation(ResetBalance);
 
-  const userId = 1;
-
   const handleResetWalletBalance = async () => {
     // Reset user's wallet balance to 10,000 MYR
-    // await resetBalance({
-    //   variables: {
-    //     userId: userId,
-    //   },
-    // });
-    // useMutation(ResetBalance, { variables: { userId: userId } });
 
     // Add popup modal saying that reset is successful
     setOpenResetBalanceSuccessModal(true);
@@ -59,6 +47,14 @@ const NavBar = ({ notify, setNotify }) => {
         setOpenModal={setOpenResetBalanceSuccessModal}
         modalTitle="Reset balance successful"
         modalDescription="You just reset your wallet balance to 10,000.00 MYR!"
+      />
+
+      <SingleActionModal
+        id="modal-sign-out-success"
+        openModal={openSignOutSuccessModal}
+        setOpenModal={setOpenSignOutSuccessModal}
+        modalTitle="Sign out successful"
+        modalDescription="You are now signed out of Syntrade :("
       />
 
       <Popover className="relative bg-white border-gray-100 border-b-2">
@@ -255,11 +251,11 @@ const NavBar = ({ notify, setNotify }) => {
                           {({ active }) => (
                             <Link
                               href="#"
+                              onClick={() => handleResetWalletBalance()}
                               className={classNames(
                                 active ? "bg-gray-100" : "",
                                 "block px-4 py-2 text-sm text-gray-700"
                               )}
-                              onClick={() => handleResetWalletBalance()}
                             >
                               Reset balance
                             </Link>
@@ -379,7 +375,6 @@ const NavBar = ({ notify, setNotify }) => {
           </div>
         </div>
       </Popover>
-      {/* <Notification notify={notify} setNotify={setNotify} /> */}
     </>
   );
 };

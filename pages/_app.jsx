@@ -12,7 +12,7 @@ import { useRouter } from "next/router";
 
 const createApolloClient = () => {
   const link = new HttpLink({
-    uri: "http://0.0.0.0:4000",
+    uri: "http://api.syntrade.xyz",
   });
 
   return new ApolloClient({
@@ -20,13 +20,6 @@ const createApolloClient = () => {
     cache: new InMemoryCache(),
     // Enable sending cookies over cross-origin requests
     credentials: "include",
-    // headers: {
-    //   // authorization: localStorage.getItem("token") || "",
-    // },
-    onError: ({ networkError, graphQLErrors }) => {
-      console.log("graphQLErrors: ", graphQLErrors);
-      console.log("networkError: ", networkError);
-    },
   });
 };
 

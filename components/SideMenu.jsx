@@ -7,7 +7,6 @@ import Prices from "../graphql/prices";
 import CurrentBalance from "../graphql/currentBalance";
 import CreateTrade from "../graphql/createTrade";
 import TradeTypeDropdown from "./TradeTypeDropdown";
-import AuthContext from "../components/auth/AuthContext";
 import { AuthState } from "./auth/AuthProvider";
 
 const SideMenu = ({ syntheticModel, setOpenTradeSuccessModal, notify }) => {
@@ -31,7 +30,6 @@ const SideMenu = ({ syntheticModel, setOpenTradeSuccessModal, notify }) => {
   const parsedWagerAmount = parseFloat(wagerAmount);
   const userId = 1;
 
-  // const isUserLoggedIn = useContext(AuthContext).user;
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
 
   const { user } = AuthState();
@@ -61,15 +59,13 @@ const SideMenu = ({ syntheticModel, setOpenTradeSuccessModal, notify }) => {
   useEffect(() => {
     currentBalance.refetch();
 
-    console.log("currentBalance.data", currentBalance.data);
-
     if (
       currentBalance.data &&
       (currentBalance.data !== undefined || currentBalance.data !== null)
     ) {
       setCurrentWalletBalance(currentBalance.data["currentBalance"].toFixed(2));
     }
-  }, [blueIconTransition, redIconTransition, notify]);
+  }, [blueIconTransition, redIconTransition]);
 
   useEffect(() => {
     setLoader(true);
@@ -204,7 +200,7 @@ const SideMenu = ({ syntheticModel, setOpenTradeSuccessModal, notify }) => {
             syntheticModel={syntheticModel}
           />
         </div>
-        <div className="mt-6 mx-6 py-2 px-4 bg-white rounded border-4 border-gray-100 ">
+        <div className="m-6 py-2 px-4 bg-white rounded border-4 border-gray-100 ">
           <RangeSlider ticks={ticks} setTicks={setTicks}></RangeSlider>
         </div>
         <TooltipBox
@@ -323,7 +319,7 @@ const SideMenu = ({ syntheticModel, setOpenTradeSuccessModal, notify }) => {
           <div>
             <div className="grid grid-cols-2">
               <p className="text-sm font-light text-gray-500 mb-1 focus:outline-none cursor-default select-none">
-                {wagerType == "stake" ? "Stake" : "Payout"}
+                {wagerType == "stake" ? "Payout" : "Stake"}
               </p>
               {loader ? (
                 <div className="animate-pulse h-[1.25rem] flex bg-gray-300 rounded focus:outline-none cursor-default select-none"></div>
@@ -383,7 +379,7 @@ const SideMenu = ({ syntheticModel, setOpenTradeSuccessModal, notify }) => {
           <div>
             <div className="grid grid-cols-2 mt-4">
               <p className="text-sm font-light text-gray-500 mb-1 focus:outline-none cursor-default select-none">
-                {wagerType == "stake" ? "Stake" : "Payout"}
+                {wagerType == "stake" ? "Payout" : "Stake"}
               </p>
               {loader ? (
                 <div className="animate-pulse h-[1.25rem] flex bg-gray-300 rounded focus:outline-none cursor-default select-none"></div>

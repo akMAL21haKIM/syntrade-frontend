@@ -1,5 +1,4 @@
 import { useState, useEffect, createContext, useContext } from "react";
-import AuthContext from "./AuthContext";
 import Cookies from "js-cookie";
 
 const Context = createContext();
@@ -9,7 +8,6 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const currentUser = Cookies.get("signedin");
-    console.log("currentUser from AuthState: ", currentUser);
     setUser(currentUser);
   }, []);
 
