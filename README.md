@@ -21,13 +21,6 @@ Clone repository
 git clone git@github.com:ariessa-deriv/syntrade-frontend.git
 ```
 
-Create .env file and insert values
-
-```
-NEXT_PUBLIC_V3_SITE_KEY=
-NEXT_PUBLIC_API_URL=
-```
-
 Install packages using npm
 
 ```
