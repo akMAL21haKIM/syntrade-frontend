@@ -12,6 +12,7 @@ import {
   isPasswordValid,
 } from "../lib/input_validations";
 import Signup from "../graphql/signup";
+import SingleActionModal from "../components/SingleActionModal";
 
 const SignUp = () => {
   const [openPassword, setOpenPassword] = useState(false);
@@ -19,12 +20,12 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const { executeRecaptcha } = useGoogleReCaptcha();
   const [showEmailError, setShowEmailError] = useState(false);
   const [showPasswordError, setShowPasswordError] = useState(false);
   const [showConfirmPasswordError, setShowConfirmPasswordError] =
     useState(false);
-
+  const [openSignUpErrordModal, setOpenSignUpErrordModal] = useState(false);
+  const [signUpErrorMessage, setSignUpErrorMessage] = useState("");
   const [signup, data, loading, error] = useMutation(Signup);
 
   // Show or hide password
@@ -119,7 +120,8 @@ const SignUp = () => {
           password: password,
         },
         onError: (err) => {
-          console.log(err);
+          setSignUpErrorMessage(err);
+          openSignUpErrordModal(true);
         },
         onCompleted: ({ data }) => {
           Router.push("/login");
@@ -134,6 +136,13 @@ const SignUp = () => {
         <title>Sign Up | Syntrade</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
+      <SingleActionModal
+        id="modal-email-already-registered"
+        openModal={openSignUpErrordModal}
+        setOpenModal={setOpenSignUpErrordModal}
+        modalTitle="Sign Up Error"
+        modalDescription={signUpErrorMessage}
+      />
       <div id="signup_main" className="grid grid-cols-5 min-h-full">
         <div
           id="signup_left_page"
