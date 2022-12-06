@@ -9,6 +9,7 @@ import { SkeletonLoaderTradePage } from "../components/SkeletonLoaders";
 import "../styles/trade.module.css";
 import SingleActionModal from "../components/SingleActionModal";
 import { OutlineCheckIcon, ExclamationTriangleIcon } from "../lib/icons";
+import { useRouter } from "next/router";
 
 const Chart = dynamic(() => import("../components/Chart.mjs"), {
   ssr: false,
@@ -18,7 +19,12 @@ const EventSource = require("eventsource");
 
 var data = "";
 
-const sse = new EventSource("https://pricing.syntrade.xyz");
+const eventSourceUrl =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:5000"
+    : "https://pricing.syntrade.xyz";
+
+const sse = new EventSource(eventSourceUrl);
 sse.onmessage = async (e) => {
   try {
     data = JSON.parse(e.data);
@@ -33,7 +39,10 @@ const Trade = () => {
   );
   const [openTradeSuccessModal, setOpenTradeSuccessModal] = useState(false);
   const [openLogInNeededModal, setOpenLogInNeededModal] = useState(false);
+  const [openTradeErrorModal, setOpenTradeErrorModal] = useState(false);
   const [loader, setLoader] = useState(false);
+
+  const router = useRouter();
 
   useEffect(() => {
     setLoader(true);
@@ -68,6 +77,8 @@ const Trade = () => {
                     aria-hidden="true"
                   />
                 }
+                buttonText="Close"
+                buttonAction={() => setOpenModal(false)}
               />
               <SingleActionModal
                 id="modal-log-in-needed"
@@ -82,6 +93,24 @@ const Trade = () => {
                     aria-hidden="true"
                   />
                 }
+                buttonText="Continue"
+                buttonAction={() => router.push("/login")}
+              />
+              <SingleActionModal
+                id="modal-trade-error"
+                openModal={openTradeErrorModal}
+                setOpenModal={setOpenTradeErrorModal}
+                modalTitle="Trade error"
+                modalDescription="You don't have enough balance in wallet. Please reset balance."
+                modalIcon={
+                  <ExclamationTriangleIcon
+                    fill="#f87171"
+                    className="w-12 h-12"
+                    aria-hidden="true"
+                  />
+                }
+                buttonText="Close"
+                buttonAction={() => setOpenModal(false)}
               />
               <SyntheticModelDropdown
                 syntheticModel={syntheticModel}
