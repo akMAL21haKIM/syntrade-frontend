@@ -11,8 +11,8 @@ import { useRouter } from "next/router";
 
 const createApolloClient = () => {
   const link = new HttpLink({
-    // uri: "https://api.syntrade.xyz", // prod
-    uri: "http://0.0.0.0:4000", // prod
+    uri: "https://api.syntrade.xyz", // prod
+    // uri: "http://0.0.0.0:4000", // dev
   });
 
   // const authLink = setContext((_, { headers }) => {
