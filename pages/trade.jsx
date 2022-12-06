@@ -8,9 +8,6 @@ import SideMenu from "../components/SideMenu";
 import { SkeletonLoaderTradePage } from "../components/SkeletonLoaders";
 import "../styles/trade.module.css";
 import SingleActionModal from "../components/SingleActionModal";
-import BottomMenu from "../components/BottomMenu";
-// import { useStores } from "../stores";
-// import { observer } from "mobx-react-lite";
 
 const Chart = dynamic(() => import("../components/Chart.mjs"), {
   ssr: false,
@@ -20,7 +17,7 @@ const EventSource = require("eventsource");
 
 var data = "";
 
-const sse = new EventSource("http://localhost:5000");
+const sse = new EventSource("https://pricing.syntrade.xyz");
 sse.onmessage = async (e) => {
   try {
     data = JSON.parse(e.data);

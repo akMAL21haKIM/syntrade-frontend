@@ -11,9 +11,9 @@ export const AuthProvider = ({ children }) => {
     const currentUser = Cookies.get("signedin");
 
     console.log("Cookies.get auth token: ", Cookies.get("auth-token"));
-    console.log("currentUser: ", currentUser);
 
     setUser(currentUser);
+    console.log("currentUser: ", currentUser);
   }, []);
 
   return <Context.Provider value={{ user }}>{children}</Context.Provider>;

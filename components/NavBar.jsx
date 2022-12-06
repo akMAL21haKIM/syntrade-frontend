@@ -78,7 +78,7 @@ const NavBar = () => {
         If user is logged in, show profile icon.
         Else, show log in and sign up buttons. */}
 
-            {isUserLoggedIn || isUserLoggedIn !== null ? (
+            {isUserLoggedIn && isUserLoggedIn !== null ? (
               <>
                 {/* Mobile menu */}
                 <div className="-my-2 -mr-2 md:hidden">

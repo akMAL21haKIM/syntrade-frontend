@@ -1,5 +1,4 @@
 import "../styles/globals.css";
-import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
 import {
   ApolloProvider,
   ApolloClient,
@@ -12,7 +11,7 @@ import { useRouter } from "next/router";
 
 const createApolloClient = () => {
   const link = new HttpLink({
-    uri: "http://localhost:4000",
+    uri: "https://api.syntrade.xyz", // dev
   });
 
   return new ApolloClient({
@@ -29,24 +28,14 @@ const MyApp = ({ Component, pageProps }) => {
   return (
     <AuthProvider>
       <ApolloProvider client={createApolloClient()}>
-        <GoogleReCaptchaProvider
-          reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTHA_SITE_KEY}
-          scriptProps={{
-            async: false,
-            defer: true,
-            appendTo: "body",
-            nonce: undefined,
-          }}
-        >
-          {router.pathname === "/signup" || router.pathname === "/login" ? (
+        {router.pathname === "/signup" || router.pathname === "/login" ? (
+          <Component {...pageProps} />
+        ) : (
+          <>
+            <NavBar></NavBar>
             <Component {...pageProps} />
-          ) : (
-            <>
-              <NavBar></NavBar>
-              <Component {...pageProps} />
-            </>
-          )}
-        </GoogleReCaptchaProvider>
+          </>
+        )}
       </ApolloProvider>
     </AuthProvider>
   );
