@@ -22,7 +22,7 @@ const Login = () => {
   const url =
     process.env.NODE_ENV === "development"
       ? "http://localhost:4000/login"
-      : "https://api.syntrade.xyz";
+      : "https://api.syntrade.xyz/login";
 
   const options = {
     method: "post",
