@@ -76,8 +76,7 @@ const Trade = () => {
                         Unsupported Screen Size
                       </h1>
                       <p className="mt-4 text-base text-gray-500">
-                        We're currently not supporting trading in small screen
-                        sizes.
+                        {"We're currently not supporting trading in small screen sizes."}
                       </p>
                     </div>
                   </div>

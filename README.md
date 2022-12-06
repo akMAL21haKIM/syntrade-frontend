@@ -25,7 +25,6 @@ Create .env file and insert values
 
 ```
 NEXT_PUBLIC_V3_SITE_KEY=
-RECAPTCHA_V3_SECRET_KEY=
 NEXT_PUBLIC_API_URL=
 ```
 

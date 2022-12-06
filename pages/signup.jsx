@@ -2,7 +2,6 @@ import { React, useState } from "react";
 import LogoIconWithName from "../public/old_logo_name.svg";
 import LogoIcon from "../public/old_logo.svg";
 import Link from "next/link";
-import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import Router from "next/router";
 import { useMutation, gql } from "@apollo/client";
 import Head from "next/head";
