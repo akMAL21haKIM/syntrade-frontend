@@ -9,12 +9,14 @@ import { AuthProvider } from "../components/auth/AuthProvider";
 import NavBar from "../components/NavBar";
 import { useRouter } from "next/router";
 
+const uri =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:4000"
+    : "https://api.syntrade.xyz";
+
 const createApolloClient = () => {
   const link = new HttpLink({
-    // Development
-    uri: "http://0.0.0.0:4000", // dev
-    // Production
-    // uri: "https://api.syntrade.xyz", // prod
+    uri: uri,
   });
 
   return new ApolloClient({

@@ -10,7 +10,6 @@
 - [NextJS](https://nextjs.org/)
 - [React](https://reactjs.org/)
 - [TailwindCSS](https://tailwindcss.com/)
-- [Google reCAPTCHA V3](https://developers.google.com/recaptcha/docs/v3)
 
 </br>
 

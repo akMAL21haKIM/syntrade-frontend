@@ -7,6 +7,8 @@ import Head from "next/head";
 import Link from "next/link";
 import { isEmailValid, isPasswordValid } from "../lib/input_validations";
 import Cookies from "js-cookie";
+import SingleActionModal from "../components/SingleActionModal";
+import { ExclamationTriangleIcon } from "../lib/icons";
 
 const Login = () => {
   const [openPassword, setOpenPassword] = useState(false);
@@ -14,7 +16,13 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [showEmailError, setShowEmailError] = useState(false);
   const [showPasswordError, setShowPasswordError] = useState(false);
-  const url = "http://localhost:4000/login";
+  const [openLoginErrorModal, setOpenLoginErrorModal] = useState(false);
+  const [loginErrorMessage, setLoginErrorMessage] = useState("");
+
+  const url =
+    process.env.NODE_ENV === "development"
+      ? "http://localhost:4000/login"
+      : "https://api.syntrade.xyz";
 
   const options = {
     method: "post",
@@ -87,10 +95,14 @@ const Login = () => {
         .then((response) => {
           if (!response.ok) {
             if (response.status === 404) {
-              console.log("Email not found, please retry");
+              setLoginErrorMessage(
+                "Email not found. Please sign up for an account first."
+              );
+              setOpenLoginErrorModal(true);
             }
             if (response.status === 401) {
-              console.log("Email and password do not match, please retry");
+              setLoginErrorMessage("Email and password do not match.");
+              setOpenLoginErrorModal(true);
             }
           }
 
@@ -113,6 +125,20 @@ const Login = () => {
         <title>Log in | Syntrade</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
+      <SingleActionModal
+        id="modal-login-error"
+        openModal={openLoginErrorModal}
+        setOpenModal={setOpenLoginErrorModal}
+        modalTitle="Log In Error"
+        modalDescription={loginErrorMessage}
+        modalIcon={
+          <ExclamationTriangleIcon
+            fill="#f87171"
+            className="w-12 h-12"
+            aria-hidden="true"
+          />
+        }
+      />
       <div id="login-main" className="grid grid-cols-5 min-h-screen">
         <div
           id="login_left_page"
