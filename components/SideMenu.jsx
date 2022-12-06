@@ -58,8 +58,6 @@ const SideMenu = ({
     },
   });
 
-  console.log("call price: ", callPrice);
-
   const currentBalance = useQuery(CurrentBalance, {
     variables: {
       userId: userId,
@@ -169,11 +167,6 @@ const SideMenu = ({
             lastDigitPrediction: lastDigitPrediction,
           },
           onError: (err) => {
-            console.log("err", err);
-            console.log("typeof err: ", typeof err);
-            console.log("err.err: ", Object.keys(err));
-            console.log("err.message: ", err.message);
-            // setOpenSignUpErrorModal(true);
           },
           onCompleted: ({ data }) => {
             setOpenTradeSuccessModal(true);

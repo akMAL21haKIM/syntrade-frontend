@@ -35,11 +35,6 @@ const NavBar = () => {
         userId: userId,
       },
       onError: (err) => {
-        console.log("err", err);
-        console.log("typeof err: ", typeof err);
-        console.log("err.err: ", Object.keys(err));
-        console.log("err.message: ", err.message);
-        // setOpenSignUpErrorModal(true);
       },
       onCompleted: ({ data }) => {
         setOpenResetBalanceSuccessModal(true);
