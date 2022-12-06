@@ -200,7 +200,7 @@ const SideMenu = ({ syntheticModel, setOpenTradeSuccessModal, notify }) => {
             syntheticModel={syntheticModel}
           />
         </div>
-        <div className="mt-6 mx-6 py-2 px-4 bg-white rounded border-4 border-gray-100 ">
+        <div className="m-6 py-2 px-4 bg-white rounded border-4 border-gray-100 ">
           <RangeSlider ticks={ticks} setTicks={setTicks}></RangeSlider>
         </div>
         <TooltipBox
@@ -319,7 +319,7 @@ const SideMenu = ({ syntheticModel, setOpenTradeSuccessModal, notify }) => {
           <div>
             <div className="grid grid-cols-2">
               <p className="text-sm font-light text-gray-500 mb-1 focus:outline-none cursor-default select-none">
-                {wagerType == "stake" ? "Stake" : "Payout"}
+                {wagerType == "stake" ? "Payout" : "Stake"}
               </p>
               {loader ? (
                 <div className="animate-pulse h-[1.25rem] flex bg-gray-300 rounded focus:outline-none cursor-default select-none"></div>
@@ -379,7 +379,7 @@ const SideMenu = ({ syntheticModel, setOpenTradeSuccessModal, notify }) => {
           <div>
             <div className="grid grid-cols-2 mt-4">
               <p className="text-sm font-light text-gray-500 mb-1 focus:outline-none cursor-default select-none">
-                {wagerType == "stake" ? "Stake" : "Payout"}
+                {wagerType == "stake" ? "Payout" : "Stake"}
               </p>
               {loader ? (
                 <div className="animate-pulse h-[1.25rem] flex bg-gray-300 rounded focus:outline-none cursor-default select-none"></div>
