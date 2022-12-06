@@ -1,7 +1,7 @@
 import { Fragment, useState, useContext, useEffect } from "react";
 import { Popover, Transition, Menu } from "@headlessui/react";
 import LogoIcon from "../public/old_logo.svg";
-import { XMarkIcon, Bars3Icon } from "../lib/icons";
+import { XMarkIcon, Bars3Icon, OutlineCheckIcon } from "../lib/icons";
 import { classNames } from "../lib/utilities";
 import Link from "next/link";
 import ResetBalance from "../graphql/resetBalance";
@@ -47,6 +47,13 @@ const NavBar = () => {
         setOpenModal={setOpenResetBalanceSuccessModal}
         modalTitle="Reset balance successful"
         modalDescription="You just reset your wallet balance to 10,000.00 MYR!"
+        modalIcon={
+          <OutlineCheckIcon
+            fill="#4ade80"
+            className="w-12 h-12"
+            aria-hidden="true"
+          />
+        }
       />
 
       <SingleActionModal
@@ -55,6 +62,13 @@ const NavBar = () => {
         setOpenModal={setOpenSignOutSuccessModal}
         modalTitle="Sign out successful"
         modalDescription="You are now signed out of Syntrade :("
+        modalIcon={
+          <OutlineCheckIcon
+            fill="#4ade80"
+            className="w-12 h-12"
+            aria-hidden="true"
+          />
+        }
       />
 
       <Popover className="relative bg-white border-gray-100 border-b-2">

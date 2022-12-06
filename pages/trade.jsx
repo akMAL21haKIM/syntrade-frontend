@@ -8,6 +8,7 @@ import SideMenu from "../components/SideMenu";
 import { SkeletonLoaderTradePage } from "../components/SkeletonLoaders";
 import "../styles/trade.module.css";
 import SingleActionModal from "../components/SingleActionModal";
+import { OutlineCheckIcon } from "../lib/icons";
 
 const Chart = dynamic(() => import("../components/Chart.mjs"), {
   ssr: false,
@@ -59,16 +60,19 @@ const Trade = () => {
                 setOpenModal={setOpenTradeSuccessModal}
                 modalTitle="Trade successful"
                 modalDescription="You just performed a trade!"
+                modalIcon={
+                  <OutlineCheckIcon
+                    fill="#4ade80"
+                    className="w-12 h-12"
+                    aria-hidden="true"
+                  />
+                }
               />
               <SyntheticModelDropdown
                 syntheticModel={syntheticModel}
                 setSyntheticModel={setSyntheticModel}
               ></SyntheticModelDropdown>
               <Chart stream={sse} syntheticModel={syntheticModel.type} />
-              {/* <BottomMenu
-                syntheticModel={syntheticModel}
-                setOpenTradeSuccessModal={setOpenTradeSuccessModal}
-              ></BottomMenu> */}
               <SideMenu
                 syntheticModel={syntheticModel}
                 setOpenTradeSuccessModal={setOpenTradeSuccessModal}

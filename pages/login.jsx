@@ -98,11 +98,9 @@ const Login = () => {
         })
         .then((response) => response.json())
         .then((data) => {
-          console.log("am i lappdumb?", data);
           if (data.success) {
-            console.log("i am lappdumb", data);
             document.cookie = "signedin=true; max-age=86400; path=/";
-            Cookies.set("signedin", "signedin=true; max-age=86400; path=/");
+            // Cookies.set("signedin", "signedin=true; max-age=86400; path=/");
             Router.push("/");
           }
         });
@@ -291,7 +289,8 @@ const Login = () => {
                     <p className="mt-2 text-sm text-center text-gray-600">
                       Don&apos;t have an account?&nbsp;
                       <Link
-                        href="signup" id="link-signup"
+                        href="signup"
+                        id="link-signup"
                         className="font-medium text-indigo-600 hover:text-indigo-500"
                       >
                         Sign up

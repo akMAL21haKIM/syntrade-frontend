@@ -8,6 +8,7 @@ import CurrentBalance from "../graphql/currentBalance";
 import CreateTrade from "../graphql/createTrade";
 import TradeTypeDropdown from "./TradeTypeDropdown";
 import { AuthState } from "./auth/AuthProvider";
+import Cookies from "js-cookie";
 
 const SideMenu = ({ syntheticModel, setOpenTradeSuccessModal, notify }) => {
   const [loader, setLoader] = useState(false);
@@ -28,11 +29,13 @@ const SideMenu = ({ syntheticModel, setOpenTradeSuccessModal, notify }) => {
   const syntheticModelType = syntheticModel.type;
   const simplifiedTradeType = tradeType.simplified_title;
   const parsedWagerAmount = parseFloat(wagerAmount);
-  const userId = 1;
 
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
 
   const { user } = AuthState();
+
+  let userId = Cookies.get("auth-token");
+  console.log("userId: ", userId);
 
   useEffect(() => {
     setIsUserLoggedIn(user);
@@ -50,22 +53,28 @@ const SideMenu = ({ syntheticModel, setOpenTradeSuccessModal, notify }) => {
 
   const currentBalance = useQuery(CurrentBalance, {
     variables: {
-      userId,
+      userId: userId,
     },
   });
 
+  console.log("cb: ", currentBalance.data);
+
   const [createTrade, { data, loading, error }] = useMutation(CreateTrade);
 
-  useEffect(() => {
-    currentBalance.refetch();
+  // useEffect(() => {
+  //   console.log("before cb: ", currentBalance.data);
+  //   // currentBalance.refetch();
+  //   console.log("after cb: ", currentBalance.data);
+  //   console.log("object", Object.keys(currentBalance));
 
-    if (
-      currentBalance.data &&
-      (currentBalance.data !== undefined || currentBalance.data !== null)
-    ) {
-      setCurrentWalletBalance(currentBalance.data["currentBalance"].toFixed(2));
-    }
-  }, [blueIconTransition, redIconTransition]);
+  //   if (
+  //     currentBalance.data &&
+  //     currentBalance.data !== undefined &&
+  //     currentBalance.data !== null
+  //   ) {
+  //     setCurrentWalletBalance(currentBalance.data["currentBalance"].toFixed(2));
+  //   }
+  // }, [blueIconTransition, redIconTransition]);
 
   useEffect(() => {
     setLoader(true);
@@ -120,8 +129,6 @@ const SideMenu = ({ syntheticModel, setOpenTradeSuccessModal, notify }) => {
 
   const handleWagerAmountChange = (e) => {
     // Remove non digit characters from input
-    // TODO: Make sure input can only take one period
-    // TODO: Make sure input can take only two numbers after period
     const sanitisedInput = e.target.value.replace(/\D/g, "");
 
     // If wagerAmount is less than 0, set it to 0
@@ -145,19 +152,31 @@ const SideMenu = ({ syntheticModel, setOpenTradeSuccessModal, notify }) => {
     } else {
       // If user has enough balance in wallet
       if (currentWalletBalance >= wagerAmount) {
+        console.log("send buy trade");
+        console.log("userId: ", userId);
         // Create trade
         await createTrade({
           variables: {
+            userId: userId,
             syntheticType: syntheticTrade,
             optionType: optionType,
             wagerAmount: wagerAmount,
             ticks: ticks,
             lastDigitPrediction: lastDigitPrediction,
           },
+          onError: (err) => {
+            console.log("err", err);
+            console.log("typeof err: ", typeof err);
+            console.log("err.err: ", Object.keys(err));
+            console.log("err.message: ", err.message);
+            // setOpenSignUpErrorModal(true);
+          },
+          onCompleted: ({ data }) => {
+            console.log("data: ", data);
+            // Do popup
+            setOpenTradeSuccessModal(true);
+          },
         });
-
-        // Do popup
-        setOpenTradeSuccessModal(true);
       }
       // Else if user doesn't hv enough balance in wallet, show error in popup
       else {
@@ -173,7 +192,7 @@ const SideMenu = ({ syntheticModel, setOpenTradeSuccessModal, notify }) => {
         aria-label="Sidebar"
       >
         <div className="mt-8 mx-6 py-2 px-4 bg-white rounded border-4 border-gray-100 ">
-          {currentBalance.data ? (
+          {user || currentBalance.data ? (
             <p className="flex select-none items-center p-1 text-base font-semibold tracking-wide text-gray-900 rounded-lg">
               <SolidDollarIcon
                 className="w-6 h-6 fill-indigo-600"
@@ -204,7 +223,7 @@ const SideMenu = ({ syntheticModel, setOpenTradeSuccessModal, notify }) => {
           <RangeSlider ticks={ticks} setTicks={setTicks}></RangeSlider>
         </div>
         <TooltipBox
-          msg="Minimum stake of 1.00 and maximum payout of 30000"
+          msg="Minimum stake of 1 and maximum payout of 30000"
           wagerAmountError={wagerAmountError}
         >
           <div className="relative mt-6 mx-6 bg-gray-50 rounded border-4 border-gray-100">
@@ -332,7 +351,7 @@ const SideMenu = ({ syntheticModel, setOpenTradeSuccessModal, notify }) => {
               )}
             </div>
             <TooltipButton
-              msg="Minimum stake of 1.00 and maximum payout of 30000"
+              msg="Minimum stake of 1 and maximum payout of 30000"
               wagerAmountError={wagerAmountError}
             >
               <button
@@ -392,7 +411,7 @@ const SideMenu = ({ syntheticModel, setOpenTradeSuccessModal, notify }) => {
               )}
             </div>
             <TooltipButton
-              msg="Minimum stake of 1.00 and maximum payout of 30000.00. Current payout is 345679.00"
+              msg="Minimum stake of 1 and maximum payout of 30000"
               wagerAmountError={wagerAmountError}
             >
               <button

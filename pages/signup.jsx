@@ -13,6 +13,7 @@ import {
 } from "../lib/input_validations";
 import Signup from "../graphql/signup";
 import SingleActionModal from "../components/SingleActionModal";
+import { ExclamationTriangleIcon } from "../lib/icons";
 
 const SignUp = () => {
   const [openPassword, setOpenPassword] = useState(false);
@@ -121,8 +122,12 @@ const SignUp = () => {
         },
         onError: (err) => {
           console.log("err", err);
-          setSignUpErrorMessage(err);
-          openSignUpErrorModal(true);
+          console.log("typeof err: ", typeof err);
+          console.log("err.err: ", Object.keys(err));
+          console.log("err.message: ", err.message);
+          setSignUpErrorMessage(err.message);
+          console.log("signup error msg: ", signUpErrorMessage);
+          setOpenSignUpErrorModal(true);
         },
         onCompleted: ({ data }) => {
           Router.push("/login");
@@ -143,6 +148,13 @@ const SignUp = () => {
         setOpenModal={setOpenSignUpErrorModal}
         modalTitle="Sign Up Error"
         modalDescription={signUpErrorMessage}
+        modalIcon={
+          <ExclamationTriangleIcon
+            fill="#f87171"
+            className="w-12 h-12"
+            aria-hidden="true"
+          />
+        }
       />
       <div id="signup_main" className="grid grid-cols-5 min-h-full">
         <div
@@ -450,7 +462,7 @@ const SignUp = () => {
                       id="submit"
                       type="submit"
                       className="flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-md font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                      onClick={handleSignup}
+                      onClick={(e) => handleSignup(e)}
                     >
                       Sign up
                     </button>

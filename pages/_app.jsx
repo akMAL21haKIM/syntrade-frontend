@@ -11,8 +11,21 @@ import { useRouter } from "next/router";
 
 const createApolloClient = () => {
   const link = new HttpLink({
-    uri: "https://api.syntrade.xyz", // dev
+    // uri: "https://api.syntrade.xyz", // prod
+    uri: "http://0.0.0.0:4000", // prod
   });
+
+  // const authLink = setContext((_, { headers }) => {
+  //   // get the authentication token from local storage if it exists
+  //   const token = Cookies.get("auth-token");
+  //   // return the headers to the context so httpLink can read them
+  //   return {
+  //     headers: {
+  //       ...headers,
+  //       authorization: token ? `Bearer ${token}` : "",
+  //     },
+  //   };
+  // });
 
   return new ApolloClient({
     link,

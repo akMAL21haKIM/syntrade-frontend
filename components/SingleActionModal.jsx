@@ -7,6 +7,7 @@ const SingleActionModal = ({
   setOpenModal,
   modalTitle,
   modalDescription,
+  modalIcon,
 }) => {
   return (
     <Transition.Root show={openModal} as={Fragment}>
@@ -37,11 +38,7 @@ const SingleActionModal = ({
               <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl transition-all sm:w-full sm:max-w-sm sm:p-6">
                 <div>
                   <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-transparent">
-                    <OutlineCheckIcon
-                      fill="#4ade80"
-                      className="w-12 h-12"
-                      aria-hidden="true"
-                    />
+                    {modalIcon}
                   </div>
                   <div className="mt-3 text-center sm:mt-5">
                     <Dialog.Title
