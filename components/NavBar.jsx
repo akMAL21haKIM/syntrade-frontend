@@ -23,13 +23,25 @@ const NavBar = () => {
     setIsUserLoggedIn(user);
   }, [user]);
 
-  // const [resetBalance, { data, loading, error }] = useMutation(ResetBalance);
+  const [resetBalance, { data, loading, error }] = useMutation(ResetBalance);
 
   const handleResetWalletBalance = async () => {
     // Reset user's wallet balance to 10,000 MYR
-
-    // Add popup modal saying that reset is successful
-    setOpenResetBalanceSuccessModal(true);
+    await resetBalance({
+      variables: {
+        userId: userId,
+      },
+      onError: (err) => {
+        console.log("err", err);
+        console.log("typeof err: ", typeof err);
+        console.log("err.err: ", Object.keys(err));
+        console.log("err.message: ", err.message);
+        // setOpenSignUpErrorModal(true);
+      },
+      onCompleted: ({ data }) => {
+        setOpenResetBalanceSuccessModal(true);
+      },
+    });
   };
 
   const handleLogout = () => {

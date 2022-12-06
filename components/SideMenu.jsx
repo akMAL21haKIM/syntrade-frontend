@@ -9,11 +9,13 @@ import CreateTrade from "../graphql/createTrade";
 import TradeTypeDropdown from "./TradeTypeDropdown";
 import { AuthState } from "./auth/AuthProvider";
 import Cookies from "js-cookie";
+import { parseMoney } from "../lib/utilities";
 
 const SideMenu = ({
   syntheticModel,
   setOpenTradeSuccessModal,
   setOpenLogInNeededModal,
+  setOpenTradeErrorModal,
 }) => {
   const [loader, setLoader] = useState(false);
   const [wagerType, setWagerType] = useState("stake");
@@ -39,7 +41,6 @@ const SideMenu = ({
   const { user } = AuthState();
 
   let userId = Cookies.get("auth-token");
-  console.log("userId: ", userId);
 
   useEffect(() => {
     setIsUserLoggedIn(user);
@@ -150,21 +151,12 @@ const SideMenu = ({
 
   const handleTrade = async (singleTradeType, optionType) => {
     const syntheticTrade = syntheticModelType + "_" + singleTradeType;
-    console.log("isUserLoggedIn: ", isUserLoggedIn);
 
     if (!isUserLoggedIn || isUserLoggedIn === undefined) {
       setOpenLogInNeededModal(true);
     } else {
       // If user has enough balance in wallet
       if (currentWalletBalance >= wagerAmount) {
-        console.log("send buy trade");
-        console.log("userId: ", userId);
-        console.log("typeof userId: ", typeof userId);
-        console.log("syntheticType: ", syntheticTrade);
-        console.log("optionType: ", optionType);
-        console.log("wagerAmount: ", wagerAmount);
-        console.log("ticks: ", ticks);
-        console.log("lastDigitPrediction", lastDigitPrediction);
         // Create trade
         await createTrade({
           variables: {
@@ -183,15 +175,13 @@ const SideMenu = ({
             // setOpenSignUpErrorModal(true);
           },
           onCompleted: ({ data }) => {
-            console.log("data: ", data);
-            // Do popup
             setOpenTradeSuccessModal(true);
           },
         });
       }
       // Else if user doesn't hv enough balance in wallet, show error in popup
       else {
-        console.log("Error: Not enough balance in wallet");
+        setOpenTradeErrorModal(true);
       }
     }
   };
@@ -210,7 +200,9 @@ const SideMenu = ({
                 fill="currentColor"
               />
 
-              <span className="ml-3 my-auto">{currentWalletBalance} MYR</span>
+              <span className="ml-3 my-auto">
+                {parseMoney(currentWalletBalance)} MYR
+              </span>
             </p>
           ) : (
             <p className="flex select-none items-center p-1 text-base font-semibold tracking-wide text-gray-900 rounded-lg">
@@ -355,7 +347,7 @@ const SideMenu = ({
                 <div className="animate-pulse h-[1.25rem] flex bg-gray-300 rounded focus:outline-none cursor-default select-none"></div>
               ) : prices.data ? (
                 <p className="text-sm font-semibold text-gray-700 mb-1 text-right focus:outline-none cursor-default select-none">
-                  {Object.values(prices.data)[0][0].toFixed(2)} MYR
+                  {parseMoney(Object.values(prices.data)[0][0])} MYR
                 </p>
               ) : (
                 <div className="animate-pulse h-[1.25rem] flex bg-gray-300 rounded focus:outline-none cursor-default select-none"></div>
@@ -400,7 +392,7 @@ const SideMenu = ({
                   {tradeType.blueIcon}
                 </div>
 
-                <p className="text-sm font-semibold text-white text-right focus:outline-none cursor-default select-none">
+                <p className="text-sm font-semibold text-white text-right focus:outline-none cursor-pointer select-none">
                   {tradeType.blueText}
                 </p>
               </button>
@@ -415,7 +407,7 @@ const SideMenu = ({
                 <div className="animate-pulse h-[1.25rem] flex bg-gray-300 rounded focus:outline-none cursor-default select-none"></div>
               ) : prices.data ? (
                 <p className="text-sm font-semibold text-gray-700 mb-1 text-right focus:outline-none cursor-default select-none">
-                  {Object.values(prices.data)[0][1].toFixed(2)} MYR
+                  {parseMoney(Object.values(prices.data)[0][1])} MYR
                 </p>
               ) : (
                 <div className="animate-pulse h-[1.25rem] flex bg-gray-300 rounded focus:outline-none cursor-default select-none"></div>
@@ -460,7 +452,7 @@ const SideMenu = ({
                   {tradeType.redIcon}
                 </div>
 
-                <p className="text-sm font-semibold text-white text-right focus:outline-none cursor-default select-none">
+                <p className="text-sm font-semibold text-white text-right focus:outline-none cursor-pointer select-none">
                   {tradeType.redText}
                 </p>
               </button>
