@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 const CurrentBalance = gql`
-  query CurrentBalance {
-    currentBalance
+  query CurrentBalance ($userId: JWT!) {
+    currentBalance(userId: $userId)
   }
 `;
 

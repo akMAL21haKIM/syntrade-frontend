@@ -31,6 +31,8 @@ const SideMenu = ({
   const [currentWalletBalance, setCurrentWalletBalance] = useState(
     (10000.0).toFixed(2)
   );
+  const [callPrice, setCallPrice] = useState(0.0);
+  const [putPrice, setPutPrice] = useState(0.0);
 
   const syntheticModelType = syntheticModel.type;
   const simplifiedTradeType = tradeType.simplified_title;
@@ -56,36 +58,35 @@ const SideMenu = ({
     },
   });
 
+  console.log("call price: ", callPrice);
+
   const currentBalance = useQuery(CurrentBalance, {
     variables: {
       userId: userId,
     },
   });
 
-  console.log("cb: ", currentBalance.data);
-
   const [createTrade, { data, loading, error }] = useMutation(CreateTrade);
 
-  // useEffect(() => {
-  //   console.log("before cb: ", currentBalance.data);
-  //   // currentBalance.refetch();
-  //   console.log("after cb: ", currentBalance.data);
-  //   console.log("object", Object.keys(currentBalance));
+  useEffect(() => {
+    currentBalance.refetch();
 
-  //   if (
-  //     currentBalance.data &&
-  //     currentBalance.data !== undefined &&
-  //     currentBalance.data !== null
-  //   ) {
-  //     setCurrentWalletBalance(currentBalance.data["currentBalance"].toFixed(2));
-  //   }
-  // }, [blueIconTransition, redIconTransition]);
+    if (
+      currentBalance.data &&
+      currentBalance.data !== undefined &&
+      currentBalance.data !== null
+    ) {
+      setCurrentWalletBalance(currentBalance.data["currentBalance"].toFixed(2));
+    }
+  }, [blueIconTransition, redIconTransition, currentBalance.data]);
 
   useEffect(() => {
     setLoader(true);
 
     setTimeout(async () => {
       if (!wagerAmountError && prices.data != null) {
+        setCallPrice(Object.values(prices.data)[0][0]);
+        setPutPrice(Object.values(prices.data)[0][1]);
         setLoader(false);
       }
     }, 1000);
@@ -193,7 +194,18 @@ const SideMenu = ({
         aria-label="Sidebar"
       >
         <div className="mt-8 mx-6 py-2 px-4 bg-white rounded border-4 border-gray-100 ">
-          {user || currentBalance.data ? (
+          {isUserLoggedIn && currentBalance.data ? (
+            <p className="flex select-none items-center p-1 text-base font-semibold tracking-wide text-gray-900 rounded-lg">
+              <SolidDollarIcon
+                className="w-6 h-6 fill-indigo-600"
+                fill="currentColor"
+              />
+
+              <span className="ml-3 my-auto">
+                {parseMoney(currentWalletBalance)} MYR
+              </span>
+            </p>
+          ) : !isUserLoggedIn ? (
             <p className="flex select-none items-center p-1 text-base font-semibold tracking-wide text-gray-900 rounded-lg">
               <SolidDollarIcon
                 className="w-6 h-6 fill-indigo-600"
@@ -345,10 +357,15 @@ const SideMenu = ({
               </p>
               {loader ? (
                 <div className="animate-pulse h-[1.25rem] flex bg-gray-300 rounded focus:outline-none cursor-default select-none"></div>
-              ) : prices.data ? (
-                <p className="text-sm font-semibold text-gray-700 mb-1 text-right focus:outline-none cursor-default select-none">
-                  {parseMoney(Object.values(prices.data)[0][0])} MYR
-                </p>
+              ) : prices.data && Object.values(prices.data)[0] != null ? (
+                wagerType == "stake" &&
+                Object.values(prices.data)[0][0] <= 30000.0 ? (
+                  <p className="text-sm font-semibold text-gray-700 mb-1 text-right focus:outline-none cursor-default select-none">
+                    {parseMoney(Object.values(prices.data)[0][0])} MYR
+                  </p>
+                ) : (
+                  <div className="animate-pulse h-[1.25rem] flex bg-gray-300 rounded focus:outline-none cursor-default select-none"></div>
+                )
               ) : (
                 <div className="animate-pulse h-[1.25rem] flex bg-gray-300 rounded focus:outline-none cursor-default select-none"></div>
               )}
@@ -359,40 +376,55 @@ const SideMenu = ({
             >
               <button
                 className={`px-4 py-4 rounded w-full grid grid-cols-2 focus:outline-none ${
-                  loader
-                    ? "bg-indigo-600 opacity-50 disabled:pointer-events-none"
+                  loader ||
+                  callPrice > 30000 ||
+                  callPrice == null ||
+                  blueIconTransition ||
+                  redIconTransition
+                    ? "bg-indigo-600 opacity-50 disabled:pointer-events-none cursor-not-allowed"
                     : "hover:bg-indigo-700 bg-indigo-600"
                 }`}
               >
                 <div
                   className={`bg-transparent ${
                     blueIconTransition
-                      ? "translate-x-28 ease-out cubic-bezier(0.4, 0, 1, 1) duration-500 disabled:pointer-events-none"
+                      ? "translate-x-28 ease-out cubic-bezier(0.4, 0, 1, 1) duration-500 disabled:pointer-events-none cursor-not-allowed"
                       : ""
                   }`}
                   onClick={(e) => {
                     e.preventDefault();
 
-                    if (blueIconTransition == false) {
-                      setBlueIconTransition(true);
+                    if (callPrice <= 30000 || callPrice != null) {
+                      if (blueIconTransition == false) {
+                        setBlueIconTransition(true);
 
-                      setTimeout(async () => {
+                        setTimeout(async () => {
+                          setBlueIconTransition(false);
+                        }, 1000);
+                      } else {
                         setBlueIconTransition(false);
-                      }, 1000);
-                    } else {
-                      setBlueIconTransition(false);
-                    }
+                      }
 
-                    handleTrade(
-                      tradeType.simplified_title.split("_")[0],
-                      "call"
-                    );
+                      handleTrade(
+                        tradeType.simplified_title.split("_")[0],
+                        "call"
+                      );
+                    }
                   }}
                 >
                   {tradeType.blueIcon}
                 </div>
 
-                <p className="text-sm font-semibold text-white text-right focus:outline-none cursor-pointer select-none">
+                <p
+                  className={`text-sm font-semibold text-white text-right focus:outline-none select-none ${
+                    callPrice > 30000 ||
+                    callPrice == null ||
+                    blueIconTransition ||
+                    redIconTransition
+                      ? "disabled:pointer-events-none cursor-not-allowed"
+                      : ""
+                  }`}
+                >
                   {tradeType.blueText}
                 </p>
               </button>
@@ -405,10 +437,15 @@ const SideMenu = ({
               </p>
               {loader ? (
                 <div className="animate-pulse h-[1.25rem] flex bg-gray-300 rounded focus:outline-none cursor-default select-none"></div>
-              ) : prices.data ? (
-                <p className="text-sm font-semibold text-gray-700 mb-1 text-right focus:outline-none cursor-default select-none">
-                  {parseMoney(Object.values(prices.data)[0][1])} MYR
-                </p>
+              ) : prices.data && Object.values(prices.data)[0] != null ? (
+                wagerType == "stake" &&
+                Object.values(prices.data)[0][1] <= 30000.0 ? (
+                  <p className="text-sm font-semibold text-gray-700 mb-1 text-right focus:outline-none cursor-default select-none">
+                    {parseMoney(Object.values(prices.data)[0][1])} MYR
+                  </p>
+                ) : (
+                  <div className="animate-pulse h-[1.25rem] flex bg-gray-300 rounded focus:outline-none cursor-default select-none"></div>
+                )
               ) : (
                 <div className="animate-pulse h-[1.25rem] flex bg-gray-300 rounded focus:outline-none cursor-default select-none"></div>
               )}
@@ -419,40 +456,55 @@ const SideMenu = ({
             >
               <button
                 className={`px-4 py-4 rounded w-full grid grid-cols-2 focus:outline-none ${
-                  loader
-                    ? "bg-rose-600 opacity-50 disabled:pointer-events-none"
+                  loader ||
+                  putPrice > 30000 ||
+                  putPrice == null ||
+                  blueIconTransition ||
+                  redIconTransition
+                    ? "bg-rose-600 opacity-50 disabled:pointer-events-none cursor-not-allowed"
                     : "hover:bg-rose-700 bg-rose-600"
                 }`}
               >
                 <div
                   className={`bg-transparent ${
                     redIconTransition
-                      ? "translate-x-28 ease-out cubic-bezier(0.4, 0, 1, 1) duration-500 disabled:pointer-events-none"
+                      ? "translate-x-28 ease-out cubic-bezier(0.4, 0, 1, 1) duration-500 disabled:pointer-events-none cursor-not-allowed"
                       : ""
                   }`}
                   onClick={(e) => {
                     e.preventDefault();
 
-                    if (redIconTransition == false) {
-                      setRedIconTransition(true);
+                    if (putPrice <= 30000 || putPrice != null) {
+                      if (redIconTransition == false) {
+                        setRedIconTransition(true);
 
-                      setTimeout(async () => {
+                        setTimeout(async () => {
+                          setRedIconTransition(false);
+                        }, 1000);
+                      } else {
                         setRedIconTransition(false);
-                      }, 1000);
-                    } else {
-                      setRedIconTransition(false);
-                    }
+                      }
 
-                    handleTrade(
-                      tradeType.simplified_title.split("_")[1],
-                      "put"
-                    );
+                      handleTrade(
+                        tradeType.simplified_title.split("_")[1],
+                        "put"
+                      );
+                    }
                   }}
                 >
                   {tradeType.redIcon}
                 </div>
 
-                <p className="text-sm font-semibold text-white text-right focus:outline-none cursor-pointer select-none">
+                <p
+                  className={`text-sm font-semibold text-white text-right focus:outline-none select-none ${
+                    putPrice > 30000 ||
+                    putPrice == null ||
+                    blueIconTransition ||
+                    redIconTransition
+                      ? "disabled:pointer-events-none cursor-not-allowed"
+                      : ""
+                  }`}
+                >
                   {tradeType.redText}
                 </p>
               </button>

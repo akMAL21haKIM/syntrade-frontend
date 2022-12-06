@@ -8,6 +8,7 @@ import ResetBalance from "../graphql/resetBalance";
 import { useMutation } from "@apollo/client";
 import SingleActionModal from "./SingleActionModal";
 import { AuthState } from "./auth/AuthProvider";
+import Cookies from "js-cookie";
 
 const NavBar = () => {
   const [isMenuClicked, setIsMenuClicked] = useState(false);
@@ -18,6 +19,8 @@ const NavBar = () => {
   const { user } = AuthState();
 
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+
+  let userId = Cookies.get("auth-token");
 
   useEffect(() => {
     setIsUserLoggedIn(user);

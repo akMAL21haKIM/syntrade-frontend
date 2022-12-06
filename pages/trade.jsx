@@ -1,6 +1,5 @@
 import Head from "next/head";
 import dynamic from "next/dynamic";
-import NavBar from "../components/NavBar";
 import SyntheticModelDropdown from "../components/SyntheticModelDropdown";
 import { React, useState, useEffect } from "react";
 import { syntheticModelOptions } from "../lib/options";
@@ -10,7 +9,6 @@ import "../styles/trade.module.css";
 import SingleActionModal from "../components/SingleActionModal";
 import { OutlineCheckIcon, ExclamationTriangleIcon } from "../lib/icons";
 import { useRouter } from "next/router";
-import NotSupported from "../components/NotSupported";
 
 const Chart = dynamic(() => import("../components/Chart.mjs"), {
   ssr: false,
