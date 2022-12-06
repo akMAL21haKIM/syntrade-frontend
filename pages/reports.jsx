@@ -5,96 +5,13 @@ import { useRouter } from "next/router";
 import { useQuery } from "@apollo/client";
 import Cookies from "js-cookie";
 import Trades from "../graphql/trades";
-
-const trades = [
-  {
-    referenceId: "1",
-    type: "boom_100-rise",
-    currency: "USD",
-    transactionTime: "16 Nov 2022,6:24:02 AM",
-    transactionType: "Buy",
-    profitLoss: -1000.0,
-    balance: 9000.0,
-  },
-  {
-    referenceId: "2",
-    type: "crash_100-fall",
-    currency: "USD",
-    transactionTime: "17 Nov 2022,6:24:02 AM",
-    transactionType: "Sell",
-    profitLoss: -789.9,
-    balance: 4000.9,
-  },
-  {
-    referenceId: "3",
-    type: "boom_500-rise",
-    currency: "USD",
-    transactionTime: "18 Nov 2022,6:24:02 AM",
-    transactionType: "Buy",
-    profitLoss: +900.0,
-    balance: 8000.0,
-  },
-];
-
-// let trades = [];
-
-const getSyntheticModelAndType = () => {
-  const text = "boom_500-rise";
-  const syntheticType = text.split("-")[0];
-  const tradeType = text.split("-")[1];
-
-  console.log(syntheticType);
-  console.log(tradeType);
-};
-
-const capitaliseFirstLetter = (string) => {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-};
-
-const sanitiseTime = (unixTime) => {
-  const monthNames = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
-
-  var offsetTime = 18 * 60 * 60 * 60 * 1000;
-  var date = new Date(unixTime * 1000);
-  console.log("locale: ", date.toLocaleString());
-  var year = date.getFullYear();
-  var month = monthNames[date.getMonth()];
-  var day = String(date.getDate()).padStart(2, "0");
-  var hour = String(date.getHours() % 12 || 12).padStart(2, "0");
-  var minutes = String(date.getMinutes()).padStart(2, "0");
-  var seconds = String(date.getSeconds()).padStart(2, "0");
-  var ampm = date.getHours() >= 12 ? "PM" : "AM";
-
-  var sanitisedTime =
-    day +
-    " " +
-    month +
-    " " +
-    year +
-    "," +
-    hour +
-    ":" +
-    minutes +
-    ":" +
-    seconds +
-    " " +
-    ampm;
-
-  return sanitisedTime;
-};
+import {
+  parseMoney,
+  getSyntheticModelIcon,
+  getTradeTypeIcon,
+  capitaliseFirstLetter,
+  sanitiseTime,
+} from "../lib/utilities";
 
 const Reports = () => {
   const [loader, setLoader] = useState(false);
@@ -102,22 +19,12 @@ const Reports = () => {
   const [userTrades, setUserTrades] = useState([]);
 
   let userId = Cookies.get("auth-token");
-  console.log("userId: ", userId);
 
   const reports = useQuery(Trades, {
     variables: {
       userId: userId,
     },
   });
-
-  // console.log("reports.data123: ", reports.data["tradesByUserId"]);
-  // console.log("typeof reports.data: ", typeof reports.data);
-  // console.log(
-  //   "reports.data.tradesByUserId: ",
-  //   Object.values(reports.data)
-  // );
-
-  // Object.values(prices.data)[0][1].toFixed(2);
 
   useEffect(() => {
     setLoader(true);
@@ -165,7 +72,7 @@ const Reports = () => {
                   viewBox="0 0 24 24"
                   stroke-width="1.5"
                   stroke="currentColor"
-                  className="mx-auto mb-8 h-12 w-12 text-gray-400"
+                  className="mx-auto mb-8 h-12 w-12 text-gray-500"
                 >
                   <path
                     stroke-linecap="round"
@@ -267,36 +174,10 @@ const Reports = () => {
                               <dt className="sr-only">Type</dt>
                               <dd className="mt-1 truncate text-gray-700">
                                 <span className="inline-flex items-center rounded  px-1 py-0.5 text-xs font-semibold text-gray-800">
-                                  <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    strokeWidth="1.5"
-                                    stroke="currentColor"
-                                    className="w-6 h-6"
-                                  >
-                                    <path
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                      d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941"
-                                    />
-                                  </svg>
+                                  {getSyntheticModelIcon(trade.synthetic_type)}
                                 </span>
                                 <span className="ml-1 inline-flex items-center rounded px-1 py-0.5 text-xs font-semibold text-gray-800">
-                                  <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    strokeWidth="1.5"
-                                    stroke="currentColor"
-                                    className="w-6 h-6"
-                                  >
-                                    <path
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                      d="M12 19.5v-15m0 0l-6.75 6.75M12 4.5l6.75 6.75"
-                                    />
-                                  </svg>
+                                  {getTradeTypeIcon(trade.synthetic_type)}
                                 </span>
                               </dd>
                               <dt className="sr-only sm:hidden">Currency</dt>
@@ -309,7 +190,18 @@ const Reports = () => {
                                 Transaction Time
                               </dt>
                               <dd className="mt-1 truncate text-gray-700 sm:hidden">
-                                {trade.transaction_time}
+                                {
+                                  sanitiseTime(trade.transaction_time).split(
+                                    ","
+                                  )[0]
+                                }
+                              </dd>
+                              <dd className="mt-1 truncate text-gray-500 sm:hidden">
+                                {
+                                  sanitiseTime(trade.transaction_time).split(
+                                    ","
+                                  )[1]
+                                }
                               </dd>
                               <dt className="sr-only sm:hidden">Trade Type</dt>
                               <dd
@@ -319,7 +211,7 @@ const Reports = () => {
                                     : "bg-red-100 text-red-800"
                                 }`}
                               >
-                                {trade.transaction_type}
+                                {capitaliseFirstLetter(trade.transaction_type)}
                               </dd>
                               <dt className="sr-only sm:hidden">
                                 Profit / Loss
@@ -331,8 +223,9 @@ const Reports = () => {
                                     : "text-green-500"
                                 } `}
                               >
-                                {trade.transaction_amount > 0 ? "+" : ""}
-                                {trade.transaction_amount}
+                                {trade.transaction_amount > 0
+                                  ? `+${parseMoney(trade.transaction_amount)}`
+                                  : `${parseMoney(trade.transaction_amount)}`}
                               </dd>
                             </dl>
                           </td>
@@ -341,38 +234,11 @@ const Reports = () => {
                             className="hidden px-3 py-4 text-sm text-gray-500 lg:table-cell"
                           >
                             <span className="inline-flex items-center rounded  px-1 py-0.5 text-xs font-semibold text-gray-800">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                strokeWidth="1.5"
-                                stroke="currentColor"
-                                className="w-6 h-6"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941"
-                                />
-                              </svg>
+                              {getSyntheticModelIcon(trade.synthetic_type)}
                             </span>
                             <span className="ml-1 inline-flex items-center rounded px-1 py-0.5 text-xs font-semibold text-gray-800">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                strokeWidth="1.5"
-                                stroke="currentColor"
-                                className="w-6 h-6"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  d="M12 19.5v-15m0 0l-6.75 6.75M12 4.5l6.75 6.75"
-                                />
-                              </svg>
+                              {getTradeTypeIcon(trade.synthetic_type)}
                             </span>
-                            {/* {trade.type.split("-")[1]} */}
                           </td>
                           <td
                             id="currency_col"
@@ -388,7 +254,6 @@ const Reports = () => {
                             className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 hidden lg:table-cell md:table-cell"
                           >
                             <div className="text-gray-900">
-                              {/* {trade.transaction_time.split(",")[0]} */}
                               {
                                 sanitiseTime(trade.transaction_time).split(
                                   ","
@@ -396,7 +261,6 @@ const Reports = () => {
                               }
                             </div>
                             <div className="text-gray-500">
-                              {/* {trade.transaction_Time.split(",")[1]} */}
                               {
                                 sanitiseTime(trade.transaction_time).split(
                                   ","
@@ -427,16 +291,15 @@ const Reports = () => {
                                 : "text-green-500"
                             }`}
                           >
-                            {trade.transaction_amount.toFixed(2) > 0
-                              ? `+${trade.transaction_amount.toFixed(2)}`
-                              : `${trade.transaction_amount.toFixed(2)}`}
+                            {trade.transaction_amount > 0
+                              ? `+${parseMoney(trade.transaction_amount)}`
+                              : `${parseMoney(trade.transaction_amount)}`}
                           </td>
                           <td
                             id="balance_col"
                             className="px-3 py-4 text-sm text-gray-700 text-right"
                           >
-                            {trade.current_wallet_balance.toFixed(2)}
-                            {/* {"test"} */}
+                            {parseMoney(trade.current_wallet_balance)}
                           </td>
                         </tr>
                       ))
