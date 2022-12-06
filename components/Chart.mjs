@@ -65,7 +65,6 @@ const Chart = ({ syntheticModel, stream }) => {
           ])
         );
       } catch (e) {
-        console.error(e);
       }
     };
 

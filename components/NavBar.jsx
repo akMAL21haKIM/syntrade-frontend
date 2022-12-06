@@ -1,4 +1,4 @@
-import { Fragment, useState, useContext, useEffect } from "react";
+import { Fragment, useState, useEffect } from "react";
 import { Popover, Transition, Menu } from "@headlessui/react";
 import LogoIcon from "../public/old_logo.svg";
 import { XMarkIcon, Bars3Icon, OutlineCheckIcon } from "../lib/icons";
@@ -15,18 +15,16 @@ const NavBar = () => {
   const [openResetBalanceSuccessModal, setOpenResetBalanceSuccessModal] =
     useState(false);
   const [openSignOutSuccessModal, setOpenSignOutSuccessModal] = useState(false);
-
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
   const { user } = AuthState();
 
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
-
   let userId = Cookies.get("auth-token");
+
+  const [resetBalance, { data, loading, error }] = useMutation(ResetBalance);
 
   useEffect(() => {
     setIsUserLoggedIn(user);
   }, [user, userId]);
-
-  const [resetBalance, { data, loading, error }] = useMutation(ResetBalance);
 
   const handleResetWalletBalance = async () => {
     // Reset user's wallet balance to 10,000 MYR
@@ -34,8 +32,7 @@ const NavBar = () => {
       variables: {
         userId: userId,
       },
-      onError: (err) => {
-      },
+      onError: (err) => {},
       onCompleted: ({ data }) => {
         setOpenResetBalanceSuccessModal(true);
       },
@@ -163,13 +160,6 @@ const NavBar = () => {
                                 Trade
                               </p>
                             </Link>
-
-                            {/* <Link href="/profile">
-                              <p className="mt-1 px-3 py-3 text-base font-medium text-gray-700 hover:bg-gray-100 hover:rounded">
-                                Profile
-                              </p>
-                            </Link> */}
-
                             <Link href="/reports">
                               <p className="mt-1 px-3 py-3 text-base font-medium text-gray-700 hover:bg-gray-100 hover:rounded">
                                 Reports
@@ -247,19 +237,6 @@ const NavBar = () => {
                             </Link>
                           )}
                         </Menu.Item>
-                        {/* <Menu.Item>
-                          {({ active }) => (
-                            <Link
-                              href="/profile"
-                              className={classNames(
-                                active ? "bg-gray-100" : "",
-                                "block px-4 py-2 text-sm text-gray-700"
-                              )}
-                            >
-                              Profile
-                            </Link>
-                          )}
-                        </Menu.Item> */}
                         <Menu.Item>
                           {({ active }) => (
                             <Link

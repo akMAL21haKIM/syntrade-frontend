@@ -1,4 +1,4 @@
-import { React, useState, useEffect, useContext } from "react";
+import { React, useState, useEffect } from "react";
 import RangeSlider from "./RangeSlider";
 import { SolidDollarIcon } from "../lib/icons";
 import { useQuery, useMutation, gql } from "@apollo/client";
@@ -33,20 +33,15 @@ const SideMenu = ({
   );
   const [callPrice, setCallPrice] = useState(0.0);
   const [putPrice, setPutPrice] = useState(0.0);
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
 
   const syntheticModelType = syntheticModel.type;
   const simplifiedTradeType = tradeType.simplified_title;
   const parsedWagerAmount = parseFloat(wagerAmount);
 
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
-
   const { user } = AuthState();
 
   let userId = Cookies.get("auth-token");
-
-  useEffect(() => {
-    setIsUserLoggedIn(user);
-  }, [user, userId]);
 
   const prices = useQuery(Prices, {
     variables: {
@@ -67,6 +62,10 @@ const SideMenu = ({
   const [createTrade, { data, loading, error }] = useMutation(CreateTrade);
 
   useEffect(() => {
+    setIsUserLoggedIn(user);
+  }, [user, userId]);
+
+  useEffect(() => {
     currentBalance.refetch();
 
     if (
@@ -83,14 +82,17 @@ const SideMenu = ({
 
     setTimeout(async () => {
       if (!wagerAmountError && prices.data != null) {
-        setCallPrice(Object.values(prices.data)[0][0]);
-        setPutPrice(Object.values(prices.data)[0][1]);
+        if (prices.data.prices != null && prices.data.prices[0] != null) {
+          setCallPrice(Object.values(prices.data)[0][0]);
+        }
+        if (prices.data.prices != null && prices.data.prices[1] != null) {
+          setPutPrice(Object.values(prices.data)[0][1]);
+        }
         setLoader(false);
       }
     }, 1000);
   }, [tradeType, wagerAmount, wagerType, wagerAmountError, ticks, prices.data]);
 
-  // Increment wager amount
   const incrementWagerAmount = (e) => {
     e.preventDefault();
 
@@ -108,7 +110,6 @@ const SideMenu = ({
     setWagerAmountError(false);
   };
 
-  // Decrement wager amount
   const decrementWagerAmount = (e) => {
     e.preventDefault();
 
@@ -166,8 +167,7 @@ const SideMenu = ({
             ticks: ticks,
             lastDigitPrediction: lastDigitPrediction,
           },
-          onError: (err) => {
-          },
+          onError: (err) => {},
           onCompleted: ({ data }) => {
             setOpenTradeSuccessModal(true);
           },
@@ -282,7 +282,10 @@ const SideMenu = ({
                 <button
                   type="button"
                   className={`col-span-1 rounded-l px-4 py-4 text-sm font-semibold text-gray-700 hover:bg-gray-100 ${
-                    disableDecrement ? "cursor-not-allowed" : "cursor-pointer"
+                    disableDecrement ||
+                    (wagerAmount <= 0.0 && wagerType == "stake")
+                      ? "disabled:pointer-events-none cursor-not-allowed"
+                      : "cursor-pointer"
                   }`}
                   onClick={(e) => decrementWagerAmount(e)}
                 >
@@ -304,7 +307,10 @@ const SideMenu = ({
                 <button
                   type="button"
                   className={`col-span-1 rounded-r px-4 py-4 text-sm font-semibold text-gray-700 hover:bg-gray-100 ${
-                    disableIncrement ? "cursor-not-allowed" : "cursor-pointer"
+                    disableIncrement ||
+                    (wagerAmount > 30000.0 && wagerType == "payout")
+                      ? "disabled:pointer-events-none cursor-not-allowed"
+                      : "cursor-pointer"
                   }`}
                   onClick={(e) => incrementWagerAmount(e)}
                 >
@@ -351,8 +357,9 @@ const SideMenu = ({
               {loader ? (
                 <div className="animate-pulse h-[1.25rem] flex bg-gray-300 rounded focus:outline-none cursor-default select-none"></div>
               ) : prices.data && Object.values(prices.data)[0] != null ? (
-                wagerType == "stake" &&
-                Object.values(prices.data)[0][0] <= 30000.0 ? (
+                (wagerType == "stake" &&
+                  Object.values(prices.data)[0][0] <= 30000.0) ||
+                (wagerType == "payout" && wagerAmount >= 1.0) ? (
                   <p className="text-sm font-semibold text-gray-700 mb-1 text-right focus:outline-none cursor-default select-none">
                     {parseMoney(Object.values(prices.data)[0][0])} MYR
                   </p>
@@ -370,7 +377,7 @@ const SideMenu = ({
               <button
                 className={`px-4 py-4 rounded w-full grid grid-cols-2 focus:outline-none ${
                   loader ||
-                  callPrice > 30000 ||
+                  (callPrice > 30000 && wagerType == "stake") ||
                   callPrice == null ||
                   blueIconTransition ||
                   redIconTransition
@@ -431,8 +438,9 @@ const SideMenu = ({
               {loader ? (
                 <div className="animate-pulse h-[1.25rem] flex bg-gray-300 rounded focus:outline-none cursor-default select-none"></div>
               ) : prices.data && Object.values(prices.data)[0] != null ? (
-                wagerType == "stake" &&
-                Object.values(prices.data)[0][1] <= 30000.0 ? (
+                (wagerType == "stake" &&
+                  Object.values(prices.data)[0][1] <= 30000.0) ||
+                (wagerType == "payout" && wagerAmount >= 1.0) ? (
                   <p className="text-sm font-semibold text-gray-700 mb-1 text-right focus:outline-none cursor-default select-none">
                     {parseMoney(Object.values(prices.data)[0][1])} MYR
                   </p>
@@ -450,7 +458,7 @@ const SideMenu = ({
               <button
                 className={`px-4 py-4 rounded w-full grid grid-cols-2 focus:outline-none ${
                   loader ||
-                  putPrice > 30000 ||
+                  (putPrice > 30000 && wagerType == "stake") ||
                   putPrice == null ||
                   blueIconTransition ||
                   redIconTransition
@@ -490,7 +498,7 @@ const SideMenu = ({
 
                 <p
                   className={`text-sm font-semibold text-white text-right focus:outline-none select-none ${
-                    putPrice > 30000 ||
+                    (putPrice > 30000 && wagerType == "stake") ||
                     putPrice == null ||
                     blueIconTransition ||
                     redIconTransition
