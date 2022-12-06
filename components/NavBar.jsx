@@ -24,7 +24,7 @@ const NavBar = () => {
 
   useEffect(() => {
     setIsUserLoggedIn(user);
-  }, [user]);
+  }, [user, userId]);
 
   const [resetBalance, { data, loading, error }] = useMutation(ResetBalance);
 

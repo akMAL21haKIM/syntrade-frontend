@@ -46,7 +46,7 @@ const SideMenu = ({
 
   useEffect(() => {
     setIsUserLoggedIn(user);
-  }, [user]);
+  }, [user, userId]);
 
   const prices = useQuery(Prices, {
     variables: {
