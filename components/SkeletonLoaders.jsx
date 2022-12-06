@@ -6,7 +6,7 @@ export const SkeletonLoaderTradePage = () => {
         <div className="animate-pulse w-[calc(100vw-25rem)] h-[600px] bg-gray-300 border-gray-300 border-4 rounded-md my-4" />
       </div>
       <aside
-        className="w-80 h-11/12 pb-8 right-0 absolute bg-gray-50 focus:outline-none cursor-default select-none"
+        className="w-80 h-full pb-8 right-0 absolute bg-gray-50 focus:outline-none cursor-default select-none"
         aria-label="Sidebar"
       >
         <div className="animate-pulse mt-8 mx-6 py-2 px-4 h-14 bg-gray-300 rounded border-4 border-gray-300 focus:outline-none cursor-default select-none" />
@@ -17,7 +17,7 @@ export const SkeletonLoaderTradePage = () => {
       </aside>
     </div>
   );
-}
+};
 
 export const SkeletonLoaderReportsPage = () => {
   return Array(5)
@@ -48,7 +48,7 @@ export const SkeletonLoaderReportsPage = () => {
         </td>
       </tr>
     ));
-}
+};
 
 export const SkeletonLoaderProfilePage = () => {
   return (
@@ -73,4 +73,4 @@ export const SkeletonLoaderProfilePage = () => {
       </div>
     </div>
   );
-}
+};
