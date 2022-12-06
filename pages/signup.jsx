@@ -120,8 +120,9 @@ const SignUp = () => {
           password: password,
         },
         onError: (err) => {
+          console.log("err", err);
           setSignUpErrorMessage(err);
-          openSignUpErrordModal(true);
+          openSignUpErrorModal(true);
         },
         onCompleted: ({ data }) => {
           Router.push("/login");
