@@ -7,7 +7,12 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
+    const test = Cookies.get("auth-token");
     const currentUser = Cookies.get("signedin");
+
+    console.log("Cookies.get auth token: ", Cookies.get("auth-token"));
+    console.log("currentUser: ", currentUser);
+
     setUser(currentUser);
   }, []);
 

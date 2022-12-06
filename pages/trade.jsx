@@ -20,7 +20,7 @@ const EventSource = require("eventsource");
 
 var data = "";
 
-const sse = new EventSource("http://pricing.syntrade.xyz");
+const sse = new EventSource("http://localhost:5000");
 sse.onmessage = async (e) => {
   try {
     data = JSON.parse(e.data);
