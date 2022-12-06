@@ -1,38 +1,29 @@
 import { Fragment, useState, useContext, useEffect } from "react";
 import { Popover, Transition, Menu } from "@headlessui/react";
 import LogoIcon from "../public/old_logo.svg";
-import { XMarkIcon, Bars3Icon, ReportsIcon, ProfileIcon } from "../lib/icons";
+import { XMarkIcon, Bars3Icon } from "../lib/icons";
 import { classNames } from "../lib/utilities";
 import Link from "next/link";
 import ResetBalance from "../graphql/resetBalance";
 import { useMutation } from "@apollo/client";
 import SingleActionModal from "./SingleActionModal";
-import Notification from "./Notification";
-import AuthContext from "../components/auth/AuthContext";
 import { AuthState } from "./auth/AuthProvider";
-import { useStores } from "../stores";
-import { observer } from "mobx-react-lite";
-import { useRouter } from "next/router";
 
 const NavBar = () => {
   const [isMenuClicked, setIsMenuClicked] = useState(false);
   const [openResetBalanceSuccessModal, setOpenResetBalanceSuccessModal] =
     useState(false);
-
-  // const isUserLoggedIn = useContext(AuthContext).user;
+  const [openSignOutSuccessModal, setOpenSignOutSuccessModal] = useState(false);
 
   const { user } = AuthState();
 
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
 
   useEffect(() => {
-    console.log("is user logged in?", user);
     setIsUserLoggedIn(user);
   }, [user]);
 
   // const [resetBalance, { data, loading, error }] = useMutation(ResetBalance);
-
-  const userId = 1;
 
   const handleResetWalletBalance = async () => {
     // Reset user's wallet balance to 10,000 MYR
@@ -58,13 +49,13 @@ const NavBar = () => {
         modalDescription="You just reset your wallet balance to 10,000.00 MYR!"
       />
 
-      {/* <SingleActionModal
+      <SingleActionModal
         id="modal-sign-out-success"
         openModal={openSignOutSuccessModal}
         setOpenModal={setOpenSignOutSuccessModal}
         modalTitle="Sign out successful"
         modalDescription="You are now signed out of Syntrade :("
-      /> */}
+      />
 
       <Popover className="relative bg-white border-gray-100 border-b-2">
         <div className="w-full px-4 sm:px-6">

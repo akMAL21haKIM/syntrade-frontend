@@ -7,7 +7,6 @@ import Prices from "../graphql/prices";
 import CurrentBalance from "../graphql/currentBalance";
 import CreateTrade from "../graphql/createTrade";
 import TradeTypeDropdown from "./TradeTypeDropdown";
-import AuthContext from "../components/auth/AuthContext";
 import { AuthState } from "./auth/AuthProvider";
 
 const SideMenu = ({ syntheticModel, setOpenTradeSuccessModal, notify }) => {
@@ -31,7 +30,6 @@ const SideMenu = ({ syntheticModel, setOpenTradeSuccessModal, notify }) => {
   const parsedWagerAmount = parseFloat(wagerAmount);
   const userId = 1;
 
-  // const isUserLoggedIn = useContext(AuthContext).user;
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
 
   const { user } = AuthState();
@@ -61,15 +59,13 @@ const SideMenu = ({ syntheticModel, setOpenTradeSuccessModal, notify }) => {
   useEffect(() => {
     currentBalance.refetch();
 
-    console.log("currentBalance.data", currentBalance.data);
-
     if (
       currentBalance.data &&
       (currentBalance.data !== undefined || currentBalance.data !== null)
     ) {
       setCurrentWalletBalance(currentBalance.data["currentBalance"].toFixed(2));
     }
-  }, [blueIconTransition, redIconTransition, notify]);
+  }, [blueIconTransition, redIconTransition]);
 
   useEffect(() => {
     setLoader(true);
