@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 
 const ResetBalance = gql`
-  mutation ResetBalance($userId: Int!) {
+  mutation ResetBalance($userId: JWT!) {
     resetBalance(userId: $userId)
   }
 `;
