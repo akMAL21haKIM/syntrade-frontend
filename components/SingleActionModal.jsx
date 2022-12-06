@@ -1,15 +1,12 @@
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { OutlineCheckIcon } from "../lib/icons";
 
 const SingleActionModal = ({
   openModal,
   setOpenModal,
   modalTitle,
   modalDescription,
-  modalIcon,
-  buttonText,
-  buttonAction
+  modalIcon
 }) => {
   return (
     <Transition.Root show={openModal} as={Fragment}>
@@ -60,9 +57,9 @@ const SingleActionModal = ({
                   <button
                     type="button"
                     className="inline-flex w-full justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:text-sm"
-                    onClick={buttonAction}
+                    onClick={() => setOpenModal(false)}
                   >
-                    {buttonText}
+                    Close
                   </button>
                 </div>
               </Dialog.Panel>
