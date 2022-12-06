@@ -44,10 +44,10 @@ const Login = () => {
   // Validate email dynamically
   const handleEmail = (e) => {
     // Set email from input
-    setEmail(e);
+    setEmail(e.target.value);
 
     // Show email error if email is invalid
-    if (!isEmailValid(email)) {
+    if (!isEmailValid(e.target.value)) {
       setShowEmailError(true);
     } else {
       setShowEmailError(false);
@@ -57,10 +57,10 @@ const Login = () => {
   // Validate password dynamically
   const handlePassword = (e) => {
     // Set password from input
-    setPassword(e);
+    setPassword(e.target.value);
 
     // Show password error if password is invalid
-    if (!isPasswordValid(password)) {
+    if (!isPasswordValid(e.target.value)) {
       setShowPasswordError(true);
     } else {
       setShowPasswordError(false);
@@ -112,7 +112,6 @@ const Login = () => {
         .then((data) => {
           if (data.success) {
             document.cookie = "signedin=true; max-age=86400; path=/";
-            // Cookies.set("signedin", "signedin=true; max-age=86400; path=/");
             Router.push("/");
           }
         });
@@ -206,7 +205,7 @@ const Login = () => {
                         className={`placeholder:normal-case lowercase block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm ${
                           showEmailError ? "border-red-600" : ""
                         }`}
-                        onChange={(e) => handleEmail(e.target.value)}
+                        onChange={(e) => handleEmail(e)}
                         value={email}
                       />
                     </div>
@@ -259,7 +258,7 @@ const Login = () => {
                         className={`block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm ${
                           showPasswordError ? "border-red-600" : ""
                         }`}
-                        onChange={(e) => handlePassword(e.target.value)}
+                        onChange={(e) => handlePassword(e)}
                         value={password}
                         maxLength="12"
                         minLength="8"

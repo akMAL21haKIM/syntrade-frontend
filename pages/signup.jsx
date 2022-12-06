@@ -42,10 +42,10 @@ const SignUp = () => {
   // Validate email dynamically
   const handleEmail = (e) => {
     // Set email from input
-    setEmail(e);
+    setEmail(e.target.value);
 
     // Show email error if email is invalid
-    if (!isEmailValid(email)) {
+    if (!isEmailValid(e.target.value)) {
       setShowEmailError(true);
     } else {
       setShowEmailError(false);
@@ -58,7 +58,7 @@ const SignUp = () => {
     setPassword(e.target.value);
 
     // Show password error if password is invalid
-    if (!isPasswordValid(password)) {
+    if (!isPasswordValid(e.target.value)) {
       setShowPasswordError(true);
     } else {
       setShowPasswordError(false);
@@ -68,10 +68,10 @@ const SignUp = () => {
   // Validate confirm password dynamically
   const handleConfirmPassword = (e) => {
     // Set confirm password from input
-    setConfirmPassword(e);
+    setConfirmPassword(e.target.value);
 
     // Show confirm password error if confirm password is invalid
-    if (!doesPasswordsMatch(password, confirmPassword)) {
+    if (!doesPasswordsMatch(password, e.target.value)) {
       setShowConfirmPasswordError(true);
     } else {
       setShowConfirmPasswordError(false);
@@ -121,15 +121,10 @@ const SignUp = () => {
           password: password,
         },
         onError: (err) => {
-          console.log("err", err);
-          console.log("typeof err: ", typeof err);
-          console.log("err.err: ", Object.keys(err));
-          console.log("err.message: ", err.message);
           setSignUpErrorMessage(err.message);
-          console.log("signup error msg: ", signUpErrorMessage);
           setOpenSignUpErrorModal(true);
         },
-        onCompleted: ({ data }) => {
+        onCompleted: () => {
           Router.push("/login");
         },
       });
@@ -233,7 +228,7 @@ const SignUp = () => {
                         className={`placeholder:normal-case lowercase block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm ${
                           showEmailError ? "border-red-600" : ""
                         }`}
-                        onChange={(e) => handleEmail(e.target.value)}
+                        onChange={(e) => handleEmail(e)}
                         value={email}
                       />
                     </div>
@@ -386,7 +381,7 @@ const SignUp = () => {
                         className={`w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm ${
                           showConfirmPasswordError ? "border-red-600" : ""
                         }`}
-                        onChange={(e) => handleConfirmPassword(e.target.value)}
+                        onChange={(e) => handleConfirmPassword(e)}
                         value={confirmPassword}
                         maxLength="12"
                         minLength="8"
