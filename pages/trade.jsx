@@ -8,7 +8,7 @@ import SideMenu from "../components/SideMenu";
 import { SkeletonLoaderTradePage } from "../components/SkeletonLoaders";
 import "../styles/trade.module.css";
 import SingleActionModal from "../components/SingleActionModal";
-import { OutlineCheckIcon } from "../lib/icons";
+import { OutlineCheckIcon, ExclamationTriangleIcon } from "../lib/icons";
 
 const Chart = dynamic(() => import("../components/Chart.mjs"), {
   ssr: false,
@@ -32,6 +32,7 @@ const Trade = () => {
     syntheticModelOptions[0]
   );
   const [openTradeSuccessModal, setOpenTradeSuccessModal] = useState(false);
+  const [openLogInNeededModal, setOpenLogInNeededModal] = useState(false);
   const [loader, setLoader] = useState(false);
 
   useEffect(() => {
@@ -68,6 +69,20 @@ const Trade = () => {
                   />
                 }
               />
+              <SingleActionModal
+                id="modal-log-in-needed"
+                openModal={openLogInNeededModal}
+                setOpenModal={setOpenLogInNeededModal}
+                modalTitle="Log in needed"
+                modalDescription="You need to log in to start trading"
+                modalIcon={
+                  <ExclamationTriangleIcon
+                    fill="#f87171"
+                    className="w-12 h-12"
+                    aria-hidden="true"
+                  />
+                }
+              />
               <SyntheticModelDropdown
                 syntheticModel={syntheticModel}
                 setSyntheticModel={setSyntheticModel}
@@ -76,6 +91,7 @@ const Trade = () => {
               <SideMenu
                 syntheticModel={syntheticModel}
                 setOpenTradeSuccessModal={setOpenTradeSuccessModal}
+                setOpenLogInNeededModal={setOpenLogInNeededModal}
               ></SideMenu>
             </div>
           </>

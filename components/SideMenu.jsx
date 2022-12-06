@@ -10,7 +10,11 @@ import TradeTypeDropdown from "./TradeTypeDropdown";
 import { AuthState } from "./auth/AuthProvider";
 import Cookies from "js-cookie";
 
-const SideMenu = ({ syntheticModel, setOpenTradeSuccessModal, notify }) => {
+const SideMenu = ({
+  syntheticModel,
+  setOpenTradeSuccessModal,
+  setOpenLogInNeededModal,
+}) => {
   const [loader, setLoader] = useState(false);
   const [wagerType, setWagerType] = useState("stake");
   const [wagerAmount, setWagerAmount] = useState(10.0);
@@ -146,14 +150,21 @@ const SideMenu = ({ syntheticModel, setOpenTradeSuccessModal, notify }) => {
 
   const handleTrade = async (singleTradeType, optionType) => {
     const syntheticTrade = syntheticModelType + "_" + singleTradeType;
+    console.log("isUserLoggedIn: ", isUserLoggedIn);
 
-    if (!isUserLoggedIn) {
-      setOpenTradeSuccessModal(true);
+    if (!isUserLoggedIn || isUserLoggedIn === undefined) {
+      setOpenLogInNeededModal(true);
     } else {
       // If user has enough balance in wallet
       if (currentWalletBalance >= wagerAmount) {
         console.log("send buy trade");
         console.log("userId: ", userId);
+        console.log("typeof userId: ", typeof userId);
+        console.log("syntheticType: ", syntheticTrade);
+        console.log("optionType: ", optionType);
+        console.log("wagerAmount: ", wagerAmount);
+        console.log("ticks: ", ticks);
+        console.log("lastDigitPrediction", lastDigitPrediction);
         // Create trade
         await createTrade({
           variables: {
