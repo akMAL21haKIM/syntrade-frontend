@@ -10,6 +10,7 @@ import "../styles/trade.module.css";
 import SingleActionModal from "../components/SingleActionModal";
 import { OutlineCheckIcon, ExclamationTriangleIcon } from "../lib/icons";
 import { useRouter } from "next/router";
+import NotSupported from "../components/NotSupported";
 
 const Chart = dynamic(() => import("../components/Chart.mjs"), {
   ssr: false,
@@ -63,7 +64,32 @@ const Trade = () => {
           <SkeletonLoaderTradePage />
         ) : (
           <>
-            <div id="trade-page" className="h-screen">
+            <div className="block lg:hidden xl:hidden 2xl:hidden sm:block min-h-full bg-white px-4 py-16 sm:px-6 sm:py-24 md:block md:place-items-center">
+              <div className="mx-auto max-w-max">
+                <main className="sm:flex sm:text-center">
+                  <ExclamationTriangleIcon
+                    fill="#f87171"
+                    className="w-12 h-12"
+                    aria-hidden="true"
+                  />
+                  <div className="sm:ml-6">
+                    <div className="sm:border-l sm:border-gray-200 sm:pl-6">
+                      <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+                        Unsupported Screen Size
+                      </h1>
+                      <p className="mt-4 text-base text-gray-500">
+                        We're currently not supporting trading in small screen
+                        sizes.
+                      </p>
+                    </div>
+                  </div>
+                </main>
+              </div>
+            </div>
+            <div
+              id="trade-page"
+              className="hidden h-screen lg:block sm:hidden md:hidden xl:block 2xl:block"
+            >
               <SingleActionModal
                 id="modal-trade-success"
                 openModal={openTradeSuccessModal}
@@ -77,8 +103,6 @@ const Trade = () => {
                     aria-hidden="true"
                   />
                 }
-                buttonText="Close"
-                buttonAction={() => setOpenModal(false)}
               />
               <SingleActionModal
                 id="modal-log-in-needed"
@@ -93,8 +117,6 @@ const Trade = () => {
                     aria-hidden="true"
                   />
                 }
-                buttonText="Continue"
-                buttonAction={() => router.push("/login")}
               />
               <SingleActionModal
                 id="modal-trade-error"
@@ -109,8 +131,6 @@ const Trade = () => {
                     aria-hidden="true"
                   />
                 }
-                buttonText="Close"
-                buttonAction={() => setOpenModal(false)}
               />
               <SyntheticModelDropdown
                 syntheticModel={syntheticModel}
