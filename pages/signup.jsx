@@ -24,7 +24,7 @@ const SignUp = () => {
   const [showPasswordError, setShowPasswordError] = useState(false);
   const [showConfirmPasswordError, setShowConfirmPasswordError] =
     useState(false);
-  const [openSignUpErrordModal, setOpenSignUpErrordModal] = useState(false);
+  const [openSignUpErrorModal, setOpenSignUpErrorModal] = useState(false);
   const [signUpErrorMessage, setSignUpErrorMessage] = useState("");
   const [signup, data, loading, error] = useMutation(Signup);
 
@@ -139,8 +139,8 @@ const SignUp = () => {
       </Head>
       <SingleActionModal
         id="modal-email-already-registered"
-        openModal={openSignUpErrordModal}
-        setOpenModal={setOpenSignUpErrordModal}
+        openModal={openSignUpErrorModal}
+        setOpenModal={setOpenSignUpErrorModal}
         modalTitle="Sign Up Error"
         modalDescription={signUpErrorMessage}
       />
