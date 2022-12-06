@@ -6,11 +6,18 @@ module.exports = {
   ],
   theme: {
     extend: {
+      screens: {
+        sm: "639px",
+        // => @media (min-width: 640px) { ... }
+        md: "640px",
+        // => @media (min-width: 640px) { ... }
+      },
       spacing: {
         18: "4.5rem",
       },
       fontFamily: {
         sans: ["Gilroy", "sans-serif"],
+        now: ["now"],
       },
       colors: {
         blue: {

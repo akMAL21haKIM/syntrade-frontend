@@ -12,7 +12,7 @@ import { useRouter } from "next/router";
 
 const createApolloClient = () => {
   const link = new HttpLink({
-    uri: "http://api.syntrade.xyz",
+    uri: "http://localhost:4000",
   });
 
   return new ApolloClient({
