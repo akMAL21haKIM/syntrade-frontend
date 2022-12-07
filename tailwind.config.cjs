@@ -16,8 +16,7 @@ module.exports = {
         18: "4.5rem",
       },
       fontFamily: {
-        sans: ["Gilroy", "sans-serif"],
-        now: ["now"],
+        now: ["Now", "sans-serif"],
       },
       colors: {
         blue: {
